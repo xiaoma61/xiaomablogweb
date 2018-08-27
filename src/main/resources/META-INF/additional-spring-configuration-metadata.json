@@ -1,0 +1,82 @@
+{"properties": [
+  {
+    "name": "gril.age",
+    "type": "java.lang.String",
+    "description": "A description for 'gril.age'"
+  },
+  {
+    "name": "gril.hobby",
+    "type": "java.lang.String",
+    "description": "A description for 'gril.hobby'"
+  },
+  {
+    "name": "gril.context",
+    "type": "java.lang.String",
+    "description": "A description for 'gril.context'"
+  },
+  {
+    "name": "server.hobby",
+    "type": "java.lang.String",
+    "description": "A description for 'server.hobby'"
+  },
+  {
+    "name": "server.hobbys",
+    "type": "java.lang.String",
+    "description": "A description for 'server.hobbys'"
+  },
+  {
+    "name": "hobby",
+    "type": "java.lang.String",
+    "description": "A description for 'hobby'"
+  },
+  {
+    "name": "girl",
+    "type": "java.lang.String",
+    "description": "A description for 'girl'"
+  },
+  {
+    "name": "context",
+    "type": "java.lang.String",
+    "description": "A description for 'context'"
+  },
+  {
+    "name": "hobbys",
+    "type": "java.lang.String",
+    "description": "A description for 'hobbys'"
+  },
+  {
+    "name": "age",
+    "type": "java.lang.String",
+    "description": "A description for 'age'"
+  },
+  {
+    "name": "contexts",
+    "type": "java.lang.String",
+    "description": "A description for 'contexts'"
+  },
+  {
+    "name": "girl.hobbys",
+    "type": "java.lang.String",
+    "description": "A description for 'girl.hobbys'"
+  },
+  {
+    "name": "girl.age",
+    "type": "java.lang.String",
+    "description": "A description for 'girl.age'"
+  },
+  {
+    "name": "jpa.profiles.active",
+    "type": "java.lang.String",
+    "description": "A description for 'jpa.profiles.active'"
+  },
+  {
+    "name": "jpa.hibernate.ddl-auto",
+    "type": "java.lang.String",
+    "description": "A description for 'jpa.hibernate.ddl-auto'"
+  },
+  {
+    "name": "jpa.hibernate.show-sql",
+    "type": "java.lang.String",
+    "description": "A description for 'jpa.hibernate.show-sql'"
+  }
+]}
