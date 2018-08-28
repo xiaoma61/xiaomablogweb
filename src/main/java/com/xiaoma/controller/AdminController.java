@@ -1,7 +1,6 @@
 package com.xiaoma.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,7 +90,12 @@ public class AdminController {
 		return "thymeleaf/Admin/echarts4";
 		
 	}
-	
+	@RequestMapping("/Admin/member-level")//µÇÂ¼
+	public String AdminMemberlevel()
+	{
+		return "thymeleaf/Admin/list";
+		
+	}
 	
 	
 	@RequestMapping("/Admin/login")//µÇÂ¼
