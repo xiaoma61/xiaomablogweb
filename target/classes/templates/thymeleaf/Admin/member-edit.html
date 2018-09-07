@@ -16,7 +16,10 @@
 <script src="../tinymce/js/tinymce/tinymce.min.js" charset="utf-8"></script>
 <script src="../js/tinymce_setup.js" charset="utf-8"></script>
 <script src="../js/jquery.form.js" charset="utf-8"></script>
-<script src="../js/plugins.js" charset="utf-8"></script>
+
+<script type="text/javascript" src="../js/edit.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../css/selectFilter.css" />
 </head>
 <body>
 	<!-- 顶部开始 -->
@@ -172,10 +175,52 @@
           </div>
         </div>
 		<!-- 左侧菜单结束 -->
-		  <form  method="post" action="">
-		  <textarea name="content" id="content"></textarea>
-         <!-- <input class="editor" name="content" id="content"/> -->
-         <button type="submit">提交</button>
+		  <form  method="post"  style="margin-left:15%;" >
+		  <div class="layui-form-pane">
+                  <div class="layui-form-item" style="display: inline-block;width:100%;">
+                    <label class="layui-form-label xbs768">主题</label>
+                    <div class="layui-input-inline xbs768" style="width:60%;margin-bottom:2%;">
+                      <input class="layui-input" placeholder="主题"  name="title" id="title"/>
+                    </div>
+                    <div class="layui-input-inline xbs768"  style="width:66%;margin-bottom:2%;">
+                      <textarea class="layui-input" placeholder="简介"  style="width:100%;height:25%;" name="introduction" id="introduction"></textarea>
+                      
+                    </div>        
+                  </div>
+          <div class="filter-box" >
+			<div class="filter-text" style="color:black">
+			<input class="filter-title" type="text"  id="label" style="color:black"/>
+			<i class="icon icon-filter-arrow"></i>
+		</div>
+  			<select name="label">
+  				<option selected="selected" style="color:black">分类</option>
+  				<option value="Java基础" style="color:black">Java基础</option>
+  				<option value="数据库">数据库</option>
+  				<option value="前端">前端</option>
+  				<option value="Javaweb">Javaweb</option>
+  				<option value="JavaEE">JavaEE</option>
+
+			</select>
+	</div>       
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/selectFilter.js"></script>
+
+<script type="text/javascript">
+	
+	
+	
+	$('.filter-box').selectFilter({
+		callBack : function (val){
+			//返回选择的值
+			console.log(val+'-是返回的值')
+		}
+	});
+</script>
+                  
+                </div> 
+		  <!-- <textarea name="article" id="content" ></textarea> -->
+       <input class="editor" name="content" id="content"/> 
+         <input type="submit" class="layui-btn" />
     </form>
 	</div>
 	<!-- 中部结束 -->

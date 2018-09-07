@@ -1,11 +1,19 @@
 package com.xiaoma.controller;
 
+import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.xiaoma.Util.FileUtil;
 import com.xiaoma.entity.ADMINISTRATOR;
 import com.xiaoma.repository.ADMINISTRATORReposity;
 
@@ -105,14 +113,14 @@ public class AdminController {
 		
 	}
 	@RequestMapping("/Admin/addlogin")//登录
-	public String AdminAddLogin(HttpServletRequest request)
+	public String AdminAddLogin(HttpServletRequest request,HttpSession session)
 	{
 		String name=request.getParameter("name");
 		String password=request.getParameter("password");
 		ADMINISTRATOR administrator=administratorreposity.findBynameAndPassword(name, password);
 		if(administrator!=null){
 			//成功登陆回到后台
-			
+			session.setAttribute("name", name);//存储
 			return "redirect:/Admin/index";
 		}else
 		{
@@ -125,7 +133,27 @@ public class AdminController {
 	
 	
 	
-
+	//以上为页面跳转
+			//图片上传
+			@RequestMapping(value="/goUploadImg")
+			public String goUploadImg()
+			{
+				return "uploadImg";
+			}
+			@RequestMapping(value="/uploadImg")
+			public @ResponseBody String uploadImg(@RequestParam("thumbnail")MultipartFile file ,HttpServletRequest request) throws IOException
+			{
+				/*String contentType=file.getContentType();//获取文件类型
+		*/		String fileName=file.getOriginalFilename();//获取文件名称
+				System.out.print("LastName: ");
+				String filePath="E://Skins/text";
+				String LastName=UUID.randomUUID().toString()+fileName;
+				byte[] filebyte=file.getBytes();
+				FileUtil.uploadFile(filebyte, filePath,LastName);
+			
+				return "http://localhost:8090/image/text"+LastName;
+				
+			}
 	
 
 }

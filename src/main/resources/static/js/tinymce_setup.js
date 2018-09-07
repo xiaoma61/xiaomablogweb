@@ -1,7 +1,8 @@
 ﻿tinymce.init({
             selector: '#content',
             upload_image_url: './upload', //配置的上传图片的路由
-            height: 400,
+            height: 600,
+            width:800,
             language:'zh_CN',
             plugins: [
                 'advlist autolink lists link  charmap print preview hr anchor pagebreak',
