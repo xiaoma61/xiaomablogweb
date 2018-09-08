@@ -133,27 +133,6 @@ public class AdminController {
 	
 	
 	
-	//以上为页面跳转
-			//图片上传
-			@RequestMapping(value="/goUploadImg")
-			public String goUploadImg()
-			{
-				return "uploadImg";
-			}
-			@RequestMapping(value="/uploadImg")
-			public @ResponseBody String uploadImg(@RequestParam("thumbnail")MultipartFile file ,HttpServletRequest request) throws IOException
-			{
-				/*String contentType=file.getContentType();//获取文件类型
-		*/		String fileName=file.getOriginalFilename();//获取文件名称
-				System.out.print("LastName: ");
-				String filePath="E://Skins/text";
-				String LastName=UUID.randomUUID().toString()+fileName;
-				byte[] filebyte=file.getBytes();
-				FileUtil.uploadFile(filebyte, filePath,LastName);
-			
-				return "http://localhost:8090/image/text"+LastName;
-				
-			}
 	
 
 }
