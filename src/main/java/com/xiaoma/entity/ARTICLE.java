@@ -10,73 +10,68 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ARTICLE")
 public class ARTICLE {
-	int id;
-	String title;
-	int visitorsnums;
-	int praisenums;
-	String introduction;
-	String label;
-	String filearea;
-	String createtime;
-	String writer;
+	int ID;
+	String TITLE;
+	int VISITORSNUMS;
+	int PRAISENUMS;
+	String INTRODUCTION;
+	String LABEL;
+	String CREATETIME;
+	String WRITER;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="ARTICLEId")
 	@SequenceGenerator(name="ARTICLEId",initialValue=1,allocationSize=1,sequenceName="ARTICLE_SEQUENCE")
-	public int getId() {
-		return id;
+	
+	public int getID() {
+		return ID;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setID(int iD) {
+		ID = iD;
 	}
-	public String getTitle() {
-		return title;
+	public String getTITLE() {
+		return TITLE;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTITLE(String tITLE) {
+		TITLE = tITLE;
 	}
-	public int getVisitorsnums() {
-		return visitorsnums;
+	public int getVISITORSNUMS() {
+		return VISITORSNUMS;
 	}
-	public void setVisitorsnums(int visitorsnums) {
-		this.visitorsnums = visitorsnums;
+	public void setVISITORSNUMS(int vISITORSNUMS) {
+		VISITORSNUMS = vISITORSNUMS;
 	}
-	public int getPraisenums() {
-		return praisenums;
+	public int getPRAISENUMS() {
+		return PRAISENUMS;
 	}
-	public void setPraisenums(int praisenums) {
-		this.praisenums = praisenums;
+	public void setPRAISENUMS(int pRAISENUMS) {
+		PRAISENUMS = pRAISENUMS;
 	}
-	public String getIntroduction() {
-		return introduction;
+	public String getINTRODUCTION() {
+		return INTRODUCTION;
 	}
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
+	public void setINTRODUCTION(String iNTRODUCTION) {
+		INTRODUCTION = iNTRODUCTION;
 	}
-	public String getLabel() {
-		return label;
+	public String getLABEL() {
+		return LABEL;
 	}
-	public void setLabel(String label) {
-		this.label = label;
+	public void setLABEL(String lABEL) {
+		LABEL = lABEL;
 	}
-	public String getFilearea() {
-		return filearea;
+	public String getCREATETIME() {
+		return CREATETIME;
 	}
-	public void setFilearea(String filearea) {
-		this.filearea = filearea;
+	public void setCREATETIME(String cREATETIME) {
+		CREATETIME = cREATETIME;
 	}
-	public String getCreatetime() {
-		return createtime;
+	public String getWRITER() {
+		return WRITER;
 	}
-	public void setCreatetime(String createtime) {
-		this.createtime = createtime;
+	public void setWRITER(String wRITER) {
+		WRITER = wRITER;
 	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
+	
 	
 	
 

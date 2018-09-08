@@ -14,13 +14,14 @@
 	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript"
 	src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> 
-
+<script type="text/javascript" src="../js/edit.js"></script>
 
 <script src="../js/jquery.form.js" charset="utf-8"></script>
 <script src="../tinymce/js/tinymce/tinymce.min.js" charset="utf-8"></script>
 <script src="../js/tinymce_setup.js" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="../css/selectFilter.css" />
 <script type="text/javascript" src="../js/selectFilter.js"></script>
+
 </head>
 <body>
 	<!-- 顶部开始 -->
@@ -31,7 +32,7 @@
 		<div class="open-nav">
 			<i class="iconfont">&#xe699;</i>
 		</div>
-		<ul class="layui-nav right" lay-filter="">
+		<ul class="layui-nav right">
 			<li class="layui-nav-item"><a href="javascript:;">admin</a>
 				<dl class="layui-nav-child">
 					<!-- 二级菜单 -->
@@ -176,7 +177,7 @@
           </div>
         </div>
 		<!-- 左侧菜单结束 -->
-		  <form  method="post"  style="margin-left:15%;" >
+		  <form  method="post" action="/goArticle" style="margin-left:15%;" onsubmit="return formsubmit()">
 		  <div class="layui-form-pane">
                   <div class="layui-form-item" style="display: inline-block;width:100%;">
                     <label class="layui-form-label xbs768">主题</label>
@@ -218,9 +219,8 @@
 </script>
                   
                 </div> 
-		  <!-- <textarea name="article" id="content" ></textarea> -->
-       <input class="editor" name="content" id="content"/> 
-         <!-- <input type="submit" class="layui-btn" /> -->
+       <input class="editor" name="article" id="content"/> 
+       <input type="submit" class="layui-btn" /> 
     </form>
 	</div>
 	<!-- 中部结束 -->

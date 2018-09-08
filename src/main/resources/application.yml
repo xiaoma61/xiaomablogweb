@@ -12,3 +12,7 @@ jpa:
 server:
   port: 8090
  
+spring.thymeleaf.content-type: text/html 
+spring.thymeleaf.cache: false 
+spring.thymeleaf.mode: LEGACYHTML5
+ 
