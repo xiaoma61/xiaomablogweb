@@ -4,17 +4,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xiaoma.entity.ADMINISTRATOR;
+import com.xiaoma.entity.ARTICLE;
 import com.xiaoma.repository.ADMINISTRATORReposity;
+import com.xiaoma.service.ArticleService;
 
 @Controller
 public class AdminController {
 	@Autowired 
 	private  ADMINISTRATORReposity administratorreposity;
-	
+	@Autowired 
+	private  ArticleService articleService;
 	@RequestMapping("/Admin/index")
 	public String AdminIndex()
 	{
@@ -22,8 +28,31 @@ public class AdminController {
 		
 	}
 	@RequestMapping("/Admin/member-list")//文章列表
-	public String AdminMemberList()
+	public String AdminMemberList(Model m,@RequestParam(name="page",defaultValue="1")int page,@RequestParam(name="size",defaultValue="5")int size)
 	{
+		//在这里导入文章列表
+		//实现分页
+		Page<ARTICLE> articles=articleService.findARTICLECriteria(page, size);
+		m.addAttribute(articles);
+		
+		
+		
+		
+		//实现批量删除，在主页不显示
+			
+		
+		//根据日期，文章标题查找（这种状态如何）
+		
+		//文章标题查找
+		
+		
+		
+		
+		//删除文章（更新状态）
+		
+		//重新编写文章（更新操作）
+		
+		
 		return "thymeleaf/Admin/member-list";
 		
 	}

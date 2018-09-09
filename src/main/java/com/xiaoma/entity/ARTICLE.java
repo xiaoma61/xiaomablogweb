@@ -18,6 +18,7 @@ public class ARTICLE {
 	String LABEL;
 	String CREATETIME;
 	String WRITER;
+	String CONTENT;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="ARTICLEId")
@@ -72,7 +73,19 @@ public class ARTICLE {
 		WRITER = wRITER;
 	}
 	
-	
+	public String getCONTENT() {
+		return CONTENT;
+	}
+	public void setCONTENT(String cONTENT) {
+		CONTENT = cONTENT;
+	}
+	int ISSHOW;//当为1的时候是可见状态，为2的时候不可见
+	public int getISSHOW() {
+		return ISSHOW;
+	}
+	public void setISSHOW(int iSSHOW) {
+		ISSHOW = iSSHOW;
+	}
 	
 
 }

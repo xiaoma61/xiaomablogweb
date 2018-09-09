@@ -1,43 +1,50 @@
 package com.xiaoma.service.impl;
 
-import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.xiaoma.entity.ARTICLE;
 import com.xiaoma.repository.ARTICLERepository;
-import com.xiaoma.service.Articleservice;
+import com.xiaoma.service.ArticleService;
 @Service
-public class ArticleserviceImpl implements Articleservice{
+public class ArticleServiceimpl implements ArticleService{
+
+	
 	@Autowired
-	private ARTICLERepository articleRepository;
-	public List<ARTICLE> getARTICLE_List() {
+	
+	ARTICLERepository articlerepository;
+	public Page<ARTICLE> findARTICLECriteria(Integer page, Integer size) {
 		// TODO Auto-generated method stub
-		List<ARTICLE>articleList=(List<ARTICLE>)articleRepository.findAll();
-		return articleList;
-	}
-
-	public void delete(Integer id) {
-		// TODO Auto-generated method stub
-		articleRepository.delete(id);
-	}
-
-	public void add(ARTICLE article) {
-		// TODO Auto-generated method stub
-		articleRepository.save(article);
+		Pageable pageable=new PageRequest(page,size, Sort.Direction.ASC,"ID");
 		
-	}
+		Page<ARTICLE> article= articlerepository.findAll(new Specification<ARTICLE>(){
 
-	public ARTICLE getARTICLE_Byid(Integer id) {
-		// TODO Auto-generated method stub
-		ARTICLE article=articleRepository.findOne(id);
-		return article;
-	}
+			public javax.persistence.criteria.Predicate toPredicate(Root<ARTICLE> root, CriteriaQuery<?> query,
+					CriteriaBuilder cb) {
+				// TODO Auto-generated method stub
+				Path<String>ISSHOWPath=root.get("ISSHOW");
+				Path<String>WRITERPath=root.get("WRITER");
+				//Ä¬ÈÏÎªxiaoma
+				query.where(cb.equal(ISSHOWPath, "1"),cb.equal(WRITERPath, "xiaoma"));
+				return null;
+			}
 
-	public ARTICLE editARTICLE_Byid(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		},pageable);
+		
+		
+		
+		return  article;
 	}
 
 }

@@ -29,31 +29,28 @@ public class Article {
 	@RequestMapping(value="/goArticle")
 	public String goArticle(@RequestParam(name="article")String articletext,@RequestParam(name="title")String title,@RequestParam(name="label")String label,@RequestParam(name="introduction")String introduction,HttpSession session)
 	{
-		String writer=(String) session.getAttribute("name");
+		String writer=(String) session.getAttribute("name");//不生效
 		System.out.print(" writer: " +  writer);
 		
 		if( writer==null||writer=="")
 		{
+			//出现的问题，writer在登陆的时候没有存储下来
 			writer="xiaoma";
 			/*return "redirect:/Admin/login";*/
 		}
-		if(articletext==""||(articletext==null)||title==""||title==null||label==""||label==null||introduction==null||introduction=="")
+		
 		{
-			return "redirect:/Admin/member-edit";
-		}
-		else
-		{
-			System.out.println("articletext: " + articletext);
+			/*System.out.println("articletext: " + articletext);
 			System.out.println("title: " + title);				
 			System.out.println("introduction: " + introduction);
-			System.out.println(" label: " +  label);
+			System.out.println(" label: " +  label);*/
 			
 			String createtime=TimeUtil.GetDate();
 			int praisenums=0;
 			int visitorsnums=0;
 			
-			System.out.println(" label: " +  label);
-			System.out.println(" writer: " +  writer);
+			/*System.out.println(" label: " +  label);
+			System.out.println(" writer: " +  writer);*/
 			
 			
 			ARTICLE article=new ARTICLE();
@@ -64,12 +61,14 @@ public class Article {
 			article.setVISITORSNUMS(visitorsnums);
 			article.setWRITER(writer);
 			article.setTITLE(title);
+			article.setISSHOW(1);
+			article.setCONTENT(articletext);
 			
 			articleRepository.save(article);
 			/*ArticleserviceImpl articleImpl=new ArticleserviceImpl();
 			articleImpl.add(article);*/
 			
-			return "success";
+			return "redirect:/Admin/member-edit";
 		}
 	
 	}

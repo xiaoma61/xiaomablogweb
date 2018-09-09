@@ -1,10 +1,11 @@
 package com.xiaoma.service;
-import java.util.List;
+
+import org.springframework.data.domain.Page;
+
 import com.xiaoma.entity.ARTICLE;
-public interface Articleservice {
-	public List<ARTICLE>getARTICLE_List();
-	public void delete(Integer id);
-	public void add(ARTICLE article);
-	public ARTICLE getARTICLE_Byid(Integer id);
-	public ARTICLE editARTICLE_Byid(Integer id);
+
+public interface ArticleService {
+	Page<ARTICLE> findARTICLECriteria(Integer page,Integer size);//不带查询功能的
+	
+
 }
