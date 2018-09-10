@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>后台登录-X-admin1.1</title>
@@ -12,7 +12,8 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
     <script src="../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../js/xadmin.js"></script>
-
+	<link rel="stylesheet" type="text/css" href="../css/htmleaf-demo.css"/>
+	<!--  -->
 </head>
 <body>
     <!-- 顶部开始 -->
@@ -182,7 +183,11 @@
                   </div>
                 </div> 
             </form>
-            <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><button class="layui-btn" onclick="member_add('添加用户','member-add.html','600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px">共有数据：88 条</span></xblock>
+            <xblock>
+            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button>
+            <button class="layui-btn" onclick="member_add('添加用户','member-add.html','600','500')">
+            <i class="layui-icon">&#xe608;</i>添加</button>
+            <span class="x-right" style="line-height:40px" th:text="共有数据：+ ${articles.totalPages} +页   + ${articles.totalElements}+ 条 "></span></xblock>
             <table class="layui-table">
                 <thead>
                     <tr>
@@ -219,32 +224,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="article:${articles}">
                         <td>
                             <input type="checkbox" value="1" name=""/>
                         </td>
-                        <td>
-                            1
+                        <td >
+                            
                         </td>
-                        <td>
+                        <td th:text="${article.LABEL}">
                             <u style="cursor:pointer" onclick="member_show('张三','member-show.html','10001','360','400')">
-                                小明
+                              
                             </u>
                         </td>
-                        <td >
-                            男
+                        <td  th:text="${article.WRITER}">
+                          
                         </td>
-                        <td >
-                            13000000000
+                        <td th:text="${article.TITLE}">
+                          
                         </td>
-                        <td >
-                            admin@mail.com
+                        <td th:text="${article.VISITORSNUMS}">
+                           
                         </td>
-                        <td >
-                            北京市 海淀区
+                        <td th:text="${article.PRAISENUMS}">
+                        
                         </td>
-                        <td>
-                            2017-01-01 11:11:42
+                        <td th:text="${article.CREATETIME}">
+                          
                         </td>
                         <td class="td-status">
                             <span class="layui-btn layui-btn-normal layui-btn-mini">
@@ -272,6 +277,9 @@
                     
                 </tbody>
             </table>
+            
+   
+        	<div th:include="thymeleaf/Page :: pager" th:remove="tag"></div>
             <!-- 右侧内容框架，更改从这里结束 -->
           </div>
         </div>
@@ -280,7 +288,7 @@
     <!-- 中部结束 -->
     <!-- 底部开始 -->
     <div class="footer">
-        <div class="copyright">Copyright ©2017 x-admin v2.3 All Rights Reserved. 本后台系统由X前端框架提供前端技术支持</div>  
+       
     </div>
     <!-- 底部结束 -->
     <!-- 背景切换开始 -->

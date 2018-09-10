@@ -28,12 +28,15 @@ public class AdminController {
 		
 	}
 	@RequestMapping("/Admin/member-list")//文章列表
-	public String AdminMemberList(Model m,@RequestParam(name="page",defaultValue="1")int page,@RequestParam(name="size",defaultValue="5")int size)
+	public String AdminMemberList(Model m,@RequestParam(name="page",defaultValue="0")int page,@RequestParam(name="size",defaultValue="5")int size)
 	{
 		//在这里导入文章列表
 		//实现分页
-		Page<ARTICLE> articles=articleService.findARTICLECriteria(page, size);
-		m.addAttribute(articles);
+		Page<ARTICLE> article=articleService.findARTICLECriteria(page, size);
+		System.out.println("article.size: "+article.getSize());
+		System.out.println("articles: "+article.getNumber());
+		System.out.println("articles.getContent(): "+article.getContent());
+		m.addAttribute("articles",article);
 		
 		
 		
