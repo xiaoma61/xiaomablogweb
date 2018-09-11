@@ -176,6 +176,15 @@
                     </div>
                     <div class="layui-input-inline">
                       <input type="text" name="username"  placeholder="请输入文章标题" autocomplete="off" class="layui-input"/>
+                      <div id="popDiv">
+                <table id="content_table" style=" background-color:#FFFAFA;border:0;">
+                   <tbody id="content_table_body">
+                     <!-- 动态数据在这里显示 -->
+  
+                  </tbody>
+              </table>
+          </div>
+                    
                     </div>
                     <div class="layui-input-inline" style="width:80px">
                         <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -228,7 +237,7 @@
                         <td>
                             <input type="checkbox" value="1" name=""/>
                         </td>
-                        <td th:text="${articles.getNumber()}">
+                        <td th:text="${article.ID}">
                       
                         </td>
                         <td th:text="${article.LABEL}">
@@ -268,7 +277,7 @@
                             href="javascript:;" title="修改密码">
                                 <i class="layui-icon">&#xe631;</i>
                             </a>
-                            <a title="删除" href="javascript:;" onclick="member_del(this,'1')" 
+                            <a title="删除" href="javascript:;" th:onclick="'javascript:member_del(this,'+${article.ID}+')'" 
                             style="text-decoration:none">
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
@@ -399,24 +408,44 @@
         function member_password(title,url,id,w,h){
             x_admin_show(title,url,w,h);  
         }
-        /*用户-删除*/
-        function member_del(obj,id){
+       function member_del(obj,id){
             layer.confirm('确认要删除吗？',function(index){
                 //发异步删除数据
                 $(obj).parents("tr").remove();
                 layer.msg('已删除!',{icon:1,time:1000});
+                del(id);
             });
         }
+        
+        function del(id)
+        {
+        	$.ajax({
+        	type:"post",
+        	url:"/articles/dodelete?id="+id,
+        	async:false,
+        	success:function()
+        	{
+        		/* alert("成功"); */
+        	},
+        	error:function()
+        	{
+        		/* alert("失败"); */
+        	}
+        	
+        	
+        	})
+        }
+        
         </script>
-        <script>
-        //百度统计可去掉
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-        })();
-        </script>
+        
+        <!-- <script type="text/javascript">
+        <![CDATA[
+         /*用户-删除*/
+        
+        ]]>
+        
+        
+        </script> -->
+       
 </body>
 </html>

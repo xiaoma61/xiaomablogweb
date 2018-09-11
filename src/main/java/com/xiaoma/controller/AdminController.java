@@ -33,9 +33,6 @@ public class AdminController {
 		//在这里导入文章列表
 		//实现分页
 		Page<ARTICLE> article=articleService.findARTICLECriteria(page, size);
-		System.out.println("article.size: "+article.getSize());
-		System.out.println("articles: "+article.getNumber());
-		System.out.println("articles.getContent(): "+article.getContent());
 		m.addAttribute("articles",article);
 		//删除文章（更新状态）
 		
@@ -46,7 +43,7 @@ public class AdminController {
 		
 		//根据日期，文章标题查找（这种状态如何）
 		
-		//文章标题查找
+		//文章标题查找模糊查找
 		
 		
 		

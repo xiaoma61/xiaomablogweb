@@ -1,6 +1,7 @@
 package com.xiaoma.Articlecontroller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,13 +88,22 @@ public @ResponseBody String uploadImg(@RequestParam("thumbnail")MultipartFile fi
 	
 }
 //删除页面数据不显示
-@RequestMapping(value="dodelete")
-public String Dodelete(@RequestParam("id")int ID)
+@RequestMapping(value="/articles/dodelete")
+public void Dodelete(@RequestParam("id")int ID)
 {
-	articleRepository.updateOne(ID,2);
-	return "success";
-}
+	
+	articleRepository.updateISSHOWByID(2,ID);
 
+}
+//实现模糊查询和百度词汇
+@RequestMapping(value="/articles/dofindtitle")
+public List<String> DofindTitle(@RequestParam("Title")String Title)
+{
+	List<String>titles=articleRepository.findTITLEByTITLELike(Title);
+	return titles;
+	
+
+}
 
 }
 
