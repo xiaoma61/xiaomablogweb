@@ -28,7 +28,7 @@ public class AdminController {
 		
 	}
 	@RequestMapping("/Admin/member-list")//文章列表
-	public String AdminMemberList(Model m,@RequestParam(name="page",defaultValue="0")int page,@RequestParam(name="size",defaultValue="5")int size)
+	public String AdminMemberList(Model m,@RequestParam(name="pages",defaultValue="0")int page,@RequestParam(name="size",defaultValue="5")int size)
 	{
 		//在这里导入文章列表
 		//实现分页
@@ -37,7 +37,7 @@ public class AdminController {
 		System.out.println("articles: "+article.getNumber());
 		System.out.println("articles.getContent(): "+article.getContent());
 		m.addAttribute("articles",article);
-		
+		//删除文章（更新状态）
 		
 		
 		
@@ -51,7 +51,7 @@ public class AdminController {
 		
 		
 		
-		//删除文章（更新状态）
+		
 		
 		//重新编写文章（更新操作）
 		

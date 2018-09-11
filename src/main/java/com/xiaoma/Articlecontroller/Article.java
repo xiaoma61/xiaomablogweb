@@ -40,18 +40,12 @@ public class Article {
 		}
 		
 		{
-			/*System.out.println("articletext: " + articletext);
-			System.out.println("title: " + title);				
-			System.out.println("introduction: " + introduction);
-			System.out.println(" label: " +  label);*/
+			
 			
 			String createtime=TimeUtil.GetDate();
 			int praisenums=0;
 			int visitorsnums=0;
-			
-			/*System.out.println(" label: " +  label);
-			System.out.println(" writer: " +  writer);*/
-			
+					
 			
 			ARTICLE article=new ARTICLE();
 			article.setCREATETIME(createtime);
@@ -65,9 +59,6 @@ public class Article {
 			article.setCONTENT(articletext);
 			
 			articleRepository.save(article);
-			/*ArticleserviceImpl articleImpl=new ArticleserviceImpl();
-			articleImpl.add(article);*/
-			
 			return "redirect:/Admin/member-edit";
 		}
 	
@@ -95,6 +86,14 @@ public @ResponseBody String uploadImg(@RequestParam("thumbnail")MultipartFile fi
 	return "http://localhost:8090/image/text"+LastName;
 	
 }
+//删除页面数据不显示
+@RequestMapping(value="dodelete")
+public String Dodelete(@RequestParam("id")int ID)
+{
+	articleRepository.updateOne(ID,2);
+	return "success";
+}
+
 
 }
 
