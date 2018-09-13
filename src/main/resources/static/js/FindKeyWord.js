@@ -20,16 +20,25 @@ function sendRequest()
 		  	hiddenSuggest();
 		  	return ;
 		  	}
+ 
 	 $.ajax({
 		 type:"post",
-		 data:"json",
 		 url:"/articles/dofindtitle?Title="+title,
+		 contentType: "application/json; charset=utf-8",
+		 dataType:"json",
+		 data:{},
 		 async:false,
 		 success:function(data)
 		 {
-			 for(var i=0; i<data.length();i++){
-				 var title=data[i].firstChild.nodeValue;
-				 var sDiv = "<div class='out' onmouseover='mover(this);' onmouseout='mout(this);' onclick='setSuggest(this)'>"+title+"</div>";
+			
+			 var datas=JSON.stringify(data);
+			 var jsonObj =  JSON.parse(datas);
+	
+	
+			 for(var i=0; i<jsonObj.length;i++){
+		
+				 var  title = jsonObj[i].title; 
+				 var sDiv = "<div class='outs' onmouseover='mover(this);' onmouseout='mout(this);' onclick='setSuggest(this)'>"+title+"</div>";
   				 document.getElementById('suggest').innerHTML+=sDiv;
 			 }
 			 displaySuggest();
@@ -51,8 +60,8 @@ function setSuggest(para){
     hiddenSuggest();
     }
      function mover(para){
-       para.className="over";
+       para.className="overs";
        }
         function mout(para){
-       para.className="out";
+       para.className="outs";
        }

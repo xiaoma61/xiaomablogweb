@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -96,13 +97,20 @@ public void Dodelete(@RequestParam("id")int ID)
 
 }
 //实现模糊查询和百度词汇
-@RequestMapping(value="/articles/dofindtitle")
-public List<String> DofindTitle(@RequestParam("Title")String Title)
+@RequestMapping(value="/articles/dofindtitle" , method = RequestMethod.POST)
+@ResponseBody
+public List<ARTICLE> DofindTitle(@RequestParam("Title")String Title)
 {
-	List<String>titles=articleRepository.findTITLEByTITLELike(Title);
+	
+	List<ARTICLE>titles=articleRepository.findByTITLELike(Title);
+	/*List<String>titlesList=new ArrayList<String>();
+	for(int i=0;i<titles.size();i++)
+	{
+		titlesList.add(titles.get(i).getTITLE())
+	}*/
+
 	return titles;
 	
-
 }
 
 }

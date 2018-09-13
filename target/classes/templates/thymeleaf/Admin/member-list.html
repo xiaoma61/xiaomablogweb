@@ -13,7 +13,9 @@
     <script src="../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../js/xadmin.js"></script>
     <script type="text/javascript" src="../js/FindKeyWord.js"></script>
+     <script type="text/javascript" src="../js/json2.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/htmleaf-demo.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/Hover.css"/>
 	<!--  -->
 </head>
 <body>
@@ -178,7 +180,7 @@
                     <div class="layui-input-inline">
                       <input type="text" name="title" id="title" placeholder="请输入文章标题" autocomplete="off" class="layui-input" onkeyup="sendRequest()" onclick="hiddenSuggest()" onfocus="sendRequest()"/>
                     
-                      <div id="suggest" style=" color:black;width:100%;display:none; z-index:1000; position:relative;background-color:white; border:0.5px solid #dbdbdb;"  ></div>
+                      <div id="suggest" style=" color:black;width:100%;display:none; z-index:1000; position:absolute; border:0.5px solid #dbdbdb;"  ></div>
 				
 
                     </div>
@@ -434,14 +436,7 @@
         
         </script>
         
-        <!-- <script type="text/javascript">
-        <![CDATA[
-         /*用户-删除*/
-        
-        ]]>
-        
-        
-        </script> -->
+      
        
 </body>
 </html>

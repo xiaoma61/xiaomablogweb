@@ -424,18 +424,7 @@ xblock{
 		display: none;
 	}
 	
-.out
-{
-	line-height:30px;
-	height:30px;
-}
-.over
-{
-	height:30px;
-	line-height:30px;
-	background-color:#e14d1d;
-	cursor:pointer;
-	color:white;
-}
+
+
 }
 

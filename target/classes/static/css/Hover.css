@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+.outs
+{
+	line-height:30px;
+	height:30px;
+	cursor:pointer;
+	background-color:white;
+	z-index:1000;
+}
+.overs
+{
+	height:30px;
+	line-height:30px;
+	background-color:#e14d1d;
+	cursor:pointer;
+	color:white;
+	z-index:1000;
+}
