@@ -1,6 +1,7 @@
 package com.xiaoma.Articlecontroller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -101,15 +102,25 @@ public void Dodelete(@RequestParam("id")int ID)
 @ResponseBody
 public List<ARTICLE> DofindTitle(@RequestParam("Title")String Title)
 {
-	
 	List<ARTICLE>titles=articleRepository.findByTITLELike(Title);
-	/*List<String>titlesList=new ArrayList<String>();
-	for(int i=0;i<titles.size();i++)
+	if(Title==""||Title==null)
 	{
-		titlesList.add(titles.get(i).getTITLE())
-	}*/
+		//提取前五个
+		List<ARTICLE>titlesFive=new ArrayList<ARTICLE>();
+		for(int i=0;i<5;i++)
+		{
+			titlesFive.add(titles.get(i));
+		}
+		return titlesFive;
+	}
+	else
+	{
+	
+		return titles;
+	}
+	
 
-	return titles;
+
 	
 }
 

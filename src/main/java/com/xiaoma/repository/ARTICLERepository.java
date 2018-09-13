@@ -22,5 +22,8 @@ public interface ARTICLERepository extends JpaRepository<ARTICLE,Integer>{
 	
 	@Query(value ="select a from ARTICLE a where a.TITLE like %?1% ")
 	public List<ARTICLE>findByTITLELike(String TITLE);
+	
+	
+	
 
 }

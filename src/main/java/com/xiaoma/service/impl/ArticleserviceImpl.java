@@ -3,6 +3,7 @@ package com.xiaoma.service.impl;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,27 @@ public class ArticleServiceimpl implements ArticleService{
 		
 		
 		return  article;
+	}
+	public Page<ARTICLE> findALLByTitle(Integer page, Integer size,final String title) {
+		// TODO Auto-generated method stub
+		Pageable pageable=new PageRequest(page,size, Sort.Direction.ASC,"ID");
+		Page<ARTICLE>article=articlerepository.findAll(new Specification<ARTICLE>(){
+
+			public Predicate toPredicate(Root<ARTICLE> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				// TODO Auto-generated method stub
+				Path<String>ISSHOWPATH=root.get("ISSHOW");
+				Path<String>TITLEPATH=root.get("TITLE");
+				Path<String>WRITERPATH=root.get("WRITER");
+				
+				query.where(cb.equal(ISSHOWPATH, "1"),cb.like(TITLEPATH, title),cb.like(WRITERPATH, "xiaoma"));
+				return null;
+			}
+			
+			
+		}, pageable);
+		
+		
+		return article;
 	}
 
 }
