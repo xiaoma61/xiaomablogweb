@@ -1,5 +1,8 @@
 package com.xiaoma.controller;
 
+import java.sql.Date;
+import java.text.ParseException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,9 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.xiaoma.Util.TimeUtil;
 import com.xiaoma.entity.ADMINISTRATOR;
 import com.xiaoma.entity.ARTICLE;
 import com.xiaoma.repository.ADMINISTRATORReposity;
+import com.xiaoma.repository.ARTICLERepository;
 import com.xiaoma.service.ArticleService;
 
 @Controller
@@ -21,6 +26,8 @@ public class AdminController {
 	private  ADMINISTRATORReposity administratorreposity;
 	@Autowired 
 	private  ArticleService articleService;
+	@Autowired 
+	ARTICLERepository articleRepository;
 	@RequestMapping("/Admin/index")
 	public String AdminIndex()
 	{
@@ -29,12 +36,31 @@ public class AdminController {
 	}
 
 	@RequestMapping("/Admin/member-list")//文章列表
-	public String AdminMemberList(Model m,@RequestParam(name="pages",defaultValue="0")int page,@RequestParam(name="size",defaultValue="5")int size,@RequestParam(name="title",defaultValue="text")String title)
+	public String AdminMemberList(Model m,@RequestParam(name="pages",defaultValue="0")int page,@RequestParam(name="size",defaultValue="5")int size,@RequestParam(name="title",defaultValue="text")String title
+			,@RequestParam(name="StartDate", defaultValue="startdate")String sDate,@RequestParam(name="EndDate", defaultValue="enddate")String eDate) throws ParseException
 	{
 		//在这里导入文章列表
 		//实现分页
 	
 		String flag=title;
+		if(!(sDate.equals("startdate")||eDate.equals("enddate")))
+		{
+			Date sSqlDate=TimeUtil.StringToDate(sDate);
+			Date eSqlDate=TimeUtil.StringToDate(eDate);
+			/*articleRepository.findByCREATETIMEBetween(sSqlDate, eSqlDate);*/
+			/*System.out.println("sSqlDate ------1。。。。" +sSqlDate);
+			System.out.println("eSqlDate ------1。。。。" +eSqlDate);*/
+			Page<ARTICLE> article=articleService.findByCREATETIMEBetween(page, size, sSqlDate, eSqlDate);
+			/*System.out.println("startdate ------1。。。。" +sDate);
+			System.out.println("enddate ------1。。。。" +eDate);
+			System.out.println("article ------1。。。。" +article.getSize());*/
+			
+			m.addAttribute("articles",article);
+			return "thymeleaf/Admin/member-list";
+		
+		}
+		
+		
 		if(!(flag.equals("text")))//equals有效其他无效
 		{
 			Page<ARTICLE> article=articleService.findALLByTitle(page, size, title);
@@ -47,6 +73,7 @@ public class AdminController {
 		}
 		else
 		{
+			//文章标题查找模糊查找
 			Page<ARTICLE> article;/*articleService.findARTICLECriteria(page, size);**/
 			article=articleService.findARTICLECriteria(page, size);
 			m.addAttribute("articles",article);
@@ -56,7 +83,8 @@ public class AdminController {
 		
 		//删除文章（更新状态）
 		
-		//文章标题查找模糊查找
+		
+		
 		
 		
 		

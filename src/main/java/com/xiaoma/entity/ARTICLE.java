@@ -1,11 +1,14 @@
 package com.xiaoma.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="ARTICLE")
@@ -16,7 +19,7 @@ public class ARTICLE {
 	int PRAISENUMS;
 	String INTRODUCTION;
 	String LABEL;
-	String CREATETIME;
+	Date CREATETIME;
 	String WRITER;
 	String CONTENT;
 	
@@ -60,10 +63,13 @@ public class ARTICLE {
 	public void setLABEL(String lABEL) {
 		LABEL = lABEL;
 	}
-	public String getCREATETIME() {
+	
+
+
+	public Date getCREATETIME() {
 		return CREATETIME;
 	}
-	public void setCREATETIME(String cREATETIME) {
+	public void setCREATETIME(Date cREATETIME) {
 		CREATETIME = cREATETIME;
 	}
 	public String getWRITER() {

@@ -1,5 +1,7 @@
 package com.xiaoma.service.impl;
 
+import java.sql.Date;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+
 
 import com.xiaoma.entity.ARTICLE;
 import com.xiaoma.repository.ARTICLERepository;
@@ -65,6 +69,28 @@ public class ArticleServiceimpl implements ArticleService{
 		}, pageable);
 		
 		
+		return article;
+	}
+	public Page<ARTICLE> findByCREATETIMEBetween(Integer page, Integer size, final Date sDate, final Date eDate) {
+		// TODO Auto-generated method stub
+		Pageable pageable=new PageRequest(page,size,Sort.Direction.ASC,"ID");
+		Page<ARTICLE>article=articlerepository.findAll(new Specification<ARTICLE>(){
+
+			
+
+			public Predicate toPredicate(Root<ARTICLE> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				// TODO Auto-generated method stub
+				Path<String>ISSHOWPATH=root.get("ISSHOW");
+				Path<String>WRITERPATH=root.get("WRITER");
+				Path<Date>CREATETIMEPATH=root.<Date>get("CREATETIME");
+			
+				
+				query.where(cb.equal(ISSHOWPATH, "1"),cb.equal(WRITERPATH, "xiaoma"),cb.between(CREATETIMEPATH, sDate,  eDate));
+				
+				
+				return null;
+				}
+			}, pageable);
 		return article;
 	}
 

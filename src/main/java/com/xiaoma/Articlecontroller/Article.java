@@ -1,6 +1,7 @@
 package com.xiaoma.Articlecontroller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -45,7 +46,7 @@ public class Article {
 		{
 			
 			
-			String createtime=TimeUtil.GetDate();
+			Date createtime=TimeUtil.GetDate();
 			int praisenums=0;
 			int visitorsnums=0;
 					
