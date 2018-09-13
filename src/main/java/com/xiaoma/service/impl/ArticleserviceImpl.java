@@ -16,8 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-
-
 import com.xiaoma.entity.ARTICLE;
 import com.xiaoma.repository.ARTICLERepository;
 import com.xiaoma.service.ArticleService;
@@ -92,6 +90,22 @@ public class ArticleServiceimpl implements ArticleService{
 				}
 			}, pageable);
 		return article;
+	}
+	public Page<ARTICLE> findByCREATETIMELike(Integer page, Integer size, final Date CREATETIME) {
+		// TODO Auto-generated method stub
+		Pageable pageable=new PageRequest(page,size,Sort.Direction.ASC,"ID");
+		Page<ARTICLE>articles=articlerepository.findAll(new Specification<ARTICLE>(){
+
+			
+			public Predicate toPredicate(Root<ARTICLE> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				// TODO Auto-generated method stub
+				Path<String>ISSHOWPATH=root.get("ISSHOW");
+				Path<String>WRITERPATH=root.get("WRITER");
+				Path<String> CREATETIMEPATH=root.get("CREATETIME");
+				query.where(cb.equal(ISSHOWPATH, "1"),cb.equal(CREATETIMEPATH, CREATETIME),cb.like(WRITERPATH, "xiaoma"));
+				return null;
+			}}, pageable);
+		return articles;
 	}
 
 }

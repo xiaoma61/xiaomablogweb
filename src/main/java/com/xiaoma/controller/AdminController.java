@@ -51,15 +51,30 @@ public class AdminController {
 			/*System.out.println("sSqlDate ------1。。。。" +sSqlDate);
 			System.out.println("eSqlDate ------1。。。。" +eSqlDate);*/
 			Page<ARTICLE> article=articleService.findByCREATETIMEBetween(page, size, sSqlDate, eSqlDate);
-			/*System.out.println("startdate ------1。。。。" +sDate);
-			System.out.println("enddate ------1。。。。" +eDate);
+			/*
+			
 			System.out.println("article ------1。。。。" +article.getSize());*/
 			
 			m.addAttribute("articles",article);
 			return "thymeleaf/Admin/member-list";
 		
 		}
-		
+		else if(sDate.equals("startdate")&&!eDate.equals("enddate"))
+		{
+			Date SqlDate=TimeUtil.StringToDate(eDate);
+			System.out.println("enddate ------1。。。。" +eDate);
+			Page<ARTICLE> article=articleService.findByCREATETIMELike(page, size, SqlDate);
+			m.addAttribute("articles",article);
+			return "thymeleaf/Admin/member-list";
+		}
+		else if(eDate.equals("enddate")&&!sDate.equals("startdate"))
+		{
+			Date SqlDate=TimeUtil.StringToDate(sDate);
+			System.out.println("startdate ------1。。。。" +sDate);
+			Page<ARTICLE> article=articleService.findByCREATETIMELike(page, size, SqlDate);
+			m.addAttribute("articles",article);
+			return "thymeleaf/Admin/member-list";
+		}
 		
 		if(!(flag.equals("text")))//equals嗤丼凪麿涙丼
 		{

@@ -1,4 +1,5 @@
 package com.xiaoma.repository;
+import java.sql.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -23,7 +24,8 @@ public interface ARTICLERepository extends JpaRepository<ARTICLE,Integer>{
 	@Query(value ="select a from ARTICLE a where a.TITLE like %?1% ")
 	public List<ARTICLE>findByTITLELike(String TITLE);
 	
-	
+	@Query(value ="select a from ARTICLE a where a.CREATETIME like %?1% ")
+	public List<ARTICLE>findByCREATETIMELike(Date CREATETIME);
 	
 	
 	
