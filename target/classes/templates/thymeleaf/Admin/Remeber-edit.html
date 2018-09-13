@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>后台登录-X-admin1.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="../css/font.css" />
+<link rel="stylesheet" href="../css/xadmin.css" />
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" />
+<script type="text/javascript"
+	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> 
+<script type="text/javascript" src="../js/edit.js"></script>
+
+<script src="../js/jquery.form.js" charset="utf-8"></script>
+<script src="../tinymce/js/tinymce/tinymce.min.js" charset="utf-8"></script>
+<script src="../js/tinymce_setup.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="../css/selectFilter.css" />
+<script type="text/javascript" src="../js/selectFilter.js"></script>
+
+</head>
+<body>
+	<!-- 顶部开始 -->
+	<div class="container">
+		<div class="logo">
+			<a href="./index.html">X-ADMIN V1.1</a>
+		</div>
+		<div class="open-nav">
+			<i class="iconfont">&#xe699;</i>
+		</div>
+		<ul class="layui-nav right">
+			<li class="layui-nav-item"><a href="javascript:;">admin</a>
+				<dl class="layui-nav-child">
+					<!-- 二级菜单 -->
+					<dd>
+						<a href="">个人信息</a>
+					</dd>
+					<dd>
+						<a href="">切换帐号</a>
+					</dd>
+					<dd>
+						<a href="./login.html">退出</a>
+					</dd>
+				</dl></li>
+			<li class="layui-nav-item"><a href="/">前台首页</a></li>
+		</ul>
+	</div>
+	<!-- 顶部结束 -->
+	<!-- 中部开始 -->
+	<div class="wrapper">
+		<!-- 左侧菜单开始 -->
+		 <div class="left-nav">
+          <div id="side-nav">
+            <ul id="nav">
+                <li class="list" >
+                    <a href="/Admin/index">
+                        <i class="iconfont">&#xe761;</i>
+                        信息汇总
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="javascript:;">
+                        <i class="iconfont">&#xe70b;</i>
+                        文章管理
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="/Admin/member-list">
+                                <i class="iconfont">&#xe6a7;</i>
+                                文章列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/member-edit">
+                                <i class="iconfont">&#xe6a7;</i>
+                                文章上传
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/member-level">
+                                <i class="iconfont">&#xe6a7;</i>
+                                博客管理
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/member-del">
+                                <i class="iconfont">&#xe6a7;</i>
+                                删除文章
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/member-through">
+                                <i class="iconfont">&#xe6a7;</i>
+                                浏览记录
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="list" >
+                    <a href="javascript:;">
+                        <i class="iconfont">&#xe6a3;</i>
+                        分类管理
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="/Admin/comment-list">
+                                <i class="iconfont">&#xe6a7;</i>
+                                评论列表
+                            </a>
+                            <a href="/Admin/IP-list">
+                                <i class="iconfont">&#xe6a7;</i>
+                                流量统计
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="list" >
+                    <a href="javascript:;">
+                        <i class="iconfont">&#xe6a3;</i>
+                        日志管理
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <ul class="sub-menu" style="display:none">
+                        <li>
+                            <a href="/Admin/logslist">
+                                <i class="iconfont">&#xe6a7;</i>
+                                日志列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/logEdit">
+                                <i class="iconfont">&#xe6a7;</i>
+                                上传日志
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="list" >
+                    <a href="javascript:;">
+                        <i class="iconfont">&#xe6a3;</i>
+                        系统统计
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <ul class="sub-menu" style="display:none">
+                        <li>
+                            <a href="/Admin/PageView">
+                                <i class="iconfont">&#xe6a7;</i>
+                                访问量
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/Commentsindex">
+                                <i class="iconfont">&#xe6a7;</i>
+                                评论指数
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/articleheat">
+                                <i class="iconfont">&#xe6a7;</i>
+                                文章热度
+                            </a>
+                        </li>
+                        
+
+                    </ul>
+                </li>
+
+            </ul>
+          </div>
+        </div>
+		<!-- 左侧菜单结束 -->
+		  <form  method="post" action="/goArticle" style="margin-left:15%;" onsubmit="return formsubmit()">
+		  <div class="layui-form-pane">
+                  <div class="layui-form-item" style="display: inline-block;width:100%;">
+                    <label class="layui-form-label xbs768">主题</label>
+                    <div class="layui-input-inline xbs768" style="width:60%;margin-bottom:2%;">
+                      <input class="layui-input" placeholder="主题"  name="title" id="title"/>
+                    </div>
+                    <div class="layui-input-inline xbs768"  style="width:66%;margin-bottom:2%;">
+                      <textarea class="layui-input" placeholder="简介"  style="width:100%;height:25%;" name="introduction" id="introduction"></textarea>
+                      
+                    </div>        
+                  </div>
+          <div class="filter-box" >
+			<div class="filter-text" style="color:black">
+			<input class="filter-title" type="text"  id="label" style="color:black"/>
+			<i class="icon icon-filter-arrow"></i>
+		</div>
+  			<select name="label">
+  				<option selected="selected" style="color:black">分类</option>
+  				<option value="Java基础" style="color:black">Java基础</option>
+  				<option value="数据库">数据库</option>
+  				<option value="前端">前端</option>
+  				<option value="Javaweb">Javaweb</option>
+  				<option value="JavaEE">JavaEE</option>
+
+			</select>
+	</div>       
+
+
+<script type="text/javascript">
+	
+	
+	
+	$('.filter-box').selectFilter({
+		callBack : function (val){
+			//返回选择的值
+			console.log(val+'-是返回的值')
+		}
+	});
+</script>
+                  
+                </div> 
+       <input class="editor" name="article" id="content"/> 
+       <input type="submit" class="layui-btn" /> 
+    </form>
+	</div>
+	<!-- 中部结束 -->
+	<!-- 底部开始 -->
+	<div class="footer">
+		
+	</div>
+	<!-- 底部结束 -->
+	<!-- 背景切换开始 -->
+	<div class="bg-changer">
+		<div class="swiper-container changer-list">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<img class="item" src="../images/a.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<img class="item" src="../images/b.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<img class="item" src="../images/c.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<img class="item" src="../images/d.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<img class="item" src="../images/e.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<img class="item" src="../images/f.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<img class="item" src="../images/g.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<img class="item" src="../images/h.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<img class="item" src="../images/i.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<img class="item" src="../images/j.jpg" alt=""/>
+				</div>
+				<div class="swiper-slide">
+					<span class="reset">初始化</span>
+				</div>
+			</div>
+		</div>
+		<div class="bg-out"></div>
+		<div id="changer-set">
+			<i class="iconfont">&#xe696;</i>
+		</div>
+	</div>
+	
+	
+</body>
+</html>

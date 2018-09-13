@@ -47,9 +47,6 @@ public class AdminController {
 		{
 			Date sSqlDate=TimeUtil.StringToDate(sDate);
 			Date eSqlDate=TimeUtil.StringToDate(eDate);
-			/*articleRepository.findByCREATETIMEBetween(sSqlDate, eSqlDate);*/
-			/*System.out.println("sSqlDate ------1。。。。" +sSqlDate);
-			System.out.println("eSqlDate ------1。。。。" +eSqlDate);*/
 			Page<ARTICLE> article=articleService.findByCREATETIMEBetween(page, size, sSqlDate, eSqlDate);
 			/*
 			
@@ -75,7 +72,7 @@ public class AdminController {
 			m.addAttribute("articles",article);
 			return "thymeleaf/Admin/member-list";
 		}
-		
+		//根据日期，文章标题查找（这种状态如何）
 		if(!(flag.equals("text")))//equals有效其他无效
 		{
 			Page<ARTICLE> article=articleService.findALLByTitle(page, size, title);
@@ -96,23 +93,19 @@ public class AdminController {
 			return "thymeleaf/Admin/member-list";
 		}
 		
-		//删除文章（更新状态）
-		
-		
-		
-		
+	
 		
 		
 		//实现批量删除，在主页不显示
 			
 		
-		//根据日期，文章标题查找（这种状态如何）
+		
 		
 		//重新编写文章（更新操作）
 
 		
 	}
-	@RequestMapping("/Admin/member-listfindtitle")//文章列表
+	/*@RequestMapping("/Admin/member-listfindtitle")//文章列表
 	public String AdminMemberListFindTitle(Model m,@RequestParam(name="pages",defaultValue="0")int page,@RequestParam(name="size",defaultValue="5")int size,@RequestParam(name="title",defaultValue="")String title)
 	{
 		//在这里导入文章列表
@@ -131,7 +124,7 @@ public class AdminController {
 		}
 		else
 		{
-			Page<ARTICLE> article;/*articleService.findARTICLECriteria(page, size);**/
+			Page<ARTICLE> article;articleService.findARTICLECriteria(page, size);*
 			article=articleService.findARTICLECriteria(page, size);
 			m.addAttribute("articles",article);
 			System.out.println("title ------2.。。。。" +title);
@@ -153,7 +146,7 @@ public class AdminController {
 
 		
 	}
-	
+	*/
 	
 	@RequestMapping("/Admin/member-del")//删除文章
 	public String AdminMemberDel()

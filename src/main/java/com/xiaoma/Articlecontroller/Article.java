@@ -98,6 +98,14 @@ public void Dodelete(@RequestParam("id")int ID)
 	articleRepository.updateISSHOWByID(2,ID);
 
 }
+
+@RequestMapping(value="/articles/dodeleteALL")
+public void DodeleteALL()
+{
+	
+	articleRepository.updateISSHOW(2);
+
+}
 //实现模糊查询和百度词汇
 @RequestMapping(value="/articles/dofindtitle" , method = RequestMethod.POST)
 @ResponseBody

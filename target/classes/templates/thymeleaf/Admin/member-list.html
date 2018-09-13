@@ -195,12 +195,10 @@
             <button class="layui-btn" onclick="member_add('添加用户','member-add.html','600','500')">
             <i class="layui-icon">&#xe608;</i>添加</button>
             <span class="x-right" style="line-height:40px" th:text="共有数据：+ ${articles.totalPages} +页   + ${articles.totalElements}+ 条 "></span></xblock>
-            <table class="layui-table">
+            <table class="layui-table" id="tb">
                 <thead>
                     <tr>
-                        <th>
-                            <input type="checkbox" name="" value=""/>
-                        </th>
+                      
                         <th>
                             ID
                         </th>
@@ -232,9 +230,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="article:${articles}">
-                        <td>
-                            <input type="checkbox" value="1" name=""/>
-                        </td>
+                       
                         <td th:text="${article.ID}">
                       
                         </td>
@@ -286,7 +282,7 @@
             </table>
             
    
-        	<div th:include="thymeleaf/Page :: pager" th:remove="tag"></div>
+        	<div th:include="thymeleaf/Page :: pager" th:remove="tag" id="pages"></div>
             <!-- 右侧内容框架，更改从这里结束 -->
           </div>
         </div>
@@ -366,6 +362,10 @@
             layer.confirm('确认要删除吗？',function(index){
                 //捉到所有被选中的，发异步进行删除
                 layer.msg('删除成功', {icon: 1});
+                
+                $("#tb tr:not(:first)").html(""); 
+                $("#pages").empty();
+                delALL();
             });
          }
          /*用户-添加*/
@@ -433,6 +433,25 @@
         	
         	})
         }
+         function delALL()
+        {
+        	$.ajax({
+        	type:"post",
+        	url:"/articles/dodeleteALL",
+        	async:false,
+        	success:function()
+        	{
+        		/* alert("成功"); */
+        	},
+        	error:function()
+        	{
+        		/* alert("失败"); */
+        	}
+        	
+        	
+        	})
+        }
+        
         
         </script>
         

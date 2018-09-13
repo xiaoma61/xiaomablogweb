@@ -21,6 +21,10 @@ public interface ARTICLERepository extends JpaRepository<ARTICLE,Integer>{
 	@Modifying
 	public int updateISSHOWByID(int ISSHOW,int ID );
 	
+	@Query(value ="update ARTICLE a set a.ISSHOW=?1")
+	@Modifying
+	public int updateISSHOW(int ISSHOW );
+	
 	@Query(value ="select a from ARTICLE a where a.TITLE like %?1% ")
 	public List<ARTICLE>findByTITLELike(String TITLE);
 	
