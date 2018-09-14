@@ -26,7 +26,7 @@ public class ArticleServiceimpl implements ArticleService{
 	@Autowired
 	
 	ARTICLERepository articlerepository;
-	public Page<ARTICLE> findARTICLECriteria(Integer page, Integer size) {
+	public Page<ARTICLE> findARTICLECriteria(Integer page, Integer size,final String ISSHOW) {
 		// TODO Auto-generated method stub
 		Pageable pageable=new PageRequest(page,size, Sort.Direction.ASC,"ID");
 		
@@ -38,7 +38,7 @@ public class ArticleServiceimpl implements ArticleService{
 				Path<String>ISSHOWPath=root.get("ISSHOW");
 				Path<String>WRITERPath=root.get("WRITER");
 				//Ä¬ÈÏÎªxiaoma
-				query.where(cb.equal(ISSHOWPath, "1"),cb.equal(WRITERPath, "xiaoma"));
+				query.where(cb.equal(ISSHOWPath, ISSHOW),cb.equal(WRITERPath, "xiaoma"));
 				return null;
 			}
 
@@ -48,7 +48,7 @@ public class ArticleServiceimpl implements ArticleService{
 		
 		return  article;
 	}
-	public Page<ARTICLE> findALLByTitle(Integer page, Integer size,final String title) {
+	public Page<ARTICLE> findALLByTitle(Integer page, Integer size,final String title,final String ISSHOW) {
 		// TODO Auto-generated method stub
 		Pageable pageable=new PageRequest(page,size, Sort.Direction.ASC,"ID");
 		Page<ARTICLE>article=articlerepository.findAll(new Specification<ARTICLE>(){
@@ -59,7 +59,7 @@ public class ArticleServiceimpl implements ArticleService{
 				Path<String>TITLEPATH=root.get("TITLE");
 				Path<String>WRITERPATH=root.get("WRITER");
 				
-				query.where(cb.equal(ISSHOWPATH, "1"),cb.like(TITLEPATH, title),cb.like(WRITERPATH, "xiaoma"));
+				query.where(cb.equal(ISSHOWPATH, ISSHOW),cb.like(TITLEPATH, title),cb.like(WRITERPATH, "xiaoma"));
 				return null;
 			}
 			
@@ -69,7 +69,7 @@ public class ArticleServiceimpl implements ArticleService{
 		
 		return article;
 	}
-	public Page<ARTICLE> findByCREATETIMEBetween(Integer page, Integer size, final Date sDate, final Date eDate) {
+	public Page<ARTICLE> findByCREATETIMEBetween(Integer page, Integer size, final Date sDate, final Date eDate,final String ISSHOW) {
 		// TODO Auto-generated method stub
 		Pageable pageable=new PageRequest(page,size,Sort.Direction.ASC,"ID");
 		Page<ARTICLE>article=articlerepository.findAll(new Specification<ARTICLE>(){
@@ -83,7 +83,7 @@ public class ArticleServiceimpl implements ArticleService{
 				Path<Date>CREATETIMEPATH=root.<Date>get("CREATETIME");
 			
 				
-				query.where(cb.equal(ISSHOWPATH, "1"),cb.equal(WRITERPATH, "xiaoma"),cb.between(CREATETIMEPATH, sDate,  eDate));
+				query.where(cb.equal(ISSHOWPATH, ISSHOW),cb.equal(WRITERPATH, "xiaoma"),cb.between(CREATETIMEPATH, sDate,  eDate));
 				
 				
 				return null;
@@ -91,7 +91,7 @@ public class ArticleServiceimpl implements ArticleService{
 			}, pageable);
 		return article;
 	}
-	public Page<ARTICLE> findByCREATETIMELike(Integer page, Integer size, final Date CREATETIME) {
+	public Page<ARTICLE> findByCREATETIMELike(Integer page, Integer size, final Date CREATETIME,final String ISSHOW) {
 		// TODO Auto-generated method stub
 		Pageable pageable=new PageRequest(page,size,Sort.Direction.ASC,"ID");
 		Page<ARTICLE>articles=articlerepository.findAll(new Specification<ARTICLE>(){
@@ -102,11 +102,12 @@ public class ArticleServiceimpl implements ArticleService{
 				Path<String>ISSHOWPATH=root.get("ISSHOW");
 				Path<String>WRITERPATH=root.get("WRITER");
 				Path<String> CREATETIMEPATH=root.get("CREATETIME");
-				query.where(cb.equal(ISSHOWPATH, "1"),cb.equal(CREATETIMEPATH, CREATETIME),cb.like(WRITERPATH, "xiaoma"));
+				query.where(cb.equal(ISSHOWPATH, ISSHOW),cb.equal(CREATETIMEPATH, CREATETIME),cb.like(WRITERPATH, "xiaoma"));
 				return null;
 			}}, pageable);
 		return articles;
 	}
+
 	
 
 }

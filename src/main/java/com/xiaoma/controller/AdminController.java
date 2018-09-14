@@ -36,18 +36,21 @@ public class AdminController {
 	}
 
 	@RequestMapping("/Admin/member-list")//文章列表
-	public String AdminMemberList(Model m,@RequestParam(name="pages",defaultValue="0")int page,@RequestParam(name="size",defaultValue="5")int size,@RequestParam(name="title",defaultValue="text")String title
-			,@RequestParam(name="StartDate", defaultValue="startdate")String sDate,@RequestParam(name="EndDate", defaultValue="enddate")String eDate) throws ParseException
+	public String AdminMemberList(Model m,@RequestParam(name="pages",defaultValue="0")int page,
+			@RequestParam(name="size",defaultValue="5")int size,@RequestParam(name="title",defaultValue="text")String title
+			,@RequestParam(name="StartDate", defaultValue="startdate")String sDate,
+			@RequestParam(name="EndDate", defaultValue="enddate")String eDate) throws ParseException
 	{
 		//在这里导入文章列表
 		//实现分页
 	
 		String flag=title;
+		String ISSHOW="1";
 		if(!(sDate.equals("startdate")||eDate.equals("enddate")))
 		{
 			Date sSqlDate=TimeUtil.StringToDate(sDate);
 			Date eSqlDate=TimeUtil.StringToDate(eDate);
-			Page<ARTICLE> article=articleService.findByCREATETIMEBetween(page, size, sSqlDate, eSqlDate);
+			Page<ARTICLE> article=articleService.findByCREATETIMEBetween(page, size, sSqlDate, eSqlDate,ISSHOW);
 			/*
 			
 			System.out.println("article ------1。。。。" +article.getSize());*/
@@ -60,7 +63,7 @@ public class AdminController {
 		{
 			Date SqlDate=TimeUtil.StringToDate(eDate);
 			System.out.println("enddate ------1。。。。" +eDate);
-			Page<ARTICLE> article=articleService.findByCREATETIMELike(page, size, SqlDate);
+			Page<ARTICLE> article=articleService.findByCREATETIMELike(page, size, SqlDate,ISSHOW);
 			m.addAttribute("articles",article);
 			return "thymeleaf/Admin/member-list";
 		}
@@ -68,14 +71,14 @@ public class AdminController {
 		{
 			Date SqlDate=TimeUtil.StringToDate(sDate);
 			System.out.println("startdate ------1。。。。" +sDate);
-			Page<ARTICLE> article=articleService.findByCREATETIMELike(page, size, SqlDate);
+			Page<ARTICLE> article=articleService.findByCREATETIMELike(page, size, SqlDate,ISSHOW);
 			m.addAttribute("articles",article);
 			return "thymeleaf/Admin/member-list";
 		}
 		//根据日期，文章标题查找（这种状态如何）
 		if(!(flag.equals("text")))//equals有效其他无效
 		{
-			Page<ARTICLE> article=articleService.findALLByTitle(page, size, title);
+			Page<ARTICLE> article=articleService.findALLByTitle(page, size, title,ISSHOW);
 			m.addAttribute("articles",article);
 			/*System.out.println("title ------1。。。。" +title);
 			System.out.println("flag ------1。。。。" +flag);
@@ -87,30 +90,76 @@ public class AdminController {
 		{
 			//文章标题查找模糊查找
 			Page<ARTICLE> article;/*articleService.findARTICLECriteria(page, size);**/
-			article=articleService.findARTICLECriteria(page, size);
+			article=articleService.findARTICLECriteria(page, size,ISSHOW);
 			m.addAttribute("articles",article);
 			System.out.println("title ------2.。。。。" +title);
 			return "thymeleaf/Admin/member-list";
 		}
 		
-	
-		
-		
-		//实现批量删除，在主页不显示
-			
-		
-		
-		
-		//重新编写文章（更新操作）
-
 		
 	}
 	
 	
 	@RequestMapping("/Admin/member-del")//删除文章
-	public String AdminMemberDel()
-	{
-		return "thymeleaf/Admin/member-del";
+	public String AdminMemberDel(
+			Model m,@RequestParam(name="pages",defaultValue="0")int page,
+			@RequestParam(name="size",defaultValue="5")int size,@RequestParam(name="title",defaultValue="text")String title
+			,@RequestParam(name="StartDate", defaultValue="startdate")String sDate,
+			@RequestParam(name="EndDate", defaultValue="enddate")String eDate
+			) throws ParseException
+	  {
+		String flag=title;
+		String ISSHOW="2";
+		if(!(sDate.equals("startdate")||eDate.equals("enddate")))
+		{
+			Date sSqlDate=TimeUtil.StringToDate(sDate);
+			Date eSqlDate=TimeUtil.StringToDate(eDate);
+			Page<ARTICLE> article=articleService.findByCREATETIMEBetween(page, size, sSqlDate, eSqlDate,ISSHOW);
+			/*
+			
+			System.out.println("article ------1。。。。" +article.getSize());*/
+			
+			m.addAttribute("articles",article);
+			return "thymeleaf/Admin/member-del";
+		
+		}
+		else if(sDate.equals("startdate")&&!eDate.equals("enddate"))
+		{
+			Date SqlDate=TimeUtil.StringToDate(eDate);
+			System.out.println("enddate ------1。。。。" +eDate);
+			Page<ARTICLE> article=articleService.findByCREATETIMELike(page, size, SqlDate,ISSHOW);
+			m.addAttribute("articles",article);
+			return "thymeleaf/Admin/member-del";
+		}
+		else if(eDate.equals("enddate")&&!sDate.equals("startdate"))
+		{
+			Date SqlDate=TimeUtil.StringToDate(sDate);
+			System.out.println("startdate ------1。。。。" +sDate);
+			Page<ARTICLE> article=articleService.findByCREATETIMELike(page, size, SqlDate,ISSHOW);
+			m.addAttribute("articles",article);
+			return "thymeleaf/Admin/member-del";
+		}
+		//根据日期，文章标题查找（这种状态如何）
+		if(!(flag.equals("text")))//equals有效其他无效
+		{
+			Page<ARTICLE> article=articleService.findALLByTitle(page, size, title,ISSHOW);
+			m.addAttribute("articles",article);
+			/*System.out.println("title ------1。。。。" +title);
+			System.out.println("flag ------1。。。。" +flag);
+			System.out.println("article ------1。。。。。" +article.getNumber());*/
+			return "thymeleaf/Admin/member-del";
+			
+		}
+		else
+		{
+			//文章标题查找模糊查找
+			Page<ARTICLE> article;/*articleService.findARTICLECriteria(page, size);**/
+			article=articleService.findARTICLECriteria(page, size,ISSHOW);
+			m.addAttribute("articles",article);
+			System.out.println("title ------2.。。。。" +title);
+			return "thymeleaf/Admin/member-del";
+		}
+		
 		
 	}
 	@RequestMapping("/Admin/member-edit")//文章上传

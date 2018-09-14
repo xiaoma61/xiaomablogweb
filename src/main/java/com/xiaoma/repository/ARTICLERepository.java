@@ -25,8 +25,8 @@ public interface ARTICLERepository extends JpaRepository<ARTICLE,Integer>{
 	@Modifying
 	public int updateISSHOW(int ISSHOW );
 	
-	@Query(value ="select a from ARTICLE a where a.TITLE like %?1% ")
-	public List<ARTICLE>findByTITLELike(String TITLE);
+	@Query(value ="select a from ARTICLE a where a.TITLE like %?1% and a.ISSHOW=?2 ")
+	public List<ARTICLE>findByTITLELike(String TITLE,int ISSHOW);
 	
 	@Query(value ="select a from ARTICLE a where a.CREATETIME like %?1% ")
 	public List<ARTICLE>findByCREATETIMELike(Date CREATETIME);
@@ -38,6 +38,12 @@ public interface ARTICLERepository extends JpaRepository<ARTICLE,Integer>{
 	@Query(value ="update ARTICLE a set a.TITLE=?1,  a.INTRODUCTION=?2 , a.LABEL=?3 , a.CONTENT=?4  where a.ID =?5 ")
 	@Modifying
 	public int updateByID(String TITLE,String INTRODUCTION,String LABEL,String CONTENT,int ID);
+	
+	/*@Query(value ="delete a from ARTICLE a where a.ID =?1 ")
+	@Modifying
+
+	public int DeteleByID(int ID);*/
+	
 	
 	
 	

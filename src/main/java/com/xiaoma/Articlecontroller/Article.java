@@ -92,10 +92,10 @@ public @ResponseBody String uploadImg(@RequestParam("thumbnail")MultipartFile fi
 }
 //删除页面数据不显示
 @RequestMapping(value="/articles/dodelete")
-public void Dodelete(@RequestParam("id")int ID)
+public void Dodelete(@RequestParam("id")int ID,@RequestParam(name="isshow",defaultValue="1")int isshow)
 {
 	
-	articleRepository.updateISSHOWByID(2,ID);
+	articleRepository.updateISSHOWByID(isshow,ID);
 
 }
 
@@ -106,12 +106,19 @@ public void DodeleteALL()
 	articleRepository.updateISSHOW(2);
 
 }
+@RequestMapping(value="/articles/dodeleteReal")
+public void DodeleteReal(@RequestParam(name="ID")int ID)
+{
+	
+	articleRepository.delete(ID);
+
+}
 //实现模糊查询和百度词汇
 @RequestMapping(value="/articles/dofindtitle" , method = RequestMethod.POST)
 @ResponseBody
-public List<ARTICLE> DofindTitle(@RequestParam("Title")String Title)
+public List<ARTICLE> DofindTitle(@RequestParam("Title")String Title,@RequestParam(name="isshow")int ISSHOW)
 {
-	List<ARTICLE>titles=articleRepository.findByTITLELike(Title);
+	List<ARTICLE>titles=articleRepository.findByTITLELike(Title,ISSHOW);
 	if(Title==""||Title==null)
 	{
 		//提取前五个
@@ -128,8 +135,6 @@ public List<ARTICLE> DofindTitle(@RequestParam("Title")String Title)
 		return titles;
 	}
 	
-
-
 	
 }
 
@@ -141,6 +146,9 @@ public String DoReEdit(@RequestParam(name="article")String articletext,@RequestP
 	//更新完成调整
 	return "redirect:/Admin/AdminReEdit?ID="+ID;
 }
+
+
+
 
 }
 

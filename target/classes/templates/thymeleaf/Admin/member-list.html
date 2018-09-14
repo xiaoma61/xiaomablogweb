@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../js/xadmin.js"></script>
     <script type="text/javascript" src="../js/FindKeyWord.js"></script>
      <script type="text/javascript" src="../js/json2.js"></script>
+     <script type="text/javascript" src="../js/DoDel.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/htmleaf-demo.css"/>
 	<link rel="stylesheet" type="text/css" href="../css/Hover.css"/>
 	<!--  -->
@@ -68,12 +69,7 @@
                                 文章上传
                             </a>
                         </li>
-                        <li>
-                            <a href="/Admin/member-level">
-                                <i class="iconfont">&#xe6a7;</i>
-                                博客管理
-                            </a>
-                        </li>
+                       
                         <li>
                             <a href="/Admin/member-del">
                                 <i class="iconfont">&#xe6a7;</i>
@@ -178,7 +174,7 @@
                       <input class="layui-input" placeholder="截止日" id="LAY_demorange_e" name="EndDate"/>
                     </div>
                     <div class="layui-input-inline">
-                      <input type="text" name="title" id="title" placeholder="请输入文章标题" autocomplete="off" class="layui-input" onkeyup="sendRequest()" onclick="hiddenSuggest()" onfocus="sendRequest()"/>
+                      <input type="text" name="title" id="title" placeholder="请输入文章标题" autocomplete="off" class="layui-input" onkeyup="sendRequest('1')" onclick="hiddenSuggest()" onfocus="sendRequest('1')"/>
                     
                       <div id="suggest" style=" color:black;width:100%;display:none; z-index:1000; position:absolute; border:0.5px solid #dbdbdb;"  ></div>
 				
@@ -260,17 +256,17 @@
                             </span>
                         </td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" onclick="member_stop(this,'10001')" href="javascript:;" title="停用">
+                           <!--  <a style="text-decoration:none" onclick="member_stop(this,'10001')" href="javascript:;" title="停用">
                                 <i class="layui-icon">&#xe601;</i>
-                            </a>
+                            </a> -->
                             <a title="编辑"  th:href="@{'/Admin/AdminReEdit?ID='+${article.ID}}"
                             class="ml-5" style="text-decoration:none">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
-                            <a style="text-decoration:none"  onclick="member_password('修改密码','member-password.html','10001','600','400')"
+                           <!--  <a style="text-decoration:none"  onclick="member_password('修改密码','member-password.html','10001','600','400')"
                             href="javascript:;" title="修改密码">
                                 <i class="layui-icon">&#xe631;</i>
-                            </a>
+                            </a> -->
                             <a title="删除" href="javascript:;" th:onclick="'javascript:member_del(this,'+${article.ID}+')'" 
                             style="text-decoration:none">
                                 <i class="layui-icon">&#xe640;</i>
@@ -411,48 +407,11 @@
                 //发异步删除数据
                 $(obj).parents("tr").remove();
                 layer.msg('已删除!',{icon:1,time:1000});
-                del(id);
+                del(id,'2');
             });
         }
         
-        function del(id)
-        {
-        	$.ajax({
-        	type:"post",
-        	url:"/articles/dodelete?id="+id,
-        	async:false,
-        	success:function()
-        	{
-        		/* alert("成功"); */
-        	},
-        	error:function()
-        	{
-        		/* alert("失败"); */
-        	}
-        	
-        	
-        	})
-        }
-         function delALL()
-        {
-        	$.ajax({
-        	type:"post",
-        	url:"/articles/dodeleteALL",
-        	async:false,
-        	success:function()
-        	{
-        		/* alert("成功"); */
-        	},
-        	error:function()
-        	{
-        		/* alert("失败"); */
-        	}
-        	
-        	
-        	})
-        }
-        
-        
+       
         </script>
         
       

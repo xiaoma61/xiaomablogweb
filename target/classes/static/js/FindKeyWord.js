@@ -12,7 +12,7 @@ function clearSuggest(){
 function displaySuggest(){
     document.getElementById('suggest').style.display="block";
     }
-function sendRequest()
+function sendRequest(isshow)
 {
 	 clearSuggest();
 	 var title= document.getElementById('title').value;
@@ -23,7 +23,7 @@ function sendRequest()
  
 	 $.ajax({
 		 type:"post",
-		 url:"/articles/dofindtitle?Title="+title,
+		 url:"/articles/dofindtitle?Title="+title+"&isshow="+isshow,
 		 contentType: "application/json; charset=utf-8",
 		 dataType:"json",
 		 data:{},

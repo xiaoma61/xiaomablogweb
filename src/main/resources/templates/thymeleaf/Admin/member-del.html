@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>后台登录-X-admin1.1</title>
@@ -12,7 +12,11 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
     <script src="../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../js/xadmin.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="../css/Hover.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/htmleaf-demo.css"/>
+      <script type="text/javascript" src="../js/FindKeyWord.js"></script>
+     <script type="text/javascript" src="../js/json2.js"></script>
+ <script type="text/javascript" src="../js/DoDel.js"></script>
 </head>
 <body>
     <!-- 顶部开始 -->
@@ -64,12 +68,7 @@
                                 文章上传
                             </a>
                         </li>
-                        <li>
-                            <a href="/Admin/member-level">
-                                <i class="iconfont">&#xe6a7;</i>
-                                博客管理
-                            </a>
-                        </li>
+                       
                         <li>
                             <a href="/Admin/member-del">
                                 <i class="iconfont">&#xe6a7;</i>
@@ -163,18 +162,19 @@
         <div class="page-content">
           <div class="content">
             <!-- 右侧内容框架，更改从这里开始 -->
-            <form class="layui-form xbs" action="" >
+            <form class="layui-form xbs" action="/Admin/member-del" method="Get">
                 <div class="layui-form-pane" style="text-align: center;">
                   <div class="layui-form-item" style="display: inline-block;">
                     <label class="layui-form-label xbs768">日期范围</label>
                     <div class="layui-input-inline xbs768">
-                      <input class="layui-input" placeholder="开始日" id="LAY_demorange_s"/>
+                      <input class="layui-input" placeholder="开始日" id="LAY_demorange_s" name="StartDate"/>
                     </div>
                     <div class="layui-input-inline xbs768">
-                      <input class="layui-input" placeholder="截止日" id="LAY_demorange_e"/>
+                      <input class="layui-input" placeholder="截止日" id="LAY_demorange_e" name="EndDate"/>
                     </div>
                     <div class="layui-input-inline">
-                      <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input"/>
+                      <input type="text" name="title" id="title" placeholder="请输入文章标题" autocomplete="off" class="layui-input" onkeyup="sendRequest('2')" onclick="hiddenSuggest()" onfocus="sendRequest('2')"/>
+                    <div id="suggest" style=" color:black;width:100%;display:none; z-index:1000; position:absolute; border:0.5px solid #dbdbdb;"  ></div>
                     </div>
                     <div class="layui-input-inline" style="width:80px">
                         <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -184,31 +184,29 @@
             </form>
             <xblock><button class="layui-btn layui-btn-danger" onclick="recoverAll()"><i class="layui-icon">&#xe640;</i>批量恢复</button><span class="x-right" style="line-height:40px">共有数据：88 条</span></xblock>
             <table class="layui-table">
-                <thead>
+               <thead>
                     <tr>
-                        <th>
-                            <input type="checkbox" name="" value=""/>
-                        </th>
+                      
                         <th>
                             ID
                         </th>
                         <th>
-                            用户名
+                           类型
                         </th>
                         <th>
-                            性别
+                            作者
                         </th>
                         <th>
-                            手机
+                            标题
                         </th>
                         <th>
-                            邮箱
+                            访问人数
                         </th>
                         <th>
-                            地址
+                            点赞数
                         </th>
                         <th>
-                            加入时间
+                           创建 时间
                         </th>
                         <th>
                             状态
@@ -219,32 +217,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <input type="checkbox" value="1" name=""/>
+                    <tr th:each="article:${articles}">
+                       
+                        <td th:text="${article.ID}">
+                      
                         </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
+                        <td th:text="${article.LABEL}">
                             <u style="cursor:pointer" onclick="member_show('张三','member-show.html','10001','360','400')">
-                                小明
+                              
                             </u>
                         </td>
-                        <td >
-                            男
+                        <td  th:text="${article.WRITER}">
+                          
                         </td>
-                        <td >
-                            13000000000
+                        <td th:text="${article.TITLE}">
+                          
                         </td>
-                        <td >
-                            admin@mail.com
+                        <td th:text="${article.VISITORSNUMS}">
+                           
                         </td>
-                        <td >
-                            北京市 海淀区
+                        <td th:text="${article.PRAISENUMS}">
+                        
                         </td>
-                        <td>
-                            2017-01-01 11:11:42
+                        <td th:text="${article.CREATETIME}">
+                          
                         </td>
                         <td class="td-status">
                             <span class="layui-btn layui-btn-danger layui-btn-mini">
@@ -252,10 +248,10 @@
                             </span>
                         </td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" onclick="member_recover(this,'10001')" href="javascript:;" title="恢复">
+                            <a style="text-decoration:none" th:onclick=" 'javascript:member_recover(this,'+${article.ID}+')'" href="javascript:;" title="恢复">
                                 <i class="layui-icon">&#xe618;</i>
                             </a>
-                            <a title="彻底删除" href="javascript:;" onclick="member_unset(this,'1')" 
+                            <a title="彻底删除" href="javascript:;" th:onclick=" 'javascript:member_unset(this,'+${article.ID} +')'" 
                             style="text-decoration:none">
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
@@ -263,6 +259,7 @@
                     </tr>
                 </tbody>
             </table>
+            <div th:include="thymeleaf/Page :: pager" th:remove="tag" id="pages"></div>
             <!-- 右侧内容框架，更改从这里结束 -->
           </div>
         </div>
@@ -308,7 +305,7 @@
 
           
           var start = {
-            min: laydate.now()
+            min:  '2009-06-16 23:59:59'
             ,max: '2099-06-16 23:59:59'
             ,istoday: false
             ,choose: function(datas){
@@ -318,7 +315,7 @@
           };
           
           var end = {
-            min: laydate.now()
+            min: '2009-06-16 23:59:59'
             ,max: '2099-06-16 23:59:59'
             ,istoday: false
             ,choose: function(datas){
@@ -342,6 +339,7 @@
                 layer.confirm('确认要批量恢复吗？',function(index){
                     //捉到所有被选中的，发异步进行恢复
                     layer.msg('恢复成功', {icon: 1});
+                    
                 });
              }
 
@@ -351,6 +349,7 @@
                     //发异步删除数据
                     $(obj).parents("tr").remove();
                     layer.msg('已恢复!',{icon:1,time:1000});
+                     del(id,'1');
                 });
             }
             /*用户-彻底删除*/
@@ -359,18 +358,10 @@
                     //发异步删除数据
                     $(obj).parents("tr").remove();
                     layer.msg('已彻底删除',{icon:1,time:1000});
+                    delRealID(id);
                 });
             }
         </script>
-        <script>
-        //百度统计可去掉
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-        })();
-        </script>
+        
 </body>
 </html>
