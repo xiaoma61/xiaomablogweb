@@ -32,6 +32,12 @@ public interface ARTICLERepository extends JpaRepository<ARTICLE,Integer>{
 	public List<ARTICLE>findByCREATETIMELike(Date CREATETIME);
 	
 	
+	@Query(value ="select a from ARTICLE a where a.ID =?1 ")
+	public ARTICLE findByID(int ID);
+	
+	@Query(value ="update ARTICLE a set a.TITLE=?1,  a.INTRODUCTION=?2 , a.LABEL=?3 , a.CONTENT=?4  where a.ID =?5 ")
+	@Modifying
+	public int updateByID(String TITLE,String INTRODUCTION,String LABEL,String CONTENT,int ID);
 	
 	
 	

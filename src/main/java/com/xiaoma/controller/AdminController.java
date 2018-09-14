@@ -105,48 +105,7 @@ public class AdminController {
 
 		
 	}
-	/*@RequestMapping("/Admin/member-listfindtitle")//文章列表
-	public String AdminMemberListFindTitle(Model m,@RequestParam(name="pages",defaultValue="0")int page,@RequestParam(name="size",defaultValue="5")int size,@RequestParam(name="title",defaultValue="")String title)
-	{
-		//在这里导入文章列表
-		//实现分页
 	
-		String flag=title;
-		if(!(flag.equals("")))
-		{
-			Page<ARTICLE> article=articleService.findALLByTitle(page, size, title);
-			m.addAttribute("articles",article);
-			System.out.println("title ------1。。。。" +title);
-			System.out.println("flag ------1。。。。" +flag);
-			System.out.println("article ------1。。。。。" +article.getNumber());
-			return "thymeleaf/Admin/member-list";
-			
-		}
-		else
-		{
-			Page<ARTICLE> article;articleService.findARTICLECriteria(page, size);*
-			article=articleService.findARTICLECriteria(page, size);
-			m.addAttribute("articles",article);
-			System.out.println("title ------2.。。。。" +title);
-			return "thymeleaf/Admin/member-list";
-		}
-		
-		//删除文章（更新状态）
-		
-		//文章标题查找模糊查找
-		
-		
-		
-		//实现批量删除，在主页不显示
-			
-		
-		//根据日期，文章标题查找（这种状态如何）
-		
-		//重新编写文章（更新操作）
-
-		
-	}
-	*/
 	
 	@RequestMapping("/Admin/member-del")//删除文章
 	public String AdminMemberDel()
@@ -227,13 +186,14 @@ public class AdminController {
 		
 	}
 	@RequestMapping("/Admin/addlogin")//登录
-	public String AdminAddLogin(HttpServletRequest request,HttpSession session)
+	public String AdminAddLogin(HttpServletRequest request)
 	{
 		String name=request.getParameter("name");
 		String password=request.getParameter("password");
 		ADMINISTRATOR administrator=administratorreposity.findBynameAndPassword(name, password);
 		if(administrator!=null){
 			//成功登陆回到后台
+			HttpSession session=request.getSession();
 			session.setAttribute("name", name);//存储
 			return "redirect:/Admin/index";
 		}else
@@ -242,6 +202,18 @@ public class AdminController {
 		}
 		
 		
+		
+	}
+	//重新编辑
+	@RequestMapping(value="/Admin/AdminReEdit")
+	public String AdminReEdit(Model m,@RequestParam(value="ID")int ID)
+	{
+		ARTICLE a=new ARTICLE();
+		//查找
+		a=articleRepository.findByID(ID);
+		m.addAttribute("articles",a);
+		
+		return "thymeleaf/Admin/Remeber-edit";
 		
 	}
 	

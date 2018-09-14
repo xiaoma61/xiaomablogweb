@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <title>后台登录-X-admin1.1</title>
@@ -22,6 +22,22 @@
 <link rel="stylesheet" type="text/css" href="../css/selectFilter.css" />
 <script type="text/javascript" src="../js/selectFilter.js"></script>
 
+<script th:inline="javascript">
+function SetTinyMceContent(){ 
+ 
+ 
+  tinyMCE.activeEditor.getBody().innerHTML=[[${articles.CONTENT}]];
+  document.getElementById("title").value=[[${articles.TITLE}]];
+  document.getElementById("ID").value=[[${articles.ID}]];
+ //将数据导入
+
+ }
+ window.onload=function()
+ {
+ SetTinyMceContent();
+ }  
+
+</script>
 </head>
 <body>
 	<!-- 顶部开始 -->
@@ -177,7 +193,7 @@
           </div>
         </div>
 		<!-- 左侧菜单结束 -->
-		  <form  method="post" action="/goArticle" style="margin-left:15%;" onsubmit="return formsubmit()">
+		  <form  method="post" action="/articles/doreEdit" style="margin-left:15%;" onsubmit="return formsubmit()">
 		  <div class="layui-form-pane">
                   <div class="layui-form-item" style="display: inline-block;width:100%;">
                     <label class="layui-form-label xbs768">主题</label>
@@ -185,17 +201,19 @@
                       <input class="layui-input" placeholder="主题"  name="title" id="title"/>
                     </div>
                     <div class="layui-input-inline xbs768"  style="width:66%;margin-bottom:2%;">
-                      <textarea class="layui-input" placeholder="简介"  style="width:100%;height:25%;" name="introduction" id="introduction"></textarea>
+                      <textarea class="layui-input" placeholder="简介"  style="width:100%;height:25%;" 
+                      th:text="${articles.INTRODUCTION}"
+                      name="introduction" id="introduction"></textarea>
                       
                     </div>        
                   </div>
           <div class="filter-box" >
 			<div class="filter-text" style="color:black">
-			<input class="filter-title" type="text"  id="label" style="color:black"/>
-			<i class="icon icon-filter-arrow"></i>
+			<input class="filter-title" type="text"  id="label" style="color:black" />
+			<i class="icon icon-filter-arrow"></i> 
 		</div>
   			<select name="label">
-  				<option selected="selected" style="color:black">分类</option>
+  				<option selected="selected" style="color:black" th:text="${articles.LABEL}">分类</option>
   				<option value="Java基础" style="color:black">Java基础</option>
   				<option value="数据库">数据库</option>
   				<option value="前端">前端</option>
@@ -220,6 +238,7 @@
                   
                 </div> 
        <input class="editor" name="article" id="content"/> 
+       <input type="text" class="layui-btn" style="display:none;" id="ID" name="ID"/> 
        <input type="submit" class="layui-btn" /> 
     </form>
 	</div>

@@ -133,5 +133,14 @@ public List<ARTICLE> DofindTitle(@RequestParam("Title")String Title)
 	
 }
 
+@RequestMapping(value="/articles/doreEdit")
+public String DoReEdit(@RequestParam(name="article")String articletext,@RequestParam(name="title")String title,@RequestParam(name="label")String label,@RequestParam(name="introduction")String introduction,@RequestParam(name="ID")int ID)
+{
+
+	articleRepository.updateByID(title, introduction, label,articletext , ID);
+	//更新完成调整
+	return "redirect:/Admin/AdminReEdit?ID="+ID;
+}
+
 }
 
