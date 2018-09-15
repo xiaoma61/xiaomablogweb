@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xiaoma.entity.ARTICLE;
+import com.xiaoma.repository.ARTICLERepository;
 import com.xiaoma.service.ArticleService;
 @Controller
 public class MainController {
 	@Autowired()
 	private  ArticleService articleService;
+	@Autowired()
+	private ARTICLERepository articleRepository;
 	
 	@RequestMapping("/index")
 	public String index(Model m,@RequestParam(name="pages",defaultValue="0")int page,
@@ -35,8 +38,42 @@ public class MainController {
 		return "thymeleaf/gbook";
 	}
 	@RequestMapping("/info")
-	public String info()
+	public String info(Model m,@RequestParam(name="ID",defaultValue="-1")int ID)
 	{
+		//跳转文章
+		ARTICLE a=articleRepository.findByID(ID);
+		m.addAttribute("articles",a);
+		
+		ARTICLE Nexta=articleRepository.findByID(ID+1);
+		m.addAttribute("Nextarticles",Nexta);
+		
+		ARTICLE Lasta=articleRepository.findByID(ID-1);
+		m.addAttribute("Lastarticles",Lasta);
+		
+		
+		if(ID==-1)
+		{
+			
+			return "redirect:index";
+		}
+		//实现标签跳转
+		
+		//上一篇文章id-1，下一篇文章id+1
+		//如果没有返回列表
+		
+		//相关文章标题模糊搜索
+		
+		
+		//评论区。。先做一个模板，在后台操作
+		
+		//登陆操作
+		
+		
+		//要不要做个人中心
+		
+		
+		
+		
 		return "thymeleaf/info";
 	}
 	@RequestMapping("/list")

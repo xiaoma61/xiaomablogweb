@@ -39,10 +39,7 @@ public interface ARTICLERepository extends JpaRepository<ARTICLE,Integer>{
 	@Modifying
 	public int updateByID(String TITLE,String INTRODUCTION,String LABEL,String CONTENT,int ID);
 	
-	/*@Query(value ="delete a from ARTICLE a where a.ID =?1 ")
-	@Modifying
 
-	public int DeteleByID(int ID);*/
 	
 	
 	
