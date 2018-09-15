@@ -82,18 +82,8 @@ window.onload = function ()
   </ul>
 </div>
 <article>
-  <div class="blogs" th:each=" article:${articles}">
-    <li> <span class="blogpic"><a href="/"><img src="images/text02.jpg"/></a></span>
-      <h3 class="blogtitle"><a th:href=" '/info?ID='+${article.ID}" th:text="${article.TITLE}">陌上花开，可缓缓归矣</a></h3>
-      <div class="bloginfo">
-        <p th:text="${article.INTRODUCTION}"></p>
-      </div>
-      <div class="autor"><span class="lm"><a href="/" title="CSS3|Html5" target="_blank" class="classname" th:text="${article.LABEL}">CSS3|Html5</a></span><span class="dtime" th:text="${article.CREATETIME}"></span>
-      <span class="viewnum" th:text="${article.VISITORSNUMS}">浏览（<a href="/">0</a>）</span><span class="readmore"><a th:href=" '/info?ID='+${article.ID}" >阅读原文</a></span></div>
-    </li>
-    
-  </div>
- 
+
+<div th:include="thymeleaf/Blog ::blog " th:remove="tag"></div> 
   <div class="sidebar" style="position:absolute;right:2%;">
     <div class="about">
       <div class="avatar"> <img src="images/avatar.jpg" alt=""/> </div>
@@ -149,15 +139,7 @@ window.onload = function ()
         <li><b><a href="/download/div/2014-02-19/649.html" target="_blank"> 个人博客模板（2014草根寻梦）30...</a></b>
           <p><i><img src="images/b03.jpg"/></i>2014第一版《草根寻梦》个人博客模板简单、优雅、稳重、大气、低调。专为年轻有志向却又低调的草根站长设...</p>
         </li>
-        <li><b><a href="/download/div/2013-08-08/571.html" target="_blank">黑色质感时间轴html5个人博客模板30...</a></b>
-          <p><i><img src="images/b04.jpg"/></i>黑色时间轴html5个人博客模板颜色以黑色为主色，添加了彩色作为网页的一个亮点，导航高亮显示、banner图片...</p>
-        </li>
-        <li><b><a href="/download/div/2014-09-18/730.html" target="_blank">情侣博客模板系列之《回忆》Html30...</a></b>
-          <p><i><img src="images/b05.jpg"/></i>Html5+css3情侣博客模板，主题《回忆》，使用css3技术实现网站动画效果，主题《回忆》,分为四个主要部分，...</p>
-        </li>
-        <li><b><a href="/download/div/2014-04-17/661.html" target="_blank">黑色Html5个人博客模板主题《如影随形》30...</a></b>
-          <p><i><img src="images/b06.jpg"/></i>014第二版黑色Html5个人博客模板主题《如影随形》，如精灵般的影子会给人一种神秘的感觉。一张剪影图黑白...</p>
-        </li>
+        
        
       </ul>
     </div>

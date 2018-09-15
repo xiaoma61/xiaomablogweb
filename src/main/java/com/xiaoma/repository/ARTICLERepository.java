@@ -41,6 +41,8 @@ public interface ARTICLERepository extends JpaRepository<ARTICLE,Integer>{
 	
 
 	
+
+	
 	
 	
 	

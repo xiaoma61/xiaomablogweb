@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+ 
+	<meta charset="UTF-8"/>
+	<title></title>
+
+	
+	<style type="text/css">
+	
+	</style>
+  </head>
+  
+  <body>
+  <div th:fragment="blog">
+    <div class="blogs" th:each=" article:${articles}">
+     <span class="blogpic"><a href="/"><img src="images/text02.jpg"/></a></span>
+      <h3 class="blogtitle"><a th:href=" '/info?ID='+${article.ID}" th:text="${article.TITLE}">陌上花开，可缓缓归矣</a></h3>
+      <div class="bloginfo">
+        <p th:text="${article.INTRODUCTION}"></p>
+      </div>
+      <div class="autor"><span class="lm"><a href="/" title="CSS3|Html5" target="_blank" class="classname" th:text="${article.LABEL}">CSS3|Html5</a></span><span class="dtime" th:text="${article.CREATETIME}"></span>
+      <span class="viewnum" th:text="${article.VISITORSNUMS}">浏览（<a href="/">0</a>）</span><span class="readmore"><a th:href=" '/info?ID='+${article.ID}" >阅读原文</a></span></div>
+  </div>
+  </div>
+  </body>
+</html>

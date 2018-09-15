@@ -107,6 +107,22 @@ public class ArticleServiceimpl implements ArticleService{
 			}}, pageable);
 		return articles;
 	}
+	public Page<ARTICLE> findByLabel(Integer page, Integer size, final String Label, final String ISSHOW) {
+		// TODO Auto-generated method stub
+		Pageable pageable=new PageRequest(page,size,Sort.Direction.ASC,"ID");
+		Page<ARTICLE>articles=articlerepository.findAll(new Specification<ARTICLE>(){
+
+			
+			public Predicate toPredicate(Root<ARTICLE> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				// TODO Auto-generated method stub
+				Path<String>ISSHOWPATH=root.get("ISSHOW");
+				Path<String>WRITERPATH=root.get("WRITER");
+				Path<String>LABELPATH =root.get("LABEL");
+				query.where(cb.equal(ISSHOWPATH, ISSHOW),cb.equal(LABELPATH, Label),cb.like(WRITERPATH, "xiaoma"));
+				return null;
+			}}, pageable);
+		return articles;
+	}
 
 	
 
