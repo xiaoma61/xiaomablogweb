@@ -179,7 +179,7 @@ jQuery(function() {
         //回复@
         var fhN = '回复@'+fhName;
         //var oInput = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.hf-con');
-        var fhHtml = '<div class="hf-con pull-left"> <textarea class="content comment-input hf-input" placeholder="" onkeyup="keyUP(this)"></textarea> <a href="javascript:;" class="hf-pl">评论</a></div>';
+        var fhHtml = '<div class="hf-con pull-left"> <form action="/User/Comment" method="Get" ><textarea class="content comment-input hf-input" placeholder="" name="comment" onkeyup="keyUP(this)"></textarea> <a href="javascript:;" class="hf-pl">评论</a></form></div>';
         //显示回复
         if($(this).is('.hf-con-block')){
             $(this).parents('.date-dz-right').parents('.date-dz').append(fhHtml);

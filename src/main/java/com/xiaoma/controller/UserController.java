@@ -3,6 +3,9 @@ package com.xiaoma.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -122,12 +125,18 @@ public class UserController {
 	}
 	//µ«¬Ω—È÷§
 	@RequestMapping("User/LoginCheck")
-	public String  UserLoginCheck(Model m,@RequestParam("Name")String Name,@RequestParam("Password")String Password)
+	public String  UserLoginCheck(Model m,@RequestParam("Name")String Name,@RequestParam("Password")String Password,HttpServletRequest request)
 	{
 		USERMSG u=userMsgRepository.findUSRByNameAndPASSWORD(Name, Password);
 		if(u!=null)
 		{
-			return "redirect:index";
+			//¥Ê»Î
+			HttpSession session=request.getSession();
+			session.setAttribute("Name", u.getNAME());
+			session.setAttribute("ID",u.getID());
+			System.out.println("Name :" +u.getNAME());
+			System.out.println("ID :"+u.getID());
+			return "redirect:/index";
 			
 		}else
 		{

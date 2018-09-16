@@ -1,6 +1,10 @@
 package com.xiaoma.controller;
 
+import java.sql.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.xiaoma.Util.TimeUtil;
 import com.xiaoma.entity.ARTICLE;
+import com.xiaoma.entity.ARTICLECOMMENT;
+import com.xiaoma.repository.ARTICLECOMMENTRepository;
 import com.xiaoma.repository.ARTICLERepository;
 import com.xiaoma.service.ArticleService;
 @Controller
@@ -18,6 +25,8 @@ public class MainController {
 	private  ArticleService articleService;
 	@Autowired()
 	private ARTICLERepository articleRepository;
+	@Autowired()
+	private ARTICLECOMMENTRepository articlecommentRepository;
 	
 	@RequestMapping("/index")
 	public String index(Model m,@RequestParam(name="pages",defaultValue="0")int page,
@@ -107,7 +116,37 @@ public class MainController {
 	{
 		return "thymeleaf/share";
 	}
-	
+	@RequestMapping("/User/Comment")
+	public String UserComment(@RequestParam(value="comment")String comment,@RequestParam(value="ARTICLEid")int ARTICLEid,HttpServletRequest request)
+	{
+		HttpSession session=request.getSession();
+		
+		
+		if(session.getAttribute("Name")==""||session.getAttribute("Name")==null){
+			return "redirect:/User/Login";
+			
+		}
+		else
+		{
+			//将评论存下来
+			int ID=(Integer) session.getAttribute("ID");
+			int USERID=ID;
+			int PRAISENUMS=0;
+			int ARTICLEID=ARTICLEid;
+			Date time=TimeUtil.GetDate();
+			ARTICLECOMMENT articlecomment=new ARTICLECOMMENT();
+			articlecomment.setArticleid(ARTICLEID);
+			articlecomment.setContent(comment);
+			articlecomment.setTime(time);
+			articlecomment.setPraisenums(PRAISENUMS);
+			articlecomment.setUserid(USERID);
+			articlecommentRepository.save(articlecomment);
+			return "thymeleaf/share";
+				
+			
+		}
+		
+	}
 	
 	//登录验证功能
 	//登录状态功能

@@ -1,5 +1,7 @@
 package com.xiaoma.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 public class ARTICLECOMMENT {
 	int articleid;
 	int id;
-	String time;
+	Date time;
 	int userid;
 	int parentid;
 	String content;
@@ -34,10 +36,11 @@ public class ARTICLECOMMENT {
 	public void setArticleid(int articleid) {
 		this.articleid = articleid;
 	}
-	public String getTime() {
+	
+	public Date getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 	public int getUserid() {

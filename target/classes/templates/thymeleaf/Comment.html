@@ -11,8 +11,13 @@
 <div class="commentAll">
 
     <div class="reviewArea clearfix">
-        <textarea class="content comment-input" placeholder="Please enter a comment&hellip;" onkeyup="keyUP(this)"></textarea>
-        <a href="javascript:;" class="plBtn">评论</a>
+        <form action="/User/Comment" method="Get" >
+        <textarea class="content comment-input" placeholder="Please enter a comment&hellip;" onkeyup="keyUP(this)" name="comment"></textarea>
+         
+         <input class="plBtn" th:value="${articles.ID}"  name="ARTICLEid" type="text" style="display:none;"/>
+         <input class="plBtn" value="评论"  type="submit"/>
+        </form>
+       
     </div>
    
     <div class="comment-show">
