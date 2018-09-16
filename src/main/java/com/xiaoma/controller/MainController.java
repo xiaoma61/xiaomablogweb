@@ -97,10 +97,10 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/list")
+	@RequestMapping("/Comment")
 	public String list()
 	{
-		return "thymeleaf/list";
+		return "thymeleaf/Comment";
 	}
 	@RequestMapping("/share")
 	public String share()

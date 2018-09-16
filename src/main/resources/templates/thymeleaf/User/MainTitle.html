@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<meta charset="UTF-8"/>
+    <title>Titlepanel.html</title>
+  </head>
+  
+  <body>
+ <div th:fragment="MainTitle">
+ <ul class="list-unstyled side-menu">
+                    <li>
+                        <a class="sa-side-home" href="/User/index">
+                            <span class="menu-item">Dashboard</span>
+                        </a>
+                    </li>
+                   
+                    <li class="active">
+                        <a class="sa-side-widget" href="/User/calendar">
+                            <span class="menu-item">Widgets</span>
+                        </a>
+                    </li>
+                    
+                  
+                    <li>
+                        <a class="sa-side-calendar" href="/User/ContentWidgets">
+                            <span class="menu-item">Calendar</span>
+                        </a>
+                    </li>
+                  
+                </ul>
+ </div>
+  </body>
+</html>
