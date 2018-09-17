@@ -11,67 +11,67 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ARTICLECOMMENT")
 public class ARTICLECOMMENT {
-	int articleid;
-	int id;
-	Date time;
-	int userid;
-	int parentid;
-	String content;
-	int  belongid;
-	int praisenums;
+	int ARTICLEID;
+	int ID;
+	Date TIME;
+	int USERID;
+	int PARENTID;
+	String CONTENT;
+	int  BELONGID;
+	int PRAISENUMS;
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="ARTICLECOMMENTId")
 	@SequenceGenerator(name="ARTICLECOMMENTId",initialValue=1,allocationSize=1,sequenceName="ARTICLECOMMENT_SEQUENCE")//ÐòÁÐÉú³ÉÆ÷
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
+	}
+	public int getARTICLEID() {
+		return ARTICLEID;
+	}
+	public void setARTICLEID(int aRTICLEID) {
+		ARTICLEID = aRTICLEID;
+	}
 	
-	public int getId() {
-		return id;
+	public Date getTIME() {
+		return TIME;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setTIME(Date tIME) {
+		TIME = tIME;
 	}
-	public int getArticleid() {
-		return articleid;
+	public int getUSERID() {
+		return USERID;
 	}
-	public void setArticleid(int articleid) {
-		this.articleid = articleid;
+	public void setUSERID(int uSERID) {
+		USERID = uSERID;
 	}
-	
-	public Date getTime() {
-		return time;
+	public int getPARENTID() {
+		return PARENTID;
 	}
-	public void setTime(Date time) {
-		this.time = time;
+	public void setPARENTID(int pARENTID) {
+		PARENTID = pARENTID;
 	}
-	public int getUserid() {
-		return userid;
+	public String getCONTENT() {
+		return CONTENT;
 	}
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setCONTENT(String cONTENT) {
+		CONTENT = cONTENT;
 	}
-	public int getParentid() {
-		return parentid;
+	public int getBELONGID() {
+		return BELONGID;
 	}
-	public void setParentid(int parentid) {
-		this.parentid = parentid;
+	public void setBELONGID(int bELONGID) {
+		BELONGID = bELONGID;
 	}
-	public String getContent() {
-		return content;
+	public int getPRAISENUMS() {
+		return PRAISENUMS;
 	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public int getBelongid() {
-		return belongid;
-	}
-	public void setBelongid(int belongid) {
-		this.belongid = belongid;
-	}
-	public int getPraisenums() {
-		return praisenums;
-	}
-	public void setPraisenums(int praisenums) {
-		this.praisenums = praisenums;
+	public void setPRAISENUMS(int pRAISENUMS) {
+		PRAISENUMS = pRAISENUMS;
 	}
 
 }

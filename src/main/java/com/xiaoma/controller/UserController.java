@@ -134,6 +134,7 @@ public class UserController {
 			HttpSession session=request.getSession();
 			session.setAttribute("Name", u.getNAME());
 			session.setAttribute("ID",u.getID());
+			session.setAttribute("IMAGE",u.getIMAGE());
 			System.out.println("Name :" +u.getNAME());
 			System.out.println("ID :"+u.getID());
 			return "redirect:/index";
