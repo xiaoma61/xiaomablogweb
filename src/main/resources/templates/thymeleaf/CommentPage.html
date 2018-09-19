@@ -1,0 +1,63 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title></title>
+
+	
+	<style type="text/css">
+	
+	</style>
+</head>
+  <body>
+    <div th:fragment="CommentPage">
+		        <div class="container">
+		            <div class="row pad-15" th:with="url=${#httpServletRequest.getRequestURL().toString()}, page=${#httpServletRequest.getQueryString() eq null ? ' ' : new String(#httpServletRequest.getQueryString().getBytes('iso8859-1'),'UTF-8') +'&amp;Page' }">
+		                <div class="col-md-12" th:with="frag=${#strings.substringBefore(page,'&amp;Page')},frag=${frag} eq null ? '' : ${frag} ,url=${url}+'?'+ ${frag}" >
+		                    <nav class="pagination-outer" aria-label="Page navigation">
+		                        <ul class="pagination">
+		                            <!-- <li class="page-item"><a class="page-link" th:text="${page}">首页</a></li> -->
+		                            <li class="page-item"><a class="page-link" th:href="@{${url}}">首页</a></li>
+		                             <li class="page-item">
+		                                <a href="#" class="page-link" aria-label="Previous" th:href="@{${url}(Page=${articlecommentuserandcommentList.PageNum})}">
+		                                    <span aria-hidden="true"  th:if="${articlecommentuserandcommentList.hasPrevious()}" >&laquo;</span>
+		                                </a>
+		                            </li>
+		                            <!-- 总页数小于5 -->
+		                            <div th:if="${(articlecommentuserandcommentList.Pages le 5) and  (articlecommentuserandcommentList.Pages gt 0)} " th:remove="tag">
+		                            <div th:each="pg : ${#numbers.sequence(1,articlecommentuserandcommentList.Pages)}" th:remove="tag">
+		                            <span th:if="${pg eq  articlecommentuserandcommentList.getPageNum()} " th:remove="tag">
+		                            <li class="page-item active"><a class="active" th:href="@{${url}(Page=${pg})}" th:text="${pg}"></a></li>
+		                            </span>
+		                              <span th:unless="${pg eq  articlecommentuserandcommentList.getPageNum()} " th:remove="tag">
+		                            <li class="page-item active"><a class="page-link" th:href="@{${url}(Page=${pg})}" th:text="${pg}"></a></li>
+		                            </span>
+		                            </div>
+		                            </div>
+		                            <!-- 总页数大于于5 -->
+		                            <div th:if="${(articlecommentuserandcommentList.Pages gt 5)} " th:remove="tag">
+		                           
+		                            <li class="page-item active" th:if="${articlecommentuserandcommentList.PageNum-2 ge 0}"><a class="page-link" th:href="@{${url}(Page=${articlecommentuserandcommentList.PageNum-2})}" th:text="${articlecommentuserandcommentList.PageNum-2}"></a></li>
+		                       
+		                            <li class="page-item active" th:if="${articlecommentuserandcommentList.PageNum-1 ge 0}"><a class="page-link"  th:href="@{${url}(Page=${articlecommentuserandcommentList.PageNum-1})}" th:text="${articlecommentuserandcommentList.PageNum-1}"></a></li>
+		                            <li class="page-item active"><a class="active" th:href="@{${url}(Page=${articlecommentuserandcommentList.PageNum})}" th:text="${articlecommentuserandcommentList.PageNum}"></a></li>
+		                            <li class="page-item active" th:if="${articlecommentuserandcommentList.PageNum+1 lt articlecommentuserandcommentList.Pages}"><a class="page-link" th:href="@{${url}(Page=${articlecommentuserandcommentList.PageNum+1})}" th:text="${articlecommentuserandcommentList.PageNum+1}"></a></li>
+		                       
+		                            <li class="page-item active" th:if="${articlecommentuserandcommentList.PageNum+2 lt articlecommentuserandcommentList.Pages}"><a class="page-link" th:href="@{${url}(Page=${articlecommentuserandcommentList.PageNum+2})}" th:text="${articlecommentuserandcommentList.PageNum+2}"></a></li>
+		                           
+		                            </div>
+		                           
+		             
+		                            <li class="page-item" th:if="${articlecommentuserandcommentList.hasNext()}" >
+		                                <a href="#" class="page-link" aria-label="Next"  th:href="@{${url}(Page=${articlecommentuserandcommentList.PageNum+1})}">
+		                                    <span aria-hidden="true">&raquo;</span>
+		                                </a>
+		                            </li>
+		                        </ul>
+		                    </nav>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		
+  </body>
+</html>

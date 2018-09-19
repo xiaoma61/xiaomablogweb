@@ -20,12 +20,13 @@
     </div>
  
  
-    <div class="comment-show"  th:each=" articlecommentuserandcommentList :${articlecommentuserandcommentList}">
-        <div class="comment-show-con clearfix">
+    <div class="comment-show"  >
+        <div class="comment-show-con clearfix" th:each=" articlecommentuserandcommentList :${articlecommentuserandcommentList.list}">
             <div class="comment-show-con-img pull-left"><img src=""  /></div>
             <div class="comment-show-con-list pull-left clearfix">
                 <div class="pl-text clearfix">
                     <a href="#" class="comment-size-name" th:text="${articlecommentuserandcommentList.usermsg.NAME}">张三 : </a>
+                     <a href="#" class="comment-size-ID" style="display:none;" th:text="${articlecommentuserandcommentList.articlecomment.ID}">张三 : </a>
                     <span class="my-pl-con"  th:text="${articlecommentuserandcommentList.articlecomment.CONTENT}" >&nbsp;来啊 造作啊!</span>
                 </div>
                 <div class="date-dz">
@@ -37,10 +38,22 @@
                         <a href="javascript:;" class="date-dz-z pull-left"  ><i class="date-dz-z-click-red"></i>赞 (<i class="z-num" th:text="${articlecommentuserandcommentList.articlecomment.PRAISENUMS}">666</i>)</a>
                     </div>
                 </div>
-                <div class="hf-list-con"></div>
+                
+                <div class="hf-list-con" >
+                <div th:unless="${articlecommentuserandcommentList.articlecommentList == null}">
+                 <div th:each=" List : ${articlecommentuserandcommentList.articlecommentList} ">
+                <div class="all-pl-con"><div class="pl-text hfpl-text clearfix"><a href="#" class="comment-size-name" > : </a><span class="my-pl-con" th:text="${List.CONTENT}"> <!-- th:text="${List.NAME}" -->
+						  </span></div><div class="date-dz"> <span class="date-dz-left pull-left comment-time" th:text="${List.TIME}">
+						  </span> <div class="date-dz-right pull-right comment-pl-block"> <a href="javascript:;" class="removeBlock">删除</a> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
+						   <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num" th:text="${List.PRAISENUMS}">
+						  
+						  </i>)</a> </div> </div></div>
+                </div>
+            </div>
             </div>
         </div>
     </div>
+     </div>
    </div>
 
 </div>

@@ -9,6 +9,8 @@ public interface USERMSGRepository extends JpaRepository<USERMSG,Integer>{
 	public USERMSG findUSRByNameAndPASSWORD(String NAME,String PASSWORD );
 	@Query("select u   from  USERMSG u  where NAME=?1 ")
 	public USERMSG findUSRByName(String NAME );
+	@Query("select u.ID   from  USERMSG u  where NAME=?1 ")
+	public int  findIDByName(String NAME );
 	
 
 

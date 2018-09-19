@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoma.Util.PageUtil;
 import com.xiaoma.Util.TimeUtil;
 import com.xiaoma.entity.ARTICLE;
 import com.xiaoma.entity.ARTICLECOMMENT;
@@ -26,19 +27,22 @@ import com.xiaoma.entity.USERMSG;
 import com.xiaoma.repository.ARTICLECOMMENTRepository;
 import com.xiaoma.repository.ARTICLERepository;
 import com.xiaoma.repository.USERMSGRepository;
+import com.xiaoma.service.ARTICLECOMMENTService;
 import com.xiaoma.service.ArticleService;
 @Controller
 public class MainController {
-	@Autowired()
+	@Autowired
 	private  ArticleService articleService;
-	@Autowired()
+	@Autowired
 	private ARTICLERepository articleRepository;
-	@Autowired()
+	@Autowired
 	private ARTICLECOMMENTRepository articlecommentRepository;
 	
-	@Autowired()
+	@Autowired
 	private USERMSGRepository userRepository;
 	
+	@Autowired
+	private ARTICLECOMMENTService articlecommentService;
 	
 	@RequestMapping("/index")
 	public String index(Model m,@RequestParam(name="pages",defaultValue="0")int page,
@@ -61,7 +65,7 @@ public class MainController {
 		return "thymeleaf/gbook";
 	}
 	@RequestMapping("/info")
-	public String info(Model m,@RequestParam(name="ID",defaultValue="-1")int ID)
+	public String info(Model m,@RequestParam(name="ID",defaultValue="-1")int ID,@RequestParam(name="Page",defaultValue="1")int Page,@RequestParam(name="Size",defaultValue="5")int Size)
 	{
 		//跳转文章
 		ARTICLE a=articleRepository.findByID(ID);
@@ -88,26 +92,44 @@ public class MainController {
 	
 		//评论区。。先做一个模板，在后台操作
 		//评论区显示
-		List<ARTICLECOMMENT>articlecomment=articlecommentRepository.fingByARTICLEID(ID);
+		List<ARTICLECOMMENT>articlecomment=articlecommentRepository.findByARTICLEID(ID,0);
 		List<ARTICLECOMMENTUSERANDCOMMENT>articlecommentuserandcommentList=new ArrayList<ARTICLECOMMENTUSERANDCOMMENT>();
 		
 		
 		
+		//将parentID为0的插入，再查找parentID为ID的插入
 		
 		
 		for(int i=0;i<articlecomment.size();i++)
 		{
 			ARTICLECOMMENTUSERANDCOMMENT  articlecommentuserandcomment=new ARTICLECOMMENTUSERANDCOMMENT();
 			int USERID =articlecomment.get(i).getUSERID();
+			int articlecommentID=articlecomment.get(i).getID();
+			
+			Page<ARTICLECOMMENT>articlecomments=articlecommentService.findByARTICLEID(0, Size, articlecommentID, ID);
+			
 			USERMSG usermsg=userRepository.findOne( USERID);
 			articlecommentuserandcomment.setArticlecomment(articlecomment.get(i));
 			articlecommentuserandcomment.setUsermsg(usermsg);
+			articlecommentuserandcomment.setArticlecommentList(articlecomments);
 			articlecommentuserandcommentList.add(articlecommentuserandcomment);
+		/*	System.out.println(" articlecommentID :    "+ID);
+			System.out.println("ARTICLEID :    "+ articlecommentID);
+			System.out.println("list1ss :    "+articlecomments.getTotalPages());*/
+			/*if(articlecomments.getContent()!=null)
+			{
+				System.out.println("ARTICLEID :    "+articlecomments.getContent().get(0).getCONTENT());
+			}*/
 			
+			System.out.println("list1ss :    "+articlecomments.getTotalPages());
 			
 		}
+		/*System.out.println("list1 :    "+articlecomment.size());*/
+		PageUtil<ARTICLECOMMENTUSERANDCOMMENT> pageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENT>(articlecommentuserandcommentList,Page,Size);
 		
-		m.addAttribute("articlecommentuserandcommentList",articlecommentuserandcommentList);
+		
+		
+		m.addAttribute("articlecommentuserandcommentList",pageutil);
 		
 		return "thymeleaf/info";
 	}
@@ -150,7 +172,7 @@ public class MainController {
 	@ResponseBody
 	public Map<String,Object> UserComment(@RequestParam(value="comments")String comment,@RequestParam(value="ARTICLEid")int ARTICLEid,
 			
-			@RequestParam(value="PARENTID",defaultValue="0")int PARENTID,@RequestParam(value="BELONGID",defaultValue="0")int BELONGID,
+			@RequestParam(value="PARENTName",defaultValue="0")String PARENTName,@RequestParam(value="BELONGID",defaultValue="0")String BELONGName,
 			/*@PathVariable("comments") String comment,@PathVariable("ARTICLEid") int ARTICLEid,@RequestParam(value="PARENTID",defaultValue="0")int PARENTID,@RequestParam(value="BELONGID",defaultValue="0")int BELONGID,*/
 			
 			
@@ -167,7 +189,29 @@ public class MainController {
 		}
 		else
 		{
+			int PARENTID=0;
+			int BELONGID=0;
 			System.out.println("comment: "+comment);
+	
+			if(!PARENTName.equals("0"))
+			{
+				PARENTID=userRepository.findIDByName(PARENTName);
+			}
+			if(!BELONGName.equals("0"))
+			{
+				BELONGID=userRepository.findIDByName(BELONGName);
+			}
+			
+			
+			 /*if(userRepository.findIDByName(PARENTName)>0)
+			{
+				 PARENTID=userRepository.findIDByName(PARENTName);
+			}
+			 if(userRepository.findIDByName(BELONGName)>0)
+			{
+				 BELONGID=userRepository.findIDByName(BELONGName);
+			}*/
+	
 			
 			int ID=(Integer) session.getAttribute("ID");
 			String IMAGE=(String) session.getAttribute("IMAGE");
@@ -208,42 +252,7 @@ public class MainController {
 		}
 		
 	}
-	/*@RequestMapping(value="/User/CommentBody",method=RequestMethod.GET)
-	@ResponseBody
-	public ARTICLECOMMENTUSERANDCOMMENT UserCommentBody(@RequestParam(name="comments",defaultValue="00")String comment,@RequestParam(name="ARTICLEid")int ARTICLEid,
-			
-			@RequestParam(name="PARENTID",defaultValue="0")int PARENTID,@RequestParam(name="BELONGID",defaultValue="0")int BELONGID,HttpServletRequest request)
-	{
-		System.out.println("comment: "+comment);
-		HttpSession session=request.getSession();
-		int ID=(Integer) session.getAttribute("ID");
-		String IMAGE=(String) session.getAttribute("IMAGE");
-		String NAME=(String) session.getAttribute("Name");
-		int USERID=ID;
-		int PRAISENUMS=0;
-		int ARTICLEID=ARTICLEid;
-		Date time=TimeUtil.GetDate();
-		ARTICLECOMMENT articlecomment=new ARTICLECOMMENT();
-		articlecomment.setARTICLEID(ARTICLEID);
-		articlecomment.setCONTENT(comment);
-		articlecomment.setTIME(time);
-		articlecomment.setPRAISENUMS(PRAISENUMS);
-		articlecomment.setUSERID(USERID);
-		articlecomment.setPARENTID(PARENTID);
-		articlecomment.setBELONGID(BELONGID);
-		articlecommentRepository.save(articlecomment);
-		//得到User信息 时间对话内容
-		USERMSG usermsg=new USERMSG();
-		usermsg.setID(ID);
-		usermsg.setIMAGE(IMAGE);
-		usermsg.setNAME(NAME);
-		ARTICLECOMMENTUSERANDCOMMENT  articlecommentuserandcomment=new ARTICLECOMMENTUSERANDCOMMENT();
-		articlecommentuserandcomment.setArticlecomment(articlecomment);
-		articlecommentuserandcomment.setUsermsg(usermsg);
-		
-		return articlecommentuserandcomment;
-		
-	}*/
+	
 	//登录验证功能
 	//登录状态功能
 	//登录注销功能
