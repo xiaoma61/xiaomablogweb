@@ -40,12 +40,12 @@
                 </div>
                 
                 <div class="hf-list-con" >
-                <div th:unless="${articlecommentuserandcommentList.articlecommentList == null}">
-                 <div th:each=" List : ${articlecommentuserandcommentList.articlecommentList} ">
-                <div class="all-pl-con"><div class="pl-text hfpl-text clearfix"><a href="#" class="comment-size-name" > : </a><span class="my-pl-con" th:text="${List.CONTENT}"> <!-- th:text="${List.NAME}" -->
-						  </span></div><div class="date-dz"> <span class="date-dz-left pull-left comment-time" th:text="${List.TIME}">
+                <div th:unless="${articlecommentuserandcommentList.articleuserandcommentlist == null}">
+                 <div th:each=" List : ${articlecommentuserandcommentList.articleuserandcommentlist.list} ">
+                <div class="all-pl-con"><div class="pl-text hfpl-text clearfix"><a href="#" class="comment-size-name" th:text="${List.usermsg.NAME}+'  : '" > </a><span class="my-pl-con" th:text="${List.articlecomment.CONTENT}"> <!-- th:text="${List.USERMSG.NAME}" -->
+						  </span></div><div class="date-dz"> <span class="date-dz-left pull-left comment-time" th:text="${List.articlecomment.TIME}">
 						  </span> <div class="date-dz-right pull-right comment-pl-block"> <a href="javascript:;" class="removeBlock">删除</a> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
-						   <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num" th:text="${List.PRAISENUMS}">
+						   <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num" th:text="${List.articlecomment.PRAISENUMS}">
 						  
 						  </i>)</a> </div> </div></div>
                 </div>

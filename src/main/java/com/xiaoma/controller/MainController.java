@@ -23,11 +23,11 @@ import com.xiaoma.Util.TimeUtil;
 import com.xiaoma.entity.ARTICLE;
 import com.xiaoma.entity.ARTICLECOMMENT;
 import com.xiaoma.entity.ARTICLECOMMENTUSERANDCOMMENT;
+import com.xiaoma.entity.ARTICLECOMMENTUSERANDCOMMENTLIST;
 import com.xiaoma.entity.USERMSG;
 import com.xiaoma.repository.ARTICLECOMMENTRepository;
 import com.xiaoma.repository.ARTICLERepository;
 import com.xiaoma.repository.USERMSGRepository;
-import com.xiaoma.service.ARTICLECOMMENTService;
 import com.xiaoma.service.ArticleService;
 @Controller
 public class MainController {
@@ -40,9 +40,9 @@ public class MainController {
 	
 	@Autowired
 	private USERMSGRepository userRepository;
-	
+	/*
 	@Autowired
-	private ARTICLECOMMENTService articlecommentService;
+	private ARTICLECOMMENTService articlecommentService;*/
 	
 	@RequestMapping("/index")
 	public String index(Model m,@RequestParam(name="pages",defaultValue="0")int page,
@@ -106,22 +106,53 @@ public class MainController {
 			int USERID =articlecomment.get(i).getUSERID();
 			int articlecommentID=articlecomment.get(i).getID();
 			
-			Page<ARTICLECOMMENT>articlecomments=articlecommentService.findByARTICLEID(0, Size, articlecommentID, ID);
+			/*Page<ARTICLECOMMENT>articlecomments=articlecommentService.findByARTICLEID(0, Size, articlecommentID, ID);*/
 			
-			USERMSG usermsg=userRepository.findOne( USERID);
-			articlecommentuserandcomment.setArticlecomment(articlecomment.get(i));
-			articlecommentuserandcomment.setUsermsg(usermsg);
-			articlecommentuserandcomment.setArticlecommentList(articlecomments);
-			articlecommentuserandcommentList.add(articlecommentuserandcomment);
-		/*	System.out.println(" articlecommentID :    "+ID);
-			System.out.println("ARTICLEID :    "+ articlecommentID);
-			System.out.println("list1ss :    "+articlecomments.getTotalPages());*/
-			/*if(articlecomments.getContent()!=null)
+			
+			
+			List<ARTICLECOMMENT>articlecomments1=articlecommentRepository.findByARTICLEID(ID, articlecommentID);
+			/*List<USERMSG> usermsglist=new ArrayList<USERMSG>();*/
+			List<ARTICLECOMMENTUSERANDCOMMENTLIST> articleuserandcommentlist=new ArrayList<ARTICLECOMMENTUSERANDCOMMENTLIST>();
+			for(int t=0;t<articlecomments1.size();t++)
 			{
-				System.out.println("ARTICLEID :    "+articlecomments.getContent().get(0).getCONTENT());
-			}*/
 			
-			System.out.println("list1ss :    "+articlecomments.getTotalPages());
+				ARTICLECOMMENTUSERANDCOMMENTLIST articleuserandcomment=new ARTICLECOMMENTUSERANDCOMMENTLIST();
+				
+				int USERID1 =articlecomments1.get(t).getUSERID();				
+				USERMSG usermsg=userRepository.findOne( USERID1);	
+				
+				articleuserandcomment.setUsermsg(usermsg);
+				articleuserandcomment.setArticlecomment(articlecomments1.get(t));
+				articleuserandcommentlist.add(articleuserandcomment);
+							
+			}
+		
+				
+				PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>  articleuserandcommentlistpageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>(articleuserandcommentlist,1,Size);
+				USERMSG usermsg=userRepository.findOne( USERID);
+				articlecommentuserandcomment.setArticlecomment(articlecomment.get(i));
+				articlecommentuserandcomment.setUsermsg(usermsg);
+		/*		articlecommentuserandcomment.setArticlecommentList(articlecomments);*/
+				System.out.println("list2 :    ss  "+articleuserandcommentlistpageutil.getPages());
+				articlecommentuserandcomment.setArticleuserandcommentlist(articleuserandcommentlistpageutil);
+				
+				
+				articlecommentuserandcommentList.add(articlecommentuserandcomment);
+			
+			/*PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>  articleuserandcommentlistpageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>(articleuserandcommentlist,0,Size);*/
+			 
+			 /*articleuserandcommentlist.setArticlecomment(articlecomments1);
+			 articleuserandcommentlist.setUsermsg(usermsglist);*/
+			
+			
+	/*		articlecommentuserandcomment.setArticlecommentList(articlecomments);*/
+			/*articlecommentuserandcomment.setArticleuserandcommentlist(articleuserandcommentlistpageutil);*/
+			
+			
+			
+	
+			
+			/*System.out.println("list1ss :    "+articlecomments.getTotalPages());*/
 			
 		}
 		/*System.out.println("list1 :    "+articlecomment.size());*/
