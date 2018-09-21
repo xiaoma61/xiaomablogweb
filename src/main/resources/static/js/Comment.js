@@ -263,3 +263,86 @@
 		})
      }
  });
+ 
+ 
+ //实现分页二级显示
+ 
+ $('.comment-show').on('click','.date-dz-z',function(){
+     var zNum = $(this).find('.z-num').html();
+     var oThis = $(this);
+     var ID=$(this).parents('.date-dz-right').parents('.date-dz').siblings('.pl-text').find('.comment-size-articlecomment-ID').html();
+     if($(this).is('.date-dz-z-click')){
+         zNum--;
+        
+         
+         $.ajax({
+			 type:'post',
+			 url:'/User/Parise?PRAISENUMS='+zNum+"&ID="+ID,
+			 contentType: "application/json; charset=utf-8",
+			 dataType:"json",
+			
+			 async:false,
+			 success:function(data)
+			 {
+				 var datas=JSON.stringify(data);
+				 var dataString=data.data;
+				 if(dataString == "lose")
+					 {
+					 //跳转到注册页面
+					  window.open("/User/Login");
+					 alert("a    "+dataString);
+					 }else
+					{
+						 oThis.removeClass('date-dz-z-click red');
+						 oThis.find('.z-num').html(zNum);
+						 oThis.find('.date-dz-z-click-red').removeClass('red');
+					}
+			 },
+			 error:function(data)
+			 {
+				 
+			 }
+			
+			
+		})
+         
+         
+     }else {
+         zNum++;
+         
+         
+         $.ajax({
+			 type:'post',
+			 url:'/User/SecondComment?PRAISENUMS='+zNum+"&ID="+ID,
+			 contentType: "application/json; charset=utf-8",
+			 dataType:"json",
+			
+			 async:false,
+			 success:function(data)
+			 {
+
+				 var datas=JSON.stringify(data);
+				 var dataString=data.data;
+				 if(dataString == "lose")
+					 {
+					 //跳转到注册页面
+					  window.open("/User/Login");
+					 alert("a    "+dataString);
+					 }else
+					{
+						 
+						 oThis.addClass('date-dz-z-click');
+						 oThis.find('.z-num').html(zNum);
+						 oThis.find('.date-dz-z-click-red').addClass('red');
+					}
+			 },
+			 error:function(data)
+			 {
+				 
+			 }
+			
+			
+		})
+     }
+ });
+ 

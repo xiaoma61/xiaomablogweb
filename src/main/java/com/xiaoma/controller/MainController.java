@@ -205,18 +205,6 @@ public class MainController {
 		}
 		else
 		{
-			/*int PARENTID=0;
-			int BELONGID=0;
-			System.out.println("comment: "+comment);
-	
-			if(!PARENTName.equals("0"))
-			{
-				PARENTID=userRepository.findIDByName(PARENTName);
-			}
-			if(!BELONGName.equals("0"))
-			{
-				BELONGID=userRepository.findIDByName(BELONGName);
-			}*/
 			
 			
 		
@@ -265,17 +253,31 @@ public class MainController {
 	
 	@RequestMapping(value="/User/SecondComment",method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> UserSecondCommentt(@RequestParam(value="comments")String comment,@RequestParam(value="ARTICLEid")int ARTICLEid,
+	public Map<String,Object> UserSecondCommentt(@RequestParam(value="ARTICLEid")int ARTICLEid,
 			
-			@RequestParam(value="PARENTName",defaultValue="0")String PARENTName,@RequestParam(value="BELONGID",defaultValue="0")String BELONGName,
-			/*@PathVariable("comments") String comment,@PathVariable("ARTICLEid") int ARTICLEid,@RequestParam(value="PARENTID",defaultValue="0")int PARENTID,@RequestParam(value="BELONGID",defaultValue="0")int BELONGID,*/
-			
-			
-			HttpServletRequest request)
+			@RequestParam(value="PARENTID",defaultValue="0")int PARENTID,@RequestParam(name="Pages",defaultValue="1")int Page,@RequestParam(name="Size",defaultValue="5")int Size)
 	{
 		
+		Map<String,Object> data=new HashMap<String, Object>();
+		List<ARTICLECOMMENT>articlecomments1=articlecommentRepository.findByARTICLEID(ARTICLEid, PARENTID);
+		List<ARTICLECOMMENTUSERANDCOMMENTLIST> articleuserandcommentlist=new ArrayList<ARTICLECOMMENTUSERANDCOMMENTLIST>();
+		for(int t=0;t<articlecomments1.size();t++)
+		{
 		
-		return null;
+			ARTICLECOMMENTUSERANDCOMMENTLIST articleuserandcomment=new ARTICLECOMMENTUSERANDCOMMENTLIST();
+			
+			int USERID1 =articlecomments1.get(t).getUSERID();				
+			USERMSG usermsg=userRepository.findOne( USERID1);	
+			
+			articleuserandcomment.setUsermsg(usermsg);
+			articleuserandcomment.setArticlecomment(articlecomments1.get(t));
+			articleuserandcommentlist.add(articleuserandcomment);
+						
+		}
+		
+		PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>  articleuserandcommentlistpageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>(articleuserandcommentlist,1,Size);
+		data.put("data", articleuserandcommentlistpageutil);
+		return data;
 		
 		
 	}
@@ -285,7 +287,7 @@ public class MainController {
 	@ResponseBody
 	public Map<String,Object> UserParise(@RequestParam(value="PRAISENUMS") int PRAISENUMS,@RequestParam(value="ID") int ID,HttpServletRequest request)
 	{
-		System.out.println("sddd"+PRAISENUMS+"ddddd"+ID);
+		
 		HttpSession session=request.getSession();
 		Map<String,Object> data=new HashMap<String, Object>();
 		
