@@ -279,6 +279,31 @@ public class MainController {
 		
 		
 	}
+	//实现点赞效果
+	
+	@RequestMapping(value="/User/Parise",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> UserParise(@RequestParam(value="PRAISENUMS") int PRAISENUMS,@RequestParam(value="ID") int ID,HttpServletRequest request)
+	{
+		System.out.println("sddd"+PRAISENUMS+"ddddd"+ID);
+		HttpSession session=request.getSession();
+		Map<String,Object> data=new HashMap<String, Object>();
+		
+		if(session.getAttribute("Name")==""||session.getAttribute("Name")==null){
+		
+			data.put("data", "lose");
+			return data;
+			
+		}else
+		{
+			articlecommentRepository.UpdatePRAISENUMSByID(PRAISENUMS,ID);
+			data.put("data", "success");
+			return data;
+		}
+	
+		
+		
+	}
 	
 	//登录状态功能
 	//登录注销功能
