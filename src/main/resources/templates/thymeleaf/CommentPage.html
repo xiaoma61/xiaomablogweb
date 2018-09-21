@@ -14,9 +14,9 @@
 		            <div class="row pad-15" th:with="url=${#httpServletRequest.getRequestURL().toString()}, page=${#httpServletRequest.getQueryString() eq null ? ' ' : new String(#httpServletRequest.getQueryString().getBytes('iso8859-1'),'UTF-8') +'&amp;Page' }">
 		                <div class="col-md-12" th:with="frag=${#strings.substringBefore(page,'&amp;Page')},frag=${frag} eq null ? '' : ${frag} ,url=${url}+'?'+ ${frag}" >
 		                    <nav class="pagination-outer" aria-label="Page navigation">
-		                        <ul class="pagination">
+		                        <ul class="pagination" style="padding:0px,12px;">
 		                            <!-- <li class="page-item"><a class="page-link" th:text="${page}">首页</a></li> -->
-		                            <li class="page-item"><a class="page-link" th:href="@{${url}}">首页</a></li>
+		                             <li class="page-item"><a class="page-link" th:href="@{${url}}">首页</a></li>
 		                             <li class="page-item">
 		                                <a href="#" class="page-link" aria-label="Previous" th:href="@{${url}(Page=${articlecommentuserandcommentList.PageNum})}">
 		                                    <span aria-hidden="true"  th:if="${articlecommentuserandcommentList.hasPrevious()}" >&laquo;</span>

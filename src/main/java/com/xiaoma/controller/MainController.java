@@ -106,12 +106,12 @@ public class MainController {
 			int USERID =articlecomment.get(i).getUSERID();
 			int articlecommentID=articlecomment.get(i).getID();
 			
-			/*Page<ARTICLECOMMENT>articlecomments=articlecommentService.findByARTICLEID(0, Size, articlecommentID, ID);*/
+			
 			
 			
 			
 			List<ARTICLECOMMENT>articlecomments1=articlecommentRepository.findByARTICLEID(ID, articlecommentID);
-			/*List<USERMSG> usermsglist=new ArrayList<USERMSG>();*/
+
 			List<ARTICLECOMMENTUSERANDCOMMENTLIST> articleuserandcommentlist=new ArrayList<ARTICLECOMMENTUSERANDCOMMENTLIST>();
 			for(int t=0;t<articlecomments1.size();t++)
 			{
@@ -132,30 +132,15 @@ public class MainController {
 				USERMSG usermsg=userRepository.findOne( USERID);
 				articlecommentuserandcomment.setArticlecomment(articlecomment.get(i));
 				articlecommentuserandcomment.setUsermsg(usermsg);
-		/*		articlecommentuserandcomment.setArticlecommentList(articlecomments);*/
-				System.out.println("list2 :    ss  "+articleuserandcommentlistpageutil.getPages());
+	
 				articlecommentuserandcomment.setArticleuserandcommentlist(articleuserandcommentlistpageutil);
 				
 				
 				articlecommentuserandcommentList.add(articlecommentuserandcomment);
-			
-			/*PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>  articleuserandcommentlistpageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>(articleuserandcommentlist,0,Size);*/
-			 
-			 /*articleuserandcommentlist.setArticlecomment(articlecomments1);
-			 articleuserandcommentlist.setUsermsg(usermsglist);*/
-			
-			
-	/*		articlecommentuserandcomment.setArticlecommentList(articlecomments);*/
-			/*articlecommentuserandcomment.setArticleuserandcommentlist(articleuserandcommentlistpageutil);*/
-			
-			
-			
-	
-			
-			/*System.out.println("list1ss :    "+articlecomments.getTotalPages());*/
+		
 			
 		}
-		/*System.out.println("list1 :    "+articlecomment.size());*/
+
 		PageUtil<ARTICLECOMMENTUSERANDCOMMENT> pageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENT>(articlecommentuserandcommentList,Page,Size);
 		
 		
@@ -203,7 +188,7 @@ public class MainController {
 	@ResponseBody
 	public Map<String,Object> UserComment(@RequestParam(value="comments")String comment,@RequestParam(value="ARTICLEid")int ARTICLEid,
 			
-			@RequestParam(value="PARENTName",defaultValue="0")String PARENTName,@RequestParam(value="BELONGID",defaultValue="0")String BELONGName,
+			@RequestParam(value="PARENTID",defaultValue="0")int PARENTID,@RequestParam(value="BELONGID",defaultValue="0")int BELONGID,
 			/*@PathVariable("comments") String comment,@PathVariable("ARTICLEid") int ARTICLEid,@RequestParam(value="PARENTID",defaultValue="0")int PARENTID,@RequestParam(value="BELONGID",defaultValue="0")int BELONGID,*/
 			
 			
@@ -220,7 +205,7 @@ public class MainController {
 		}
 		else
 		{
-			int PARENTID=0;
+			/*int PARENTID=0;
 			int BELONGID=0;
 			System.out.println("comment: "+comment);
 	
@@ -231,18 +216,10 @@ public class MainController {
 			if(!BELONGName.equals("0"))
 			{
 				BELONGID=userRepository.findIDByName(BELONGName);
-			}
-			
-			
-			 /*if(userRepository.findIDByName(PARENTName)>0)
-			{
-				 PARENTID=userRepository.findIDByName(PARENTName);
-			}
-			 if(userRepository.findIDByName(BELONGName)>0)
-			{
-				 BELONGID=userRepository.findIDByName(BELONGName);
 			}*/
-	
+			
+			
+		
 			
 			int ID=(Integer) session.getAttribute("ID");
 			String IMAGE=(String) session.getAttribute("IMAGE");
@@ -277,14 +254,32 @@ public class MainController {
 			
 			
 			
-			/*return "redirect:/User/CommentBody";*/
+		
 				
 			
 		}
 		
 	}
 	
-	//登录验证功能
+	//二级评论区分页 显示问题
+	
+	@RequestMapping(value="/User/SecondComment",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> UserSecondCommentt(@RequestParam(value="comments")String comment,@RequestParam(value="ARTICLEid")int ARTICLEid,
+			
+			@RequestParam(value="PARENTName",defaultValue="0")String PARENTName,@RequestParam(value="BELONGID",defaultValue="0")String BELONGName,
+			/*@PathVariable("comments") String comment,@PathVariable("ARTICLEid") int ARTICLEid,@RequestParam(value="PARENTID",defaultValue="0")int PARENTID,@RequestParam(value="BELONGID",defaultValue="0")int BELONGID,*/
+			
+			
+			HttpServletRequest request)
+	{
+		
+		
+		return null;
+		
+		
+	}
+	
 	//登录状态功能
 	//登录注销功能
 	

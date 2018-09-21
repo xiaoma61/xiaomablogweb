@@ -133,6 +133,21 @@ body{font-family: "Microsoft Yahei";}
     margin-right: 2px;
     margin-top: 20px;
 }
+
+.hf-pl1 {
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #339b53;
+    text-align: center;
+    display: block;
+    float: right;
+    color: #FFFFFF;
+    font-size: 12px;
+    border-radius: 6px;
+    margin-right: 2px;
+    margin-top: 20px;
+}
 .hf-con{width: 100%;margin-top: 24px;}
 .hf-input{font-size: 12px;}
 .all-pl-con {

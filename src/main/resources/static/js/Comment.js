@@ -67,6 +67,7 @@
 	  var oThis = $(this);
 	  var oHfVal = $(this).siblings('.flex-text-wrap').find('.hf-input').val();//输入内容
 	  var oHfName = $(this).parents('.hf-con').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').html();//名字
+	  var oHID = $(this).parents('.hf-con').parents('.date-dz').siblings('.pl-text').find('.comment-size-ID').html();//名字
 	  
 	  var comment=oHfVal;
 	  var ARTICLEid=document.getElementById("ARTICLEid").value; 
@@ -74,7 +75,7 @@
 	  //需要  PARENTID二级      BELONGID一级
 	  $.ajax({
 			 type:'post',
-			 url:'/User/Comment?comments='+comment+"&ARTICLEid="+ARTICLEid+"&PARENTName="+oHfName,
+			 url:'/User/Comment?comments='+comment+"&ARTICLEid="+ARTICLEid+"&PARENTID="+oHID,
 			 contentType: "application/json; charset=utf-8",
 			 dataType:"json",
 			
@@ -104,7 +105,7 @@
 						  time+'</span> <div class="date-dz-right pull-right comment-pl-block"> <a href="javascript:;" class="removeBlock">删除</a> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a> <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">'+
 						  praisenums+'</i>)</a> </div> </div></div>';
 						 //插入
-						  oThis.parents('.hf-con').parents('.comment-show-con-list').find('.hf-list-con').css('display','block').prepend(oHtml) && oThis.parents('.hf-con').siblings('.date-dz-right').find('.pl-hf').addClass('hf-con-block') && oThis.parents('.hf-con').remove();
+						  oThis.parents('.hf-con').parents('.comment-show-con-list').find('.hf-list-con').css('display','block').prepend(oHtml) && oThis.parents('.hf-con').siblings('.date-dz-right').find('.pl-hf2').addClass('hf-con-block') && oThis.parents('.hf-con').remove();
 						  
 				   
 					}
@@ -122,4 +123,59 @@
  });
  
  
- 
+ $('.comment-show').on('click','.hf-pl1',function(){
+	  var oThis = $(this);
+	  var oHfVal = $(this).siblings('.flex-text-wrap').find('.hf-input').val();//输入内容
+	  var oHfName = $(this).parents('.hf-con').parents('.date-dz').siblings('.pl-text').find('.comment-size-ID').html();//名字
+	  var PARENTName=$(this).parents('.hf-con').parents('.date-dz').parents('.all-pl-con').parents('.hf-list-con').siblings('.pl-text').find('.comment-size-ID').html();
+	  var ARTICLEid=document.getElementById("ARTICLEid").value; 
+	  
+	  //需要  PARENTID二级      BELONGID一级
+	  $.ajax({
+			 type:'post',
+			 url:'/User/Comment?comments='+oHfVal+"&ARTICLEid="+ARTICLEid+"&BELONGID="+oHfName+"&PARENTID="+PARENTName,
+			 contentType: "application/json; charset=utf-8",
+			 dataType:"json",
+			
+			 async:false,
+			 success:function(data)
+			 {
+				 var datas=JSON.stringify(data);
+				 var dataString=data.data;
+				 if(dataString == "lose")
+					 {
+					 //跳转到注册页面
+					  window.open("/User/Login");
+					 alert("a    "+dataString);
+					 }else
+					{
+					
+						  var name=dataString.usermsg.name;
+						  var content=dataString.articlecomment.content;
+						  var time=dataString.articlecomment.time;
+						  var image=dataString.usermsg.image;
+						  var praisenums=dataString.articlecomment.praisenums;
+						  alert("a    "+name);
+			
+						  var oHtml = '<div class="all-pl-con"><div class="pl-text hfpl-text clearfix"><a href="#" class="comment-size-name">'+
+						  name+' </a><span class="my-pl-con">'+content
+						  +'</span></div><div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+
+						  time+'</span> <div class="date-dz-right pull-right comment-pl-block"> <a href="javascript:;" class="removeBlock">删除</a> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a> <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">'+
+						  praisenums+'</i>)</a> </div> </div></div>';
+						 //插入
+						  oThis.parents('.hf-con').parents('.comment-show-con-list').find('.hf-list-con').css('display','block').prepend(oHtml) && oThis.parents('.hf-con').siblings('.date-dz-right').find('.pl-hf2').addClass('hf-con-block') && oThis.parents('.hf-con').remove();
+						  
+				   
+					}
+				//加入数据 
+			 },
+			 error:function(data)
+			 {
+				 
+			 }
+			
+			
+		})
+	 
+	 
+});
