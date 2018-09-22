@@ -74,6 +74,7 @@ public class MainController {
 	public String info(Model m,@RequestParam(name="ID",defaultValue="-1")int ID,@RequestParam(name="Page",defaultValue="1")int Page,@RequestParam(name="Size",defaultValue="5")int Size)
 	{
 		//跳转文章
+		articleRepository.updateVISITORSNUMSByID(ID);
 		ARTICLE a=articleRepository.findByID(ID);
 		
 		m.addAttribute("articles",a);
@@ -85,7 +86,7 @@ public class MainController {
 		ARTICLE Lasta=articleRepository.findByID(ID-1);
 		m.addAttribute("Lastarticles",Lasta);
 		//访问记录更新
-		articleRepository.updateVISITORSNUMSByID(ID);
+		
 		
 		
 		//如果没有返回列表

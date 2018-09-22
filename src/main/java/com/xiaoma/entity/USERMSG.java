@@ -14,6 +14,7 @@ public class USERMSG {
 	private int ID;
 	private String IMAGE;
 	private String BGIMAG;
+	private int LIKENUM;
 	public String getBGIMAG() {
 		return BGIMAG;
 	}
@@ -50,4 +51,14 @@ public class USERMSG {
 	public void setNAME(String nAME) {
 		NAME = nAME;
 	}
+
+	public int getLIKENUM() {
+		return LIKENUM;
+	}
+
+	public void setLIKENUM(int lIKENUM) {
+		LIKENUM = lIKENUM;
+	}
+	
+	
 }
