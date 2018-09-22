@@ -267,82 +267,82 @@
  
  //实现分页二级显示
  
- $('.comment-show').on('click','.date-dz-z',function(){
-     var zNum = $(this).find('.z-num').html();
+ $('.pl-text').on('click','.more',function(){
+	/* alert("ddd");*/
+	 var ARTICLEid=document.getElementById("ARTICLEid").value; 
      var oThis = $(this);
-     var ID=$(this).parents('.date-dz-right').parents('.date-dz').siblings('.pl-text').find('.comment-size-articlecomment-ID').html();
-     if($(this).is('.date-dz-z-click')){
-         zNum--;
-        
-         
-         $.ajax({
-			 type:'post',
-			 url:'/User/Parise?PRAISENUMS='+zNum+"&ID="+ID,
-			 contentType: "application/json; charset=utf-8",
-			 dataType:"json",
-			
-			 async:false,
-			 success:function(data)
-			 {
-				 var datas=JSON.stringify(data);
-				 var dataString=data.data;
-				 if(dataString == "lose")
-					 {
-					 //跳转到注册页面
-					  window.open("/User/Login");
-					 alert("a    "+dataString);
-					 }else
-					{
-						 oThis.removeClass('date-dz-z-click red');
-						 oThis.find('.z-num').html(zNum);
-						 oThis.find('.date-dz-z-click-red').removeClass('red');
-					}
-			 },
-			 error:function(data)
-			 {
-				 
-			 }
-			
-			
-		})
-         
-         
-     }else {
-         zNum++;
-         
-         
-         $.ajax({
-			 type:'post',
-			 url:'/User/SecondComment?PRAISENUMS='+zNum+"&ID="+ID,
-			 contentType: "application/json; charset=utf-8",
-			 dataType:"json",
-			
-			 async:false,
-			 success:function(data)
-			 {
+     var Pages=oThis.siblings('.Page').html();
+     Pages++;
+     oThis.siblings('.Page').html(Pages);
+     var PARENTID=$(this).parents('.hf-list-con').siblings('.pl-text').find('.comment-size-ID').html();
+     //清空div
+   /*  var div=$(this).parents('.pagination').parents('.with').parents('.row').parents('.container').siblings('.hf-list-con');*/
+   
+     
+     
+     //更新分页
+/*     $(this).siblings('li').find('.page-link').removeClass('active');  
+     
+     $(this).find('.page-link').addClass('page-link'); */
 
-				 var datas=JSON.stringify(data);
-				 var dataString=data.data;
-				 if(dataString == "lose")
-					 {
-					 //跳转到注册页面
-					  window.open("/User/Login");
-					 alert("a    "+dataString);
-					 }else
-					{
-						 
-						 oThis.addClass('date-dz-z-click');
-						 oThis.find('.z-num').html(zNum);
-						 oThis.find('.date-dz-z-click-red').addClass('red');
-					}
-			 },
-			 error:function(data)
-			 {
+
+     
+     $.ajax({
+		 type:'post',
+		 url:'/User/SecondComment?PARENTID='+PARENTID+"&Pages="+Pages+"&ARTICLEid="+ARTICLEid,
+		 contentType: "application/json; charset=utf-8",
+		 dataType:"json",
+		
+		 async:false,
+		 success:function(data)
+		 { 
+
+			 var dataString=data.data;
+			 if(dataString == "lose")
+				 {
+				 oThis.html("暂无更多");
+				 }
+			 else
+				 {
 				 
-			 }
+				 for(var i=0;i<data.data.list.length;i++)
+					{
+					 var articlecommentid=data.data.list[i].articlecomment.id;
+					 var articlecommentparisenums=data.data.list[i].articlecomment.praisenums;
+					 var articlecommentcontent=data.data.list[i].articlecomment.content;
+					 var articlecommenttime=data.data.list[i].articlecomment.time;
+					
+					 
+					 
+					 var usermsgid=data.data.list[i].usermsg.id;
+					 var usermsgimage=data.data.list[i].usermsg.image;
+					 var usermsgname=data.data.list[i].usermsg.name;
+					 
+					 var oHtml = '<div class="all-pl-con"><div class="pl-text hfpl-text clearfix"><a href="#" class="comment-size-name">'+
+					  usermsgname+' </a><span class="my-pl-con">'+ articlecommentcontent
+					  +'</span></div><div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+
+					  articlecommenttime+'</span> <div class="date-dz-right pull-right comment-pl-block"> <a href="javascript:;" class="removeBlock">删除</a> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a> <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">'+
+					  articlecommentparisenums+'</i>)</a> </div> </div></div>';
+					 //插入
+					  oThis.parents('.pl-text').parents('.hf-list-con').css('display','block').prepend(oHtml) && oThis.parents('.hf-con').siblings('.date-dz-right').find('.pl-hf2').addClass('hf-con-block') && oThis.parents('.hf-con').remove();
+					  
+					 
+					} 
+				 
+				 }
+	/*		 var datas=JSON.stringify(data);*/
+			 /*var datalist=JSON.parse(data.data.list);*/
+			 
+			 
+				
 			
-			
-		})
-     }
+		 },
+		 error:function(data)
+		 {
+			 
+		 }
+		
+		
+	})
  });
  

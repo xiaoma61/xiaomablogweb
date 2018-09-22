@@ -146,7 +146,7 @@ public class MainController {
 		
 		
 		m.addAttribute("articlecommentuserandcommentList",pageutil);
-		
+		/*m.addAttribute("articleuserandcommentlistpageutil",articleuserandcommentlistpageutil);*/
 		return "thymeleaf/info";
 	}
 	//实现标签列表跳转
@@ -275,8 +275,13 @@ public class MainController {
 						
 		}
 		
-		PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>  articleuserandcommentlistpageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>(articleuserandcommentlist,1,Size);
+		PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>  articleuserandcommentlistpageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENTLIST>(articleuserandcommentlist,Page,Size);
 		data.put("data", articleuserandcommentlistpageutil);
+	
+		if(Page>articleuserandcommentlistpageutil.getPages())
+		{
+			data.put("data", "lose");
+		}
 		return data;
 		
 		
