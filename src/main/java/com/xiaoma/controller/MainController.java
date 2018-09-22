@@ -46,12 +46,18 @@ public class MainController {
 	
 	@RequestMapping("/index")
 	public String index(Model m,@RequestParam(name="pages",defaultValue="0")int page,
-			@RequestParam(name="size",defaultValue="10")int size)
+			@RequestParam(name="size",defaultValue="10")int size,HttpServletRequest request)
 	{
 		//导入文章列表
 		String ISSHOW="1";
 		Page<ARTICLE> article=articleService.findARTICLECriteria(page, size, ISSHOW);
 		m.addAttribute("articles",article);
+		HttpSession session=request.getSession();
+		if(session.getAttribute("Name")==""||session.getAttribute("Name")==null){
+		
+			m.addAttribute("Name","null");
+		}
+		
 		return "thymeleaf/index";
 	}
 	@RequestMapping("/about")
@@ -69,6 +75,7 @@ public class MainController {
 	{
 		//跳转文章
 		ARTICLE a=articleRepository.findByID(ID);
+		
 		m.addAttribute("articles",a);
 		
 		//上一篇文章id-1，下一篇文章id+1
@@ -77,6 +84,9 @@ public class MainController {
 		
 		ARTICLE Lasta=articleRepository.findByID(ID-1);
 		m.addAttribute("Lastarticles",Lasta);
+		//访问记录更新
+		articleRepository.updateVISITORSNUMSByID(ID);
+		
 		
 		//如果没有返回列表
 	    if(ID==-1)

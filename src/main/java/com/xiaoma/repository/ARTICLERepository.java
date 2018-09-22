@@ -42,7 +42,9 @@ public interface ARTICLERepository extends JpaRepository<ARTICLE,Integer>{
 
 	
 
-	
+	@Query(value ="update ARTICLE a set a.VISITORSNUMS=a.VISITORSNUMS+1 where a.ID =?1 ")
+	@Modifying
+	public int updateVISITORSNUMSByID(int ID);
 	
 	
 	

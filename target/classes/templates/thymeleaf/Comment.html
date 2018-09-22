@@ -39,7 +39,7 @@
                     </div>
                 </div>
               
-                <div class="hf-list-con"  th:unless="${articlecommentuserandcommentList.articleuserandcommentlist == null}">
+                <div class="hf-list-con"  >
              
     
                    <div class="all-pl-con" th:each=" List : ${articlecommentuserandcommentList.articleuserandcommentlist.list} ">
@@ -53,7 +53,8 @@
 						  
 						  </i>)</a> </div> </div>
 						 </div>
-						  <div class="pl-text hfpl-text clearfix" style="text-align:center;"><a class="more">加载更多</a>
+						  <div class="pl-text hfpl-text clearfix" style="text-align:center;" th:if="${articlecommentuserandcommentList.articleuserandcommentlist.list.size()>0}">
+						  <a class="more">加载更多</a>
 						  <a class="Page" style="display:none;" >1</a>
 						  </div>
                

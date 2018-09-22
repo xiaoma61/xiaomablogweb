@@ -56,7 +56,7 @@ public class UserController {
 	@RequestMapping("User/index")
 	public String  UserIndex(Model m)
 	{
-		
+		//实现截图
 		return "thymeleaf/User/index";
 		
 	}
@@ -149,6 +149,19 @@ public class UserController {
 		
 	}
 	
+	//实现裁剪头像
+	@RequestMapping("User/HeadImage")
+	@ResponseBody()
+	public Map<String, String>  UserHeadImage(Model m,@RequestParam("HeadImage")String HeadImage,HttpServletRequest request)
+	{
+		Map<String, String> map=new HashMap<String, String>();
+		
+		
+		
+		return map;
+	
+		
+	}
 	
 	
 	

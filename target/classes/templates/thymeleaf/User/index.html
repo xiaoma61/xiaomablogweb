@@ -1,14 +1,9 @@
-<!doctype html>
-<html xmlns:th="http:www.thymeleaf.org">
-<head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <meta name="format-detection" content="telephone=no"/>
-        <meta charset="UTF-8"/>
-
-        <meta name="description" content="Violate Responsive Admin Template"/>
-        <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap"/>
-
-        <title>Super Admin Responsive Template</title>
+<!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+ 
+	<meta charset="UTF-8"/>
+	<title></title>
             
         <!-- CSS -->
         <link href="../css/UserCss/bootstrap.min.css" rel="stylesheet"/>
@@ -19,12 +14,19 @@
         <link href="../css/UserCss/style.css" rel="stylesheet"/>
         <link href="../css/UserCss/icons.css" rel="stylesheet"/>
         <link href="../css/UserCss/generics.css" rel="stylesheet"/> 
+        <link href="../css/UserCss/croppic.css" rel="stylesheet"/> 
+   
+         <link href="../css/UserCss/Image.css" rel="stylesheet"/> 
+          <script src="../js/jquery.min.js"></script> 
+        <script src="../js/croppic.js"></script>
+        <script src="../js/croppic.min.js"></script>
     </head>
     <body id="skin-blur-violate">
+        <div class="Image-body"> </div>
         <header id="header" class="media">
             <a href="" id="menu-toggle"></a> 
             <a class="logo pull-left" href="index.html">SUPER ADMIN 1.0</a>
-            
+           
             <div class="media-body">
                 <div class="media" id="top-menu">
                     <div class="pull-left tm-icon">
@@ -60,7 +62,7 @@
         </header>
         
         <div class="clearfix"></div>
-        
+     
         <section id="main" class="p-relative" role="main">
             
             <!-- Sidebar -->
@@ -71,7 +73,7 @@
                     <!-- Profile Menu -->
                     <div class="text-center s-widget m-b-25 dropdown" id="profile-menu">
                         <a href="" data-toggle="dropdown">
-                            <img class="profile-pic animated" src="。。/css/img/profile-pic.jpg" alt="" />
+                            <img class="profile-pic animated" src="../css/img/profile-pic.jpg" alt="" />
                         </a>
                         <ul class="dropdown-menu profile-menu">
                             <li><a href="">My Profile</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>
@@ -100,54 +102,7 @@
                     </div>
                     
                     <!-- Projects -->
-                    <div class="s-widget m-b-25">
-                        <h2 class="tile-title">
-                            Projects on going
-                        </h2>
-                        
-                        <div class="s-widget-body">
-                            <div class="side-border">
-                                <small>Joomla Website</small>
-                                <div class="progress progress-small">
-                                     <a href="#" data-toggle="tooltip" title="" class="progress-bar tooltips progress-bar-danger" style="width: 60%;" data-original-title="60%">
-                                          <span class="sr-only">60% Complete</span>
-                                     </a>
-                                </div>
-                            </div>
-                            <div class="side-border">
-                                <small>Opencart E-Commerce Website</small>
-                                <div class="progress progress-small">
-                                     <a href="#" data-toggle="tooltip" title="" class="tooltips progress-bar progress-bar-info" style="width: 43%;" data-original-title="43%">
-                                          <span class="sr-only">43% Complete</span>
-                                     </a>
-                                </div>
-                            </div>
-                            <div class="side-border">
-                                <small>Social Media API</small>
-                                <div class="progress progress-small">
-                                     <a href="#" data-toggle="tooltip" title="" class="tooltips progress-bar progress-bar-warning" style="width: 81%;" data-original-title="81%">
-                                          <span class="sr-only">81% Complete</span>
-                                     </a>
-                                </div>
-                            </div>
-                            <div class="side-border">
-                                <small>VB.Net Software Package</small>
-                                <div class="progress progress-small">
-                                     <a href="#" data-toggle="tooltip" title="" class="tooltips progress-bar progress-bar-success" style="width: 10%;" data-original-title="10%">
-                                          <span class="sr-only">10% Complete</span>
-                                     </a>
-                                </div>
-                            </div>
-                            <div class="side-border">
-                                <small>Chrome Extension</small>
-                                <div class="progress progress-small">
-                                     <a href="#" data-toggle="tooltip" title="" class="tooltips progress-bar progress-bar-success" style="width: 95%;" data-original-title="95%">
-                                          <span class="sr-only">95% Complete</span>
-                                     </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
                 
                 <!-- Side Menu -->
@@ -338,11 +293,11 @@
                         <div class="col-md-9">
                             <div class="tile-light p-5 m-b-15">
                                 <div class="cover p-relative">
-                                    <img src="../css/img/cover-bg.jpg" class="w-100" alt="" />
-                                    <img class="profile-pic" src="../css/img/profile-pic.jpg" alt="" />
+                                    <img src="../css/img/cover-bg.jpg" class="w-100  cd-popup-trigger2" alt=""   />
+                                    <img class="profile-pic  cd-popup-trigger2" src="../css/img/profile-pic.jpg" alt="" />
                                     <div class="profile-btn">
-                                        <button class="btn btn-alt btn-sm"><i class="icon-bubble"></i> <span>Message</span></button>
-                                        <button class="btn btn-alt btn-sm"><i class="icon-user-2"></i> <span>Friend</span></button>
+                                        <button class="btn btn-alt btn-sm"><i class="icon-bubble"></i> <span>关注</span></button>
+                                         <button class="btn btn-alt btn-sm"><i class="icon-bubble"></i> <span>喜欢</span></button>
                                     </div>
                                 </div>
                                 <div class="p-5 m-t-15">
@@ -351,114 +306,117 @@
                             </div>
                             
                             <div class="m-b-15 text-center profile-summary">
-                                <button class="btn btn-sm">42 Followers</button>
-                                <button class="btn btn-sm">69 Followings</button>
-                                <button class="btn btn-sm hidden-xs">120 Comments</button>
-                                <button class="btn btn-sm hidden-xs">165 Likes</button>
+                                <button class="btn btn-sm">42 关注</button>
+                                <button class="btn btn-sm">69 被关注</button>
+                                <button class="btn btn-sm hidden-xs">120 文章</button>
+                                <button class="btn btn-sm hidden-xs">165 喜欢</button>
                             </div>
                             
                             <div class="row">
                                 <!-- Works -->
-                                <div class="col-md-7">
-                                    <div class="tile">
-                                        <h2 class="tile-title">Works in progress</h2>
-                                        <div class="tile-config dropdown">
-                                            <a data-toggle="dropdown" href="" class="tooltips tile-menu" title="" data-original-title="Options"></a>
-                                            <ul class="dropdown-menu pull-right text-right"> 
-                                                <li><a href="">Edit</a></li>
-                                                <li><a href="">Delete</a></li>
-                                            </ul>
-                                        </div>
-                                        
-                                        <div class="p-10">
-                                            <div class="m-b-10">
-                                                Joomla CMS website for Lexus Inc. - 60%
-                                                <div class="progress progress-striped progress-alt">
-                                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="m-b-10">
-                                                Lotus Design's AMC updates - 90%
-                                                <div class="progress progress-striped progress-alt">
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div>
-                                                </div>
-                                            </div>    
-                                            
-                                            <div class="m-b-10">
-                                                Chrome Extension developement - 33%
-                                                <div class="progress progress-striped progress-alt">
-                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="m-b-10">
-                                                Wireframes for new website - 50%
-                                                <div class="progress progress-striped progress-alt">
-                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div>
-                                                Wordpress Website  Plugin - 99%
-                                                <div class="progress progress-striped progress-alt">
-                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="99" aria-valuemin="0" aria-valuemax="100" style="width: 99%"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Completed Projects -->
-                                    <div class="tile">
-                                        <h2 class="tile-title m-b-5">Completed Projects</h2>
-                                        <div class="tile-config dropdown">
-                                            <a data-toggle="dropdown" href="" class="tooltips tile-menu" title="" data-original-title="Options"></a>
-                                            <ul class="dropdown-menu pull-right text-right"> 
-                                                <li><a href="">Edit</a></li>
-                                                <li><a href="">Delete</a></li>
-                                            </ul>
-                                        </div>
-                                        
-                                        <div class="p-10 news">
-                                            <div class="col-xs-4">
-                                                <div class="tile p-5 m-b-10">
-                                                    <a target="_blank" title="Medical-Pro Bootstrap Responsive Template" href="https://wrapbootstrap.com/theme/medical-pro-responsive-template-WB06421XL">
-                                                        <img class="w-100" src="../css/img/projects/1.png" alt="" />
-                                                        <small class="t-overflow m-t-10">Medical-Pro Bootstrap Responsive</small>
-                                                    </a>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <div class="tile p-5 m-b-10">
-                                                    <a target="_blank" title="Black Pearl Responsive Admin Template" href="https://wrapbootstrap.com/theme/black-pearl-responsive-admin-template-WB040H333">
-                                                        <img class="w-100" src="../css/img/projects/2.png" alt="" />
-                                                        <small class="t-overflow m-t-10">Black Pearl Responsive Admin Template</small>
-                                                    </a>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <div class="tile p-5 m-b-10">
-                                                    <a target="_blank" title="UNEKUE Single Page Portfolio Template" href="https://wrapbootstrap.com/theme/unekue-single-page-portfolio-template-WB04R2B18">
-                                                        <img class="w-100" src="../css/img/projects/3.png" alt="" />
-                                                        <small class="t-overflow m-t-10">UNEKUE Single Page Portfolio Template</small>
-                                                    </a>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
+                                
                                 
                                 
                                 <div class="col-md-5">
                                     <div class="tile">
                                         <h2 class="tile-title">Recent Activities</h2>
+                                        <div class="tile-config dropdown">
+                                            <a data-toggle="dropdown" href="" class="tooltips tile-menu" title="" data-original-title="Options"></a>
+                                            <ul class="dropdown-menu pull-right text-right"> 
+                                                <li><a href="">Edit</a></li>
+                                                <li><a href="">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="listview narrow">
+                                            <div class="media">
+                                                <div class="pull-right">
+                                                    <img width="37" src="../css/img/profile-pics/1.jpg" alt="" />
+                                                </div>
+                                                <div class="media-body">
+                                                    Connected with <a class="news-title underline" href="">Mitchell Christein</a>
+                                                    <div class="clearfix"></div>
+                                                    <small class="muted">30 Minutes ago</small>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <div class="pull-right">
+                                                    <img width="37" src="../css/img/profile-pics/4.jpg" alt="" />
+                                                </div>
+                                                <div class="media-body">
+                                                    <a class="news-title underline" href="">Wayne Cerolina</a> Accepted your friend request
+                                                    <div class="clearfix"></div>
+                                                    <small class="muted">2 Hours ago</small>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <a class="news-title" href="">Uploaded 7 files to DOCS folder</a>
+                                                    <div class="clearfix"></div>
+                                                    <small class="muted">3 Hours ago</small>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    Joined the Group <a class="news-title underline" href="">'90s Rock Hits'</a>
+                                                    <div class="clearfix"></div>
+                                                    <small class="muted">5 Hours ago</small>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <div class="pull-right">
+                                                    <img width="37" src="../css/img/profile-pics/5.jpg" alt="" />
+                                                </div>
+                                                <div class="media-body">
+                                                    Wrote on <a class="news-title underline" href="">David Villa's</a> Wall
+                                                    <div class="clearfix"></div>
+                                                    <small class="muted">8 Hours ago</small>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    Signed up an Affiliate
+                                                    <div class="clearfix"></div>
+                                                    <small class="muted">6 Hours ago</small>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    Completed and submited the project <a class="news-title underline" href="">Joomla</a>
+                                                    <div class="clearfix"></div>
+                                                    <small class="muted">12 Hours ago</small>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    Travelled to <a class="news-title underline" href="">San Fransisco</a>, United States
+                                                    <div class="clearfix"></div>
+                                                    <small class="muted">12 Hours ago</small>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <div class="pull-right">
+                                                    <img width="37" src="../css/img/profile-pics/6.jpg" alt="" />
+                                                </div>
+                                                <div class="media-body">
+                                                    Conneted with <a class="news-title underline" href="">Emma Stone</a>
+                                                    <div class="clearfix"></div>
+                                                    <small class="muted">2 Days ago</small>
+                                                </div>
+                                            </div>
+                                            <div class="media p-5 text-center l-100">
+                                                <a href=""><small>VIEW ALL</small></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                <div class="col-md-5">
+                                    <div class="tile">
+                                        <h2 class="tile-title">访问记录</h2>
                                         <div class="tile-config dropdown">
                                             <a data-toggle="dropdown" href="" class="tooltips tile-menu" title="" data-original-title="Options"></a>
                                             <ul class="dropdown-menu pull-right text-right"> 
@@ -716,10 +674,44 @@
                 </div> 
             </section>
         </section>
+        <div class="cd-popup2">
+    <div class="cd-popup-container2">
+    
+        <div class="cd-buttons" id="cd">
+      
+        </div>
+        <a href="#0" class="cd-popup-close" style="color:red">close</a>
+    </div>
+</div>
         
+        
+        <script type="text/javascript">
+        		//打开窗口
+           jQuery(document).ready(function($){
+        $('.cd-popup-trigger2').on('click', function(event){
+            event.preventDefault();
+            $('.cd-popup2').addClass('is-visible2');
+            //$(".dialog-addquxiao").hide()
+        });
+        //关闭窗口
+        $('.cd-popup2').on('click', function(event){
+            if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') ) {
+                event.preventDefault();
+                $(this).removeClass('is-visible2');
+            }
+        });
+        //ESC关闭
+        $(document).keyup(function(event){
+            if(event.which=='27'){
+                $('.cd-popup2').removeClass('is-visible2');
+            }
+        });
+        });
+        
+        </script>
         <!-- Javascript Libraries -->
         <!-- jQuery -->
-        <script src="../js/jquery.min.js"></script> <!-- jQuery Library -->
+       <!-- jQuery Library -->
         
         <!-- Bootstrap -->
         <script src="../js/bootstrap.min.js"></script>
