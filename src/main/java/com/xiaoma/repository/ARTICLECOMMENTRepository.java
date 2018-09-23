@@ -31,5 +31,12 @@ public interface ARTICLECOMMENTRepository extends JpaRepository<ARTICLECOMMENT,I
 	@Query("update  ARTICLECOMMENT a  set a.PRAISENUMS=?1 where a.ID=?2")//查找二级
 	@Modifying
 	public int UpdatePRAISENUMSByID(int PRAISENUMS, int  ID);//查找
+	
+	
+	@Query("select a from ARTICLECOMMENT a where a.BELONGID=?1")//查找二级
+	public List<ARTICLECOMMENT>findByBELONGID(int  BELONGID);//查找
+	
+	@Query("select a from ARTICLECOMMENT a where a.BELONGID=?1 and a.PARENTID=?2")//查找二级
+	public List<ARTICLECOMMENT>findByBELONGIDandPARENTID(int  BELONGID,int PARENTID);//查找
 
 }

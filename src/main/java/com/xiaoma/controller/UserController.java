@@ -1,6 +1,7 @@
 package com.xiaoma.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoma.entity.ARTICLECOMMENT;
+import com.xiaoma.entity.FOLLOW;
 import com.xiaoma.entity.USERMSG;
+import com.xiaoma.repository.ARTICLECOMMENTRepository;
+import com.xiaoma.repository.FOLLOWRepository;
 import com.xiaoma.repository.USERMSGRepository;
 
 @Controller
@@ -30,6 +35,10 @@ public class UserController {
 	//用户关注和点赞
 	@Autowired
 	USERMSGRepository userMsgRepository;
+	@Autowired
+	FOLLOWRepository followRepository;
+	@Autowired
+	ARTICLECOMMENTRepository articleRepository;
 	
 	@RequestMapping("User/Login")
 	public String  UserLogin(Model m)
@@ -54,9 +63,14 @@ public class UserController {
 	}
 	
 	@RequestMapping("User/index")
-	public String  UserIndex(Model m)
+	public String  UserIndex(Model m,HttpServletRequest request)
 	{
 		//实现截图
+		//实现聊天信息
+		int ID=(Integer) request.getAttribute("ID");
+		List<ARTICLECOMMENT> articlecomment=articleRepository.findByBELONGID(ID);
+		List<ARTICLECOMMENT> articlecomment1=articleRepository.findByBELONGIDandPARENTID(0, ID);
+		
 		return "thymeleaf/User/index";
 		
 	}
@@ -164,7 +178,34 @@ public class UserController {
 	}
 	
 	//聊天记录显示，跳转个人主页，跳转文章主页
-	//关注显示聊天动态，更新动态取关
+	//关注显示聊天动态，更新动态取关，喜欢
+	@RequestMapping("User/Follow")
+	@ResponseBody()
+	public Map<String, String>  UserFollow(Model m,@RequestParam("TOID")int TOID,@RequestParam("ISLIKE")int ISLIKE,@RequestParam("ISFOLLOW")int ISFOLLOW,HttpServletRequest request)
+	{
+		//islike为1的话插入，为2的话更新,isfollow=1的时候
+		Map<String, String> map=new HashMap<String, String>();
+		int FROMID=(Integer) request.getAttribute("ID");
+	    FOLLOW f=followRepository.findByTOID(TOID, FROMID);
+	     
+		if(f==null)
+		{
+			FOLLOW f1=new FOLLOW();
+			f1.setFOLLOW(ISFOLLOW);
+			f1.setFROMID(FROMID);
+			f1.setLIKETO(ISLIKE);
+			f1.setTOID(TOID);
+			followRepository.save(f1);
+			
+		}else{
+			
+			followRepository.UpdateByTOID(ISLIKE, ISFOLLOW, FROMID, TOID);
+		}
+		
+		return map;
+	
+		
+	}
 	//个人相册
 	//个人信息编辑
 	//个人行程编辑，将要来到的事情编辑
