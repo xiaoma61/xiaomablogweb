@@ -19,7 +19,7 @@ public class ARTICLECOMMENT {
 	String CONTENT;
 	int  BELONGID;
 	int PRAISENUMS;
-	
+	int ISREAD;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="ARTICLECOMMENTId")
@@ -73,5 +73,12 @@ public class ARTICLECOMMENT {
 	public void setPRAISENUMS(int pRAISENUMS) {
 		PRAISENUMS = pRAISENUMS;
 	}
+	public int getISREAD() {
+		return ISREAD;
+	}
+	public void setISREAD(int iSREAD) {
+		ISREAD = iSREAD;
+	}
 
+	
 }

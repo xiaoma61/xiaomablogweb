@@ -1,4 +1,5 @@
 package com.xiaoma.repository;
+import java.sql.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -33,10 +34,14 @@ public interface ARTICLECOMMENTRepository extends JpaRepository<ARTICLECOMMENT,I
 	public int UpdatePRAISENUMSByID(int PRAISENUMS, int  ID);//查找
 	
 	
-	@Query("select a from ARTICLECOMMENT a where a.BELONGID=?1")//查找二级
-	public List<ARTICLECOMMENT>findByBELONGID(int  BELONGID);//查找
+	@Query("select a from ARTICLECOMMENT a where a.BELONGID=?1 and a.ISREAD=?2")//查找二级
+	public List<ARTICLECOMMENT>findByBELONGID(int  BELONGID,int ISREAD);//查找
 	
-	@Query("select a from ARTICLECOMMENT a where a.BELONGID=?1 and a.PARENTID=?2")//查找二级
-	public List<ARTICLECOMMENT>findByBELONGIDandPARENTID(int  BELONGID,int PARENTID);//查找
+	@Query("select a from ARTICLECOMMENT a where a.BELONGID=?1 and a.PARENTID=?2 and a.ISREAD=?3")//查找二级
+	public List<ARTICLECOMMENT>findByBELONGIDandPARENTID(int  BELONGID,int PARENTID,int ISREAD);//查找
+	
+	
+	@Query("select a from ARTICLECOMMENT a where a.USERID=?1 and a.TIME=?2 order by a.TIME desc")//查找二级
+	public List<ARTICLECOMMENT>findByUSERID(int USERID,Date TIME);//查找
 
 }

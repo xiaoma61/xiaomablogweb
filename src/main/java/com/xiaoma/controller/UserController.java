@@ -1,5 +1,7 @@
 package com.xiaoma.controller;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoma.Util.PageUtil;
+import com.xiaoma.Util.TimeUtil;
+import com.xiaoma.Util.articlecommentUtil;
 import com.xiaoma.entity.ARTICLECOMMENT;
+import com.xiaoma.entity.ARTICLECOMMENTUSERANDCOMMENT;
 import com.xiaoma.entity.FOLLOW;
 import com.xiaoma.entity.USERMSG;
 import com.xiaoma.repository.ARTICLECOMMENTRepository;
@@ -38,7 +44,7 @@ public class UserController {
 	@Autowired
 	FOLLOWRepository followRepository;
 	@Autowired
-	ARTICLECOMMENTRepository articleRepository;
+	ARTICLECOMMENTRepository articlecommentRepository;
 	
 	@RequestMapping("User/Login")
 	public String  UserLogin(Model m)
@@ -66,10 +72,91 @@ public class UserController {
 	public String  UserIndex(Model m,HttpServletRequest request)
 	{
 		//实现截图
-		//实现聊天信息
-		int ID=(Integer) request.getAttribute("ID");
-		List<ARTICLECOMMENT> articlecomment=articleRepository.findByBELONGID(ID);
-		List<ARTICLECOMMENT> articlecomment1=articleRepository.findByBELONGIDandPARENTID(0, ID);
+		//实现聊天信息更新
+		
+		HttpSession session=request.getSession();
+		
+		int ID=(Integer) session.getAttribute("ID");
+		if(session.getAttribute("ID")==null)
+		{
+			ID=1;
+			System.out.println("DDDD   1 "+ID);
+		}
+		System.out.println("DDDD   2  "+ID);
+		//制作轮询
+		List<ARTICLECOMMENT> articlecomment=new ArrayList<ARTICLECOMMENT>();
+		articlecomment=articlecommentRepository.findByBELONGID(ID,0);
+		List<ARTICLECOMMENT> articlecomment1=new ArrayList<ARTICLECOMMENT>();
+		articlecommentRepository.findByBELONGIDandPARENTID(0, ID,0);
+		articlecomment.addAll(articlecomment1);
+		
+	
+		//评论讯息
+	    if(articlecomment.size()>0)
+	    {
+	    	System.out.println("DDDD   "+articlecomment.size());
+	    	List<ARTICLECOMMENTUSERANDCOMMENT>articlecommentuserandcommentList=new ArrayList<ARTICLECOMMENTUSERANDCOMMENT>();
+			for(int i=0;i<articlecomment.size();i++)
+			{
+				ARTICLECOMMENTUSERANDCOMMENT  articlecommentuserandcomment=new ARTICLECOMMENTUSERANDCOMMENT();
+				int USERID =articlecomment.get(i).getUSERID();
+				USERMSG usermsg=userMsgRepository.findOne( USERID);	
+				articlecommentuserandcomment.setArticlecomment(articlecomment.get(i));
+				articlecommentuserandcomment.setUsermsg(usermsg);
+				
+				articlecommentuserandcommentList.add(articlecommentuserandcomment);
+				
+				
+				
+			
+				
+			}
+	    	PageUtil<ARTICLECOMMENTUSERANDCOMMENT> pageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENT>(articlecommentuserandcommentList,1,5);
+			m.addAttribute("pageutil", pageutil);
+	    }
+		
+		//关注他人，他人关注自己
+		List<FOLLOW>TOIDFOLLOWf=followRepository.findByTOIDAndFOLLOW(ID, 2);
+		List<FOLLOW>TOIDISLIKEf=followRepository.findByTOIDAndISLIKE(ID, 2);
+		List<FOLLOW>FROMIDf=followRepository.findByFROMID(ID);
+		
+		
+		
+		//关注的人的动态
+		//发表的评论,发表的文章
+		List<ARTICLECOMMENT>articlecommetf=new ArrayList<ARTICLECOMMENT>();
+	
+		for(int i=0;i<TOIDFOLLOWf.size();i++){
+			
+			Date TIME=TimeUtil.GetDate();
+			List<ARTICLECOMMENT> articlecomment2=articlecommentRepository.findByUSERID(TOIDFOLLOWf.get(i).getID(),TIME);
+			articlecommetf.addAll(articlecomment2);
+			
+		}
+
+		List<ARTICLECOMMENTUSERANDCOMMENT>articlecommentuserandcommentList1=articlecommentUtil.GetcommnetUtil(articlecommetf);
+		PageUtil<ARTICLECOMMENTUSERANDCOMMENT> pageutil1=new PageUtil<ARTICLECOMMENTUSERANDCOMMENT>(articlecommentuserandcommentList1,1,5);
+		m.addAttribute("pageutil1", pageutil1);
+		//我的关注
+		List<USERMSG>usermsglist1=new ArrayList<USERMSG>();
+		for(int i=0;i<TOIDFOLLOWf.size();i++){
+			USERMSG usermsg=userMsgRepository.findOne(TOIDFOLLOWf.get(i).getID());
+			usermsglist1.add(usermsg);
+			
+		}
+		
+		
+		
+		
+		//访问者
+		
+		if(articlecomment!=null)
+		{
+			session.setAttribute("articlecommentnums", articlecomment.size());
+		}
+		session.setAttribute("articlecommentnums", 0);
+		
+		
 		
 		return "thymeleaf/User/index";
 		
@@ -206,6 +293,47 @@ public class UserController {
 	
 		
 	}
+	//消息轮询
+
+	@RequestMapping("User/indexMsg")
+	public Map<String ,Object>  UserMsg(HttpServletRequest request)
+	{
+		Map<String,Object> map=new HashMap<String, Object>();
+		//实现截图
+		//实现聊天信息更新
+		int ID=(Integer) request.getAttribute("ID");
+		List<ARTICLECOMMENT> articlecomment=articlecommentRepository.findByBELONGID(ID,0);
+		List<ARTICLECOMMENT> articlecomment1=articlecommentRepository.findByBELONGIDandPARENTID(0, ID,0);
+		articlecomment.addAll(articlecomment1);
+		//制作轮询
+		HttpSession session=request.getSession();
+		int size=(Integer) session.getAttribute("articlecommentnums");
+		if(size!=articlecomment.size())
+		{
+			session.setAttribute("articlecommentnums", articlecomment.size());
+			
+			
+			List<ARTICLECOMMENTUSERANDCOMMENT>articlecommentuserandcommentList=articlecommentUtil.GetcommnetUtil(articlecomment);
+			map.put("articlecommentuserandcommentList", articlecommentuserandcommentList);
+			
+			return map;
+			//发送回去信息
+		}else
+		{
+			
+			map.put("data","lose");
+			return map;
+		}
+
+		
+		
+		
+		
+		
+		
+	}
+	
+	
 	//个人相册
 	//个人信息编辑
 	//个人行程编辑，将要来到的事情编辑

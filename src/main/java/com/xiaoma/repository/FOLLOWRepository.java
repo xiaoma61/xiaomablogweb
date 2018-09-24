@@ -1,5 +1,7 @@
 package com.xiaoma.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +20,18 @@ public interface FOLLOWRepository extends JpaRepository<FOLLOW,Integer>{
 	@Query(value =" update  FOLLOW f set f.LIKETO=?1 , f.FOLLOW=?2  where  f.FROMID=?3 and  f.TOID=?4")
     @Modifying
 	public FOLLOW UpdateByTOID(int LIKETO ,int FOLLOW,int FROMID,int TOID);
+	
+	
+	@Query(value =" select f from  FOLLOW f  where f.TOID=?1 and f.FOLLOW=?2")
+
+	public List<FOLLOW> findByTOIDAndFOLLOW(int TOID ,int FOLLOW);
+	
+	@Query(value =" select f from  FOLLOW f  where f.FROMID=?1")
+
+	public List<FOLLOW> findByFROMID(int FROMID );
+	
+	@Query(value =" select f from  FOLLOW f  where f.TOID=?1 and f.LIKETO=?2")
+
+	public List<FOLLOW> findByTOIDAndISLIKE(int TOID ,int ISLIKE);
 
 }
