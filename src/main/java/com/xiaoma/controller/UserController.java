@@ -69,20 +69,20 @@ public class UserController {
 	}
 	
 	@RequestMapping("User/index")
-	public String  UserIndex(Model m,HttpServletRequest request)
+	public String  UserIndex(Model m,HttpServletRequest request,@RequestParam("ID")int ID)
 	{
 		//实现截图
 		//实现聊天信息更新
 		
 		HttpSession session=request.getSession();
 		
-		int ID=(Integer) session.getAttribute("ID");
+		/*int ID=(Integer) session.getAttribute("ID");
 		if(session.getAttribute("ID")==null)
 		{
 			ID=1;
-			System.out.println("DDDD   1 "+ID);
-		}
-		System.out.println("DDDD   2  "+ID);
+			
+		}*/
+		
 		//制作轮询
 		List<ARTICLECOMMENT> articlecomment=new ArrayList<ARTICLECOMMENT>();
 		articlecomment=articlecommentRepository.findByBELONGID(ID,0);
@@ -108,7 +108,6 @@ public class UserController {
 				
 				
 				
-			
 				
 			}
 	    	PageUtil<ARTICLECOMMENTUSERANDCOMMENT> pageutil=new PageUtil<ARTICLECOMMENTUSERANDCOMMENT>(articlecommentuserandcommentList,1,5);
@@ -139,12 +138,13 @@ public class UserController {
 		m.addAttribute("pageutil1", pageutil1);
 		//我的关注
 		List<USERMSG>usermsglist1=new ArrayList<USERMSG>();
-		for(int i=0;i<TOIDFOLLOWf.size();i++){
-			USERMSG usermsg=userMsgRepository.findOne(TOIDFOLLOWf.get(i).getID());
+		for(int i=0;i<FROMIDf.size();i++){
+			USERMSG usermsg=userMsgRepository.findOne(FROMIDf.get(i).getID());
 			usermsglist1.add(usermsg);
 			
 		}
-		
+		PageUtil<USERMSG> pageutil2=new PageUtil<USERMSG>(usermsglist1,1,5);
+		m.addAttribute("pageutil2", pageutil2);
 		
 		
 		
@@ -155,6 +155,8 @@ public class UserController {
 			session.setAttribute("articlecommentnums", articlecomment.size());
 		}
 		session.setAttribute("articlecommentnums", 0);
+		m.addAttribute("TOIDISLIKEfnums", TOIDISLIKEf.size());
+	
 		
 		
 		
