@@ -11,8 +11,9 @@ jpa:
      show-sql: true
 server:
   port: 8090
+  session:
+    timeout: 30000
  
 spring.thymeleaf.content-type: text/html 
 spring.thymeleaf.cache: false 
 spring.thymeleaf.mode: LEGACYHTML5
- 

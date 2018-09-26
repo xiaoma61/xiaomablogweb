@@ -19,16 +19,16 @@ public interface FOLLOWRepository extends JpaRepository<FOLLOW,Integer>{
 	
 	@Query(value =" update  FOLLOW f set f.LIKETO=?1 , f.FOLLOW=?2  where  f.FROMID=?3 and  f.TOID=?4")
     @Modifying
-	public FOLLOW UpdateByTOID(int LIKETO ,int FOLLOW,int FROMID,int TOID);
+	public int UpdateByTOID(int LIKETO ,int FOLLOW,int FROMID,int TOID);
 	
 	
 	@Query(value =" select f from  FOLLOW f  where f.TOID=?1 and f.FOLLOW=?2")
 
 	public List<FOLLOW> findByTOIDAndFOLLOW(int TOID ,int FOLLOW);
 	
-	@Query(value =" select f from  FOLLOW f  where f.FROMID=?1")
+	@Query(value =" select f from  FOLLOW f  where f.FROMID=?1 and f.FOLLOW=?2")
 
-	public List<FOLLOW> findByFROMID(int FROMID );
+	public List<FOLLOW> findByFROMID(int FROMID ,int FOLLOW );
 	
 	@Query(value =" select f from  FOLLOW f  where f.TOID=?1 and f.LIKETO=?2")
 

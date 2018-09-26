@@ -4,7 +4,14 @@
  
 	<meta charset="UTF-8"/>
 	   <title>个人主页</title>
-            
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description" content="A simple jQuery image cropping plugin."/>
+  <meta name="author" content="Chen Fengyuan"/>
+  <title>Cropper</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../css/UserCss/cropper.css"/>
+  <link rel="stylesheet" href="../css/UserCss/main.css"/>     
         <!-- CSS -->
         <link href="../css/UserCss/bootstrap.min.css" rel="stylesheet"/>
         <link href="../css/UserCss/animate.min.css" rel="stylesheet"/>
@@ -17,10 +24,16 @@
         <link href="../css/UserCss/croppic.css" rel="stylesheet"/> 
    
          <link href="../css/UserCss/Image.css" rel="stylesheet"/> 
-          <script src="../js/jquery.min.js"></script> 
+        <script src="../js/jquery.min.js"></script> 
         <script src="../js/croppic.js"></script>
         <script src="../js/croppic.min.js"></script>
         <script src="../js/FollowAndLike.js"></script>
+        
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://fengyuanchen.github.io/js/common.js"></script>
+    <script src="../js/cropper.js"></script>
+    <script src="../js/main.js"></script>
     </head>
     <body id="skin-blur-violate">
         <div class="Image-body"> </div>
@@ -400,8 +413,8 @@
         <div class="cd-popup2">
     <div class="cd-popup-container2">
     
-        <div class="cd-buttons" id="cd">
-      
+        <div class="cd-buttons" id="cd" th:include="thymeleaf/User/cropper :: cropper" th:remove="tag">
+          
         </div>
         <a href="#0" class="cd-popup-close" style="color:red">close</a>
     </div>

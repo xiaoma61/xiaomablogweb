@@ -69,14 +69,24 @@ public class UserController {
 	}
 	
 	@RequestMapping("User/index")
-	public String  UserIndex(Model m,HttpServletRequest request,@RequestParam("ID")int ID)
+	public String  UserIndex(Model m,HttpServletRequest request,@RequestParam(value="ID",defaultValue="-1")int ID)
 	{
 		//实现截图
 		//实现聊天信息更新
 		
 		HttpSession session=request.getSession();
+		int IDm=1;
+		if(session.getAttribute("ID")!=null)
+		{
+			IDm=(Integer) session.getAttribute("ID");
+		}else
+		{
+			return "thymeleaf/index";
+		}
+		if(ID==-1){
+			ID=IDm;
+		}
 		
-		int IDm=(Integer) session.getAttribute("ID");
 		
 		
 		//制作轮询
@@ -113,7 +123,7 @@ public class UserController {
 		//关注他人，他人关注自己
 		List<FOLLOW>TOIDFOLLOWf=followRepository.findByTOIDAndFOLLOW(ID, 2);
 		List<FOLLOW>TOIDISLIKEf=followRepository.findByTOIDAndISLIKE(ID, 2);
-		List<FOLLOW>FROMIDf=followRepository.findByFROMID(ID);
+		List<FOLLOW>FROMIDf=followRepository.findByFROMID(ID,2);
 		
 		
 		
@@ -354,7 +364,11 @@ public class UserController {
 		
 	}
 	
-	
+	@RequestMapping("User/indexcropper")
+	public String  Usercropper(HttpServletRequest request)
+	{
+		return "thymeleaf/User/cropper";
+	}
 	//个人相册
 	//个人信息编辑
 	//个人行程编辑，将要来到的事情编辑
