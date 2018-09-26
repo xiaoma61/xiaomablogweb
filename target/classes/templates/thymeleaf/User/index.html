@@ -20,6 +20,7 @@
           <script src="../js/jquery.min.js"></script> 
         <script src="../js/croppic.js"></script>
         <script src="../js/croppic.min.js"></script>
+        <script src="../js/FollowAndLike.js"></script>
     </head>
     <body id="skin-blur-violate">
         <div class="Image-body"> </div>
@@ -75,14 +76,9 @@
                         <a href="" data-toggle="dropdown">
                             <img class="profile-pic animated" src="../css/img/profile-pic.jpg" alt="" />
                         </a>
-                        <ul class="dropdown-menu profile-menu">
-                            <li><a href="">My Profile</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>
-                            <li><a href="">Messages</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>
-                            <li><a href="">Settings</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>
-                            <li><a href="">Sign Out</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>
-                        </ul>
-                        <h4 class="m-0">Malinda Hollaway</h4>
-                        @malinda-h
+                       
+                        <h4 class="m-0" th:text="${usermsgID.NAME}"></h4>
+                        <h4 class="m-0" id="usermsg" th:text="${usermsgID.ID}" style="display:none;"></h4>
                     </div>
                     
                     <!-- Calendar -->
@@ -184,8 +180,8 @@
                                     <img src="../css/img/cover-bg.jpg" class="w-100  cd-popup-trigger2" alt=""   />
                                     <img class="profile-pic  cd-popup-trigger2" src="../css/img/profile-pic.jpg" alt="" />
                                     <div class="profile-btn">
-                                        <button class="btn btn-alt btn-sm"><i class="icon-bubble"></i> <span>关注</span></button>
-                                         <button class="btn btn-alt btn-sm"><i class="icon-bubble"></i> <span>喜欢</span></button>
+                                        <button class="btn btn-alt btn-sm"><i class="icon-bubble"></i> <span th:unless="${isfollow eq null}" id="follow" onclick="LikeAndFollow('1')">已关注</span><span th:if="${isfollow eq null}" id="follow"  onclick="LikeAndFollow('1')">关注</span></button>
+                                         <button class="btn btn-alt btn-sm"><i class="icon-bubble"></i> <span th:unless="${islike eq null}" id="like" onclick="LikeAndFollow('2')"> 已喜欢</span><span th:if="${islike eq null}" id="like" onclick="LikeAndFollow('2')"> 喜欢</span>  </button>
                                     </div>
                                 </div>
                                 <div class="p-5 m-t-15">

@@ -33,5 +33,15 @@ public interface FOLLOWRepository extends JpaRepository<FOLLOW,Integer>{
 	@Query(value =" select f from  FOLLOW f  where f.TOID=?1 and f.LIKETO=?2")
 
 	public List<FOLLOW> findByTOIDAndISLIKE(int TOID ,int ISLIKE);
+	
+	
+	@Query(value =" select f from  FOLLOW f  where f.FROMID=?1 and f.TOID=?2 and f.FOLLOW=?3")
+
+	public FOLLOW findByFROMIDAndTOIDandFOLLOW(int FROMID ,int TOID,int FOLLOW);
+	
+	
+	@Query(value =" select f from  FOLLOW f  where f.FROMID=?1 and f.TOID=?2 and f.LIKETO=?3")
+
+	public FOLLOW findByFROMIDAndTOIDandLIKETO(int FROMID ,int TOID,int LIKETO);
 
 }

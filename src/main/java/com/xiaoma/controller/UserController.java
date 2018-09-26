@@ -76,12 +76,8 @@ public class UserController {
 		
 		HttpSession session=request.getSession();
 		
-		/*int ID=(Integer) session.getAttribute("ID");
-		if(session.getAttribute("ID")==null)
-		{
-			ID=1;
-			
-		}*/
+		int IDm=(Integer) session.getAttribute("ID");
+		
 		
 		//制作轮询
 		List<ARTICLECOMMENT> articlecomment=new ArrayList<ARTICLECOMMENT>();
@@ -157,7 +153,23 @@ public class UserController {
 		session.setAttribute("articlecommentnums", 0);
 		m.addAttribute("TOIDISLIKEfnums", TOIDISLIKEf.size());
 	
+		//关注和喜欢是否
+		FOLLOW f=followRepository.findByFROMIDAndTOIDandLIKETO(IDm, ID, 2);
+		FOLLOW f1=followRepository.findByFROMIDAndTOIDandFOLLOW(IDm, ID, 2);
 		
+		if(f!=null)
+		{
+			m.addAttribute("islike", 2);
+		}
+		if(f1!=null)
+		{
+			m.addAttribute("isfollow", 2);
+		}
+		//个人信息
+		USERMSG usermsgID=userMsgRepository.findOne(ID);
+		
+		
+		m.addAttribute("usermsgID", usermsgID);
 		
 		
 		return "thymeleaf/User/index";
@@ -270,11 +282,15 @@ public class UserController {
 	//关注显示聊天动态，更新动态取关，喜欢
 	@RequestMapping("User/Follow")
 	@ResponseBody()
-	public Map<String, String>  UserFollow(Model m,@RequestParam("TOID")int TOID,@RequestParam("ISLIKE")int ISLIKE,@RequestParam("ISFOLLOW")int ISFOLLOW,HttpServletRequest request)
+	public Map<String, String>  UserFollow(Model m,@RequestParam("TOID")int TOID,@RequestParam(value="ISLIKE",defaultValue="1")int ISLIKE,@RequestParam(value="ISFOLLOW" ,defaultValue="1")int ISFOLLOW,HttpServletRequest request)
 	{
 		//islike为1的话插入，为2的话更新,isfollow=1的时候
 		Map<String, String> map=new HashMap<String, String>();
-		int FROMID=(Integer) request.getAttribute("ID");
+
+		HttpSession session=request.getSession();
+		
+		int FROMID=(Integer) session.getAttribute("ID");
+		
 	    FOLLOW f=followRepository.findByTOID(TOID, FROMID);
 	     
 		if(f==null)
@@ -303,12 +319,15 @@ public class UserController {
 		Map<String,Object> map=new HashMap<String, Object>();
 		//实现截图
 		//实现聊天信息更新
-		int ID=(Integer) request.getAttribute("ID");
+
+		HttpSession session=request.getSession();
+		
+		int ID=(Integer) session.getAttribute("ID");
 		List<ARTICLECOMMENT> articlecomment=articlecommentRepository.findByBELONGID(ID,0);
 		List<ARTICLECOMMENT> articlecomment1=articlecommentRepository.findByBELONGIDandPARENTID(0, ID,0);
 		articlecomment.addAll(articlecomment1);
 		//制作轮询
-		HttpSession session=request.getSession();
+
 		int size=(Integer) session.getAttribute("articlecommentnums");
 		if(size!=articlecomment.size())
 		{
