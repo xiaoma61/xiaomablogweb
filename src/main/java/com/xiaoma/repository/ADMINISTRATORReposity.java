@@ -12,6 +12,8 @@ import com.xiaoma.entity.ADMINISTRATOR;
 public interface ADMINISTRATORReposity extends JpaRepository<ADMINISTRATOR,Integer>{
 	@Query("select a from ADMINISTRATOR a where a.NAME=?1 And a.PASSWORD=?2")
 	public ADMINISTRATOR findBynameAndPassword(String name,String password);
+	
+	
 }
 
 

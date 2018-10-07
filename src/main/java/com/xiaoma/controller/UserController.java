@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoma.Util.ImageUtil;
 import com.xiaoma.Util.PageUtil;
 import com.xiaoma.Util.TimeUtil;
 import com.xiaoma.Util.articlecommentUtil;
@@ -77,8 +79,8 @@ public class UserController {
 		HttpSession session=request.getSession();
 		int IDm=1;
 		if(session.getAttribute("ID")!=null)
-		{
-			IDm=(Integer) session.getAttribute("ID");
+		{   ID=IDm;
+			/*IDm=(Integer) session.getAttribute("ID");*/
 		}else
 		{
 			return "thymeleaf/index";
@@ -277,10 +279,35 @@ public class UserController {
 	//实现裁剪头像
 	@RequestMapping("User/HeadImage")
 	@ResponseBody()
-	public Map<String, String>  UserHeadImage(Model m,@RequestParam("HeadImage")String HeadImage,HttpServletRequest request)
+	public Map<String, String>  UserHeadImage(Model m,@RequestParam("HeadImage")String HeadImage,@RequestParam("HeadImageName")String HeadImageName,HttpServletRequest request)
 	{
 		Map<String, String> map=new HashMap<String, String>();
+		//图片信息获取
+		System.out.println(HeadImage);
+		String filePath="E://Skins/text";
+		String LastName=UUID.randomUUID().toString()+HeadImageName;
+		String File=filePath+LastName;
+		HttpSession session=request.getSession();
+		int ID=1;
 		
+		if(session.getAttribute("ID")!=null)
+		{   
+		  ID=(Integer) session.getAttribute("ID");
+		}
+		//存入指定位置
+		if(ImageUtil.GenerateImage(HeadImage,File ))
+		{
+			map.put("data", HeadImage);
+			//更新操作
+			userMsgRepository.updateImageByID(File, ID);
+			
+			
+		}else
+		{
+			map.put("data", "false");
+		}
+		
+		//更新
 		
 		
 		return map;
@@ -364,11 +391,6 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping("User/indexcropper")
-	public String  Usercropper(HttpServletRequest request)
-	{
-		return "thymeleaf/User/cropper";
-	}
 	//个人相册
 	//个人信息编辑
 	//个人行程编辑，将要来到的事情编辑

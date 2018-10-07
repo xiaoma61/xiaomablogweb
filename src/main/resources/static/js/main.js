@@ -28,7 +28,7 @@ $(function () {
       };
   var originalImageURL = $image.attr('src');
   var uploadedImageName = 'cropped.jpg';
-  var uploadedImageType = 'image/jpeg';
+  var uploadedImageType = 'image/*';
   var uploadedImageURL;
 
 
@@ -106,6 +106,7 @@ $(function () {
 
 
   // Methods
+ 
   $('.docs-buttons').on('click', '[data-method]', function () {
     var $this = $(this);
     var data = $this.data();
@@ -169,15 +170,43 @@ $(function () {
         case 'scaleY':
           $(this).data('option', -data.option);
           break;
-
+       //获取数据
         case 'getCroppedCanvas':
           if (result) {
             // Bootstrap's Modal
-            $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
+          /*  $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);*/
 
             if (!$download.hasClass('disabled')) {
-              download.download = uploadedImageName;
-              $download.attr('href', result.toDataURL(uploadedImageType));
+             /* download.download = uploadedImageName;
+              $download.attr('href', result.toDataURL(uploadedImageType));*/
+              //实现上传功能
+            var data=result.toDataURL(uploadedImageType,0.5);
+            
+          //ajax提交
+            $.ajax({    
+                url: "/User/HeadImage?HeadImage="+data.toString(),  
+                type: 'POST',    
+                dataType: 'json',    
+                timeout : 10000, //超时时间设置，单位毫秒  
+                async: true,    
+                cache: false,    
+                contentType: false,    
+                processData: false,   
+                data:{
+                	HeadImage:data.toString()
+                },
+                success: function (result) {  
+                	
+                	
+                	
+                },    
+                error: function (returndata) {  
+                }  
+            });  
+
+            	
+            	
+              alert(result.toDataURL(uploadedImageType));
             }
           }
 

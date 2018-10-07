@@ -643,7 +643,7 @@ function dataURLToArrayBuffer(dataURL) {
   $.each(uint8, function (i) {
     uint8[i] = binary.charCodeAt(i);
   });
-
+  alert("ddd2");
   return arrayBuffer;
 }
 
@@ -661,7 +661,7 @@ function arrayBufferToDataURL(arrayBuffer, mimeType) {
   $.each(uint8, function (i, value) {
     data += fromCharCode(value);
   });
-
+alert("ddd1");
   return 'data:' + mimeType + ';base64,' + btoa(data);
 }
 
@@ -2774,6 +2774,8 @@ var methods = {
     context.drawImage.apply(context, [source].concat(toConsumableArray($.map(params, function (param) {
       return Math.floor(normalizeDecimalNumber(param));
     }))));
+    
+    alert(canvas);
     return canvas;
   },
 

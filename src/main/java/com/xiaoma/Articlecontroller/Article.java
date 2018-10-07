@@ -86,7 +86,6 @@ public @ResponseBody String uploadImg(@RequestParam("thumbnail")MultipartFile fi
 	String LastName=UUID.randomUUID().toString()+fileName;
 	byte[] filebyte=file.getBytes();
 	FileUtil.uploadFile(filebyte, filePath,LastName);
-
 	return "http://localhost:8090/image/text"+LastName;
 	
 }
