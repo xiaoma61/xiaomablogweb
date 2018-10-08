@@ -429,7 +429,29 @@ public class UserController {
 	
 	//个人相册
 	//个人信息编辑
-	//个人行程编辑，将要来到的事情编辑
+	
+	
+	@RequestMapping("User/calendarMSG")
+	public Map<String ,Object>  UserCalendarMSG(HttpServletRequest request)
+	{
+		Map<String,Object> map=new HashMap<String, Object>();
+		//起始时间，结束时间，事件，ID。如何计算未完成的状态：在今天之前
+		
+		
+		//显示信息显示这一个月
+		//添加新的信息
+		//修改新的信息
+		//实现信息提醒
+		//实现查询功能
+		
+		
+		
+		
+		
+		return map;
+		
+	}
+	
 	
 	
 	

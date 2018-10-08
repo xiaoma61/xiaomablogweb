@@ -8,7 +8,7 @@
         <meta name="description" content="Violate Responsive Admin Template"/>
         <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap"/>
 
-        <title>Super Admin Responsive Template</title>
+        <title>calendar</title>
             
         <!-- CSS -->
         <link href="../css/UserCss/bootstrap.min.css" rel="stylesheet"/>
@@ -518,6 +518,7 @@
         <script src="../js/functions.js"></script>
         
         <script type="text/javascript">
+          /*  事件 */
             $(document).ready(function() {
                 var date = new Date();
                 var d = date.getDate();
@@ -536,17 +537,17 @@
                     events: [
                         {
                             title: 'Hangout with friends',
-                            start: new Date(y, m, 1),
-                            end: new Date(y, m, 2)
+                            start: new Date(2018, m, 1),
+                            end: new Date(2018, m, 2)
                         },
                         {
                             title: 'Meeting with client',
-                            start: new Date(y, m, 10),
+                            start: new Date(2018, m, 10),
                             allDay: true
                         },
                         {
                             title: 'Repeat Event',
-                            start: new Date(y, m, 18),
+                            start: new Date(2018, m, 18),
                             allDay: true
                         },
                         {
@@ -594,7 +595,7 @@
                         }) 
                     }
                 });
-                
+                //添加事件
                 $('body').on('click', '#addEvent', function(){
                      var eventForm =  $(this).closest('.modal').find('.form-validation');
                      eventForm.validationEngine('validate');
