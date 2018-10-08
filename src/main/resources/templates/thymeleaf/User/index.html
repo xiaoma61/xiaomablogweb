@@ -209,8 +209,8 @@
                             </div>
                             
                             <div class="m-b-15 text-center profile-summary">
-                                <button class="btn btn-sm" th:text="${pageutil.Total}+'   关注'">42 关注</button>
-                                <button class="btn btn-sm" th:text="${pageutil1.Total}+'   被关注'">69 被关注</button>
+                                <button class="btn btn-sm" th:text="${pageutil2.Total}+'   关注'"> 关注</button>
+                                <button class="btn btn-sm" th:text="${followedsize}+'   被关注'"> 被关注</button>
                                 <button class="btn btn-sm hidden-xs">120 文章</button>
                                 <button class="btn btn-sm hidden-xs" th:text="${TOIDISLIKEfnums} +'   喜欢'">165 喜欢</button>
                             </div>
@@ -222,7 +222,7 @@
                                 
                                 <div class="col-md-5">
                                     <div class="tile">
-                                        <h2 class="tile-title">关注</h2>
+                                        <h2 class="tile-title">关注信息</h2>
                                         <div class="tile-config dropdown">
                                             <a data-toggle="dropdown" href="" class="tooltips tile-menu" title="" data-original-title="Options"></a>
                                             <ul class="dropdown-menu pull-right text-right"> 
@@ -234,14 +234,14 @@
                                         <div class="listview narrow">
                                             <div class="media" th:each="articlecomment :${pageutil1.list}">
                                                 <div class="pull-right">
-                                                    <img width="37" src="../css/img/profile-pics/1.jpg" alt="" />
+                                                    <img width="37" th:attr="src=@{${articlecomment.usermsg.IMAGE}}" alt="" /> 
                                                 </div>
                                                 <div class="media-body">
                                                      <a class="news-title underline" th:href="@{'/User/index?ID='+${articlecomment.usermsg.ID}}"  th:text="${articlecomment.usermsg.NAME} ">Mitchell Christein</a>
-                                                     <a class="news-title underline" th:href="@{'/User/info?ID='+${articlecomment.articlecomment.ARTICLEID}}"  th:text="${articlecomment.articlecomment.CONTENT}">Mitchell Christein</a>
+                                                     <a class="news-title underline" th:href="@{'/info?ID='+${articlecomment.articlecomment.ARTICLEID}}"  th:text="${articlecomment.articlecomment.CONTENT}">Mitchell Christein</a>
                                                  
                                                     <div class="clearfix"></div>
-                                                    <small class="muted">30 Minutes ago</small>
+                                                    <small class="muted">today</small>
                                                 </div>
                                             </div>
                                         
@@ -270,7 +270,7 @@
                                         <div class="listview narrow">
                                             <div class="media" th:each=" usermsglist:${pageutil2.list}">
                                                 <div class="pull-right">
-                                                    <img width="37" src="../css/img/profile-pics/1.jpg" alt="" />
+                                                    <img width="37" th:attr=" src=@{${usermsglist.IMAGE}}" src="../css/img/profile-pics/1.jpg" alt="" />
                                                 </div>
                                                 <div class="media-body">
                                                     <a class="news-title underline"  th:href="@{'/User/index?ID='+${usermsglist.ID}}" th:text="${usermsglist.NAME}"></a>

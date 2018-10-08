@@ -222,7 +222,7 @@ $(function () {
 
             	
             	
-              alert(result.toDataURL(uploadedImageType));
+            /*  alert(result.toDataURL(uploadedImageType));*/
             }
           }
 

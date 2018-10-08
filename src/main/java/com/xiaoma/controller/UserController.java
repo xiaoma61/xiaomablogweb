@@ -77,17 +77,19 @@ public class UserController {
 		//实现聊天信息更新
 		
 		HttpSession session=request.getSession();
+		
 		int IDm=1;
-		if(session.getAttribute("ID")!=null)
+		ID=1;
+		/*if(session.getAttribute("ID")!=null)
 		{   ID=IDm;
-			/*IDm=(Integer) session.getAttribute("ID");*/
+			IDm=(Integer) session.getAttribute("ID");
 		}else
 		{
 			return "thymeleaf/index";
 		}
 		if(ID==-1){
 			ID=IDm;
-		}
+		}*/
 		
 		
 		
@@ -102,7 +104,7 @@ public class UserController {
 		//评论讯息
 	    if(articlecomment.size()>0)
 	    {
-	    	System.out.println("DDDD   "+articlecomment.size());
+	    	
 	    	List<ARTICLECOMMENTUSERANDCOMMENT>articlecommentuserandcommentList=new ArrayList<ARTICLECOMMENTUSERANDCOMMENT>();
 			for(int i=0;i<articlecomment.size();i++)
 			{
@@ -111,7 +113,6 @@ public class UserController {
 				USERMSG usermsg=userMsgRepository.findOne( USERID);	
 				articlecommentuserandcomment.setArticlecomment(articlecomment.get(i));
 				articlecommentuserandcomment.setUsermsg(usermsg);
-				
 				articlecommentuserandcommentList.add(articlecommentuserandcomment);
 				
 				
@@ -122,28 +123,50 @@ public class UserController {
 			m.addAttribute("pageutil", pageutil);
 	    }
 		
-		//关注他人，他人关注自己
+		//他人关注自己,关注他人，喜欢，
 		List<FOLLOW>TOIDFOLLOWf=followRepository.findByTOIDAndFOLLOW(ID, 2);
 		List<FOLLOW>TOIDISLIKEf=followRepository.findByTOIDAndISLIKE(ID, 2);
 		List<FOLLOW>FROMIDf=followRepository.findByFROMID(ID,2);
 		
-		
+		m.addAttribute("followedsize",FROMIDf.size() );
 		
 		//关注的人的动态
 		//发表的评论,发表的文章
 		List<ARTICLECOMMENT>articlecommetf=new ArrayList<ARTICLECOMMENT>();
 	
 		for(int i=0;i<TOIDFOLLOWf.size();i++){
-			
+			System.out.println("ddddfff ");
 			Date TIME=TimeUtil.GetDate();
 			List<ARTICLECOMMENT> articlecomment2=articlecommentRepository.findByUSERID(TOIDFOLLOWf.get(i).getID(),TIME);
 			articlecommetf.addAll(articlecomment2);
 			
 		}
 
-		List<ARTICLECOMMENTUSERANDCOMMENT>articlecommentuserandcommentList1=articlecommentUtil.GetcommnetUtil(articlecommetf);
+		List<ARTICLECOMMENTUSERANDCOMMENT>articlecommentuserandcommentList1=new ArrayList<ARTICLECOMMENTUSERANDCOMMENT>();
+		for(int i=0;i<articlecomment.size();i++)
+		{
+			ARTICLECOMMENTUSERANDCOMMENT  articlecommentuserandcomment=new ARTICLECOMMENTUSERANDCOMMENT();
+			int USERID =articlecomment.get(i).getUSERID();
+			USERMSG usermsg=userMsgRepository.findOne( USERID);	
+			articlecommentuserandcomment.setArticlecomment(articlecomment.get(i));
+			articlecommentuserandcomment.setUsermsg(usermsg);
+			articlecommentuserandcommentList1.add(articlecommentuserandcomment);
+			
+			
+			
+			
+		}
+		
+		
+		
+		
 		PageUtil<ARTICLECOMMENTUSERANDCOMMENT> pageutil1=new PageUtil<ARTICLECOMMENTUSERANDCOMMENT>(articlecommentuserandcommentList1,1,5);
-		m.addAttribute("pageutil1", pageutil1);
+		m.addAttribute("pageutil1", pageutil1);//关注的人
+		
+		
+		
+		
+		
 		//我的关注
 		List<USERMSG>usermsglist1=new ArrayList<USERMSG>();
 		for(int i=0;i<FROMIDf.size();i++){
@@ -289,20 +312,17 @@ public class UserController {
 		
 		//获取文件类型
 		String type=HeadImage.substring(HeadImage.indexOf("/")+1,HeadImage.lastIndexOf(";") );
-		System.out.println("type  "+type);		
+	/*	System.out.println("type  "+type);	*/	
 		String LastName=UUID.randomUUID().toString()+"."+type;
 		String File=filePath+LastName;
 		HttpSession session=request.getSession();
 		int ID=1;
 		//base64出现空格解决
-		
-		
-	
 		HeadImage=HeadImage.replaceAll(" ", "+");
-		System.out.println("HeadImage1  "+HeadImage);
+		/*System.out.println("HeadImage1  "+HeadImage);*/
 		//前端数据截取
 		HeadImage=HeadImage.substring(HeadImage.indexOf(",")+1);
-		System.out.println("HeadImage2  "+HeadImage);
+		/*System.out.println("HeadImage2  "+HeadImage);*/
 		if(session.getAttribute("ID")!=null)
 		{   
 		  ID=(Integer) session.getAttribute("ID");
