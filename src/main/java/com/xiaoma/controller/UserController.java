@@ -283,18 +283,26 @@ public class UserController {
 	{
 		Map<String, String> map=new HashMap<String, String>();
 		//图片信息获取
-		
+		System.out.println("HeadImage  "+HeadImage);
 		String filePath="E://Skins/text";
-		String LastName=UUID.randomUUID().toString()+HeadImageName;
+		HeadImageName="HeadImageName";
+		
+		//获取文件类型
+		String type=HeadImage.substring(HeadImage.indexOf("/")+1,HeadImage.lastIndexOf(";") );
+		System.out.println("type  "+type);		
+		String LastName=UUID.randomUUID().toString()+"."+type;
 		String File=filePath+LastName;
 		HttpSession session=request.getSession();
 		int ID=1;
 		//base64出现空格解决
 		
+		
+	
 		HeadImage=HeadImage.replaceAll(" ", "+");
+		System.out.println("HeadImage1  "+HeadImage);
 		//前端数据截取
-		HeadImage=HeadImage.substring(22);
-		System.out.println(HeadImage);
+		HeadImage=HeadImage.substring(HeadImage.indexOf(",")+1);
+		System.out.println("HeadImage2  "+HeadImage);
 		if(session.getAttribute("ID")!=null)
 		{   
 		  ID=(Integer) session.getAttribute("ID");
@@ -306,7 +314,7 @@ public class UserController {
 			String Image="http://localhost:8090/image/text"+LastName;
 			map.put("data", Image);
 			//更新操作
-			userMsgRepository.updateImageByID(File, ID);
+			userMsgRepository.updateImageByID(Image, ID);
 			
 			
 			

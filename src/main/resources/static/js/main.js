@@ -178,7 +178,7 @@ $(function () {
 
             if (!$download.hasClass('disabled')) {
               download.download = uploadedImageName;
-              alert(uploadedImageName);
+              /*alert(uploadedImageName);*/
               /* $download.attr('href', result.toDataURL(uploadedImageType));*/
               //实现上传功能
             var data=result.toDataURL(uploadedImageType,0.5);
@@ -206,7 +206,8 @@ $(function () {
                 		}else{
                 			document.getElementById("HeadImage1").src=img;
                 			document.getElementById("HeadImage2").src=img;
-                			alert(img);
+                			/*alert(img);*/
+                			/*document.getElementById("cd-popup2").removeClass('is-visible2');*/
                 			//消失
                 		}
                 	

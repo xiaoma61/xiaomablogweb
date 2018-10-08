@@ -80,8 +80,9 @@ public String goUploadImg()
 public @ResponseBody String uploadImg(@RequestParam("thumbnail")MultipartFile file ,HttpServletRequest request) throws IOException
 {
 	/*String contentType=file.getContentType();//获取文件类型
-*/		String fileName=file.getOriginalFilename();//获取文件名称
-	System.out.print("LastName: ");
+*/	
+	String fileName=file.getOriginalFilename();//获取文件名称
+/*	System.out.print("LastName: ");*/
 	String filePath="E://Skins/text";
 	String LastName=UUID.randomUUID().toString()+fileName;
 	byte[] filebyte=file.getBytes();
