@@ -28,7 +28,7 @@ $(function () {
       };
   var originalImageURL = $image.attr('src');
   var uploadedImageName = 'cropped.jpg';
-  var uploadedImageType = 'image/*';
+  var uploadedImageType = 'image/jpg';
   var uploadedImageURL;
 
 
@@ -177,14 +177,15 @@ $(function () {
           /*  $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);*/
 
             if (!$download.hasClass('disabled')) {
-             /* download.download = uploadedImageName;
-              $download.attr('href', result.toDataURL(uploadedImageType));*/
+              download.download = uploadedImageName;
+              alert(uploadedImageName);
+              /* $download.attr('href', result.toDataURL(uploadedImageType));*/
               //实现上传功能
             var data=result.toDataURL(uploadedImageType,0.5);
             
           //ajax提交
             $.ajax({    
-                url: "/User/HeadImage?HeadImage="+data.toString(),  
+                url: "/User/HeadImage?HeadImage="+data.toString()+"&HeadImageName="+uploadedImageName,  
                 type: 'POST',    
                 dataType: 'json',    
                 timeout : 10000, //超时时间设置，单位毫秒  
@@ -196,11 +197,25 @@ $(function () {
                 	HeadImage:data.toString()
                 },
                 success: function (result) {  
+                	//当返回成功的时候插入制定位置
+                	//两个位置
+                	var img=result.data;
+                	if(img=="false")
+                		{
+                			
+                		}else{
+                			document.getElementById("HeadImage1").src=img;
+                			document.getElementById("HeadImage2").src=img;
+                			alert(img);
+                			//消失
+                		}
+                	
                 	
                 	
                 	
                 },    
                 error: function (returndata) {  
+                	
                 }  
             });  
 

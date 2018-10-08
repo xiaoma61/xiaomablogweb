@@ -10,13 +10,15 @@ public class ImageUtil {
 	//base64转图片储存
 	public static boolean GenerateImage(String imgStr,String Path)
 	{
-		if(imgStr==null){return false;}
+		if(imgStr==null){
+			return false;
+			}
 		BASE64Decoder decoder=new BASE64Decoder();
 		
 		
 		try {
 			byte[] bytes=decoder.decodeBuffer(imgStr);
-			for(int i=0;i<bytes.length;i++)
+			for(int i=0;i<bytes.length;++i)
 			{
 				if (bytes[i] < 0) {// 调整异常数据
                     bytes[i] += 256;

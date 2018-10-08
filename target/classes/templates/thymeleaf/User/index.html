@@ -93,7 +93,7 @@
                     <!-- Profile Menu -->
                     <div class="text-center s-widget m-b-25 dropdown" id="profile-menu">
                         <a href="" data-toggle="dropdown">
-                            <img class="profile-pic animated" src="../css/img/profile-pic.jpg" alt="" />
+                            <img class="profile-pic animated" src="../css/img/profile-pic.jpg" alt="" id="HeadImage1" />
                         </a>
                        
                         <h4 class="m-0" th:text="${usermsgID.NAME}"></h4>
@@ -197,7 +197,7 @@
                             <div class="tile-light p-5 m-b-15">
                                 <div class="cover p-relative">
                                     <img src="../css/img/cover-bg.jpg" class="w-100  cd-popup-trigger2" alt=""   />
-                                    <img class="profile-pic  cd-popup-trigger2" src="../css/img/profile-pic.jpg" alt="" />
+                                    <img class="profile-pic  cd-popup-trigger2" src="../css/img/profile-pic.jpg" alt=""  id="HeadImage2" />
                                     <div class="profile-btn">
                                         <button class="btn btn-alt btn-sm"><i class="icon-bubble"></i> <span th:unless="${isfollow eq null}" id="follow" onclick="LikeAndFollow('1')">已关注</span><span th:if="${isfollow eq null}" id="follow"  onclick="LikeAndFollow('1')">关注</span></button>
                                          <button class="btn btn-alt btn-sm"><i class="icon-bubble"></i> <span th:unless="${islike eq null}" id="like" onclick="LikeAndFollow('2')"> 已喜欢</span><span th:if="${islike eq null}" id="like" onclick="LikeAndFollow('2')"> 喜欢</span>  </button>
