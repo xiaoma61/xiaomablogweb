@@ -10,7 +10,7 @@ jpa:
      ddl-auto: update
      show-sql: true
 server:
-  port: 8090
+  port: 8070
   session:
     timeout: 30000
  

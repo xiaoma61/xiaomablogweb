@@ -2,13 +2,20 @@ package com.xiaoma.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name="CALENDAR")
 public class CALENDAR {
+	
 	int ID;
+	int FROMID;
 	Date STARTTIME;
 	Date ENDTIME;
 	String EVENT;
@@ -40,7 +47,12 @@ public class CALENDAR {
 		EVENT = eVENT;
 	}
 	
-	
+	public int getFROMID() {
+		return FROMID;
+	}
+	public void setFROMID(int fROMID) {
+		FROMID = fROMID;
+	}
 	
 
 }

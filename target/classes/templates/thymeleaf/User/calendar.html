@@ -534,11 +534,16 @@
                     selectable: true,
                     selectHelper: true,
                     editable: true,
-                    events: [
+                    theme: true,
+           			allDaySlot : false,
+           			eventLimit: true,
+                    
+                   /*  events: [
                         {
                             title: 'Hangout with friends',
                             start: new Date(2018, m, 1),
-                            end: new Date(2018, m, 2)
+                            end: new Date(2018, m, 2),
+                     
                         },
                         {
                             title: 'Meeting with client',
@@ -568,8 +573,45 @@
                             title: 'Job Interview',
                             start: new Date(y, m, 5),
                         }
-                    ],
-                     
+                    ], */
+             
+               events:  function(start, end ,  callback){
+
+                var now = new Date();
+                //初始化参数
+                var name = "songyuan";
+                var title = "";
+                var content = "";
+                var noteType = "";
+             
+                    //alert("进入到查询日程的方法里.内部")
+                    $.ajax({
+                        type : "post",
+                        url : "/User/calendarMSG",
+                        success : function(data) {
+                           var datas=JSON.stringify(data);
+                          
+                            var events = [];
+                            //alert("进入到events内部")
+                            $.each(data.data,function (key,value) {
+                            
+                             alert("dssd  "+datas); 
+                             alert("dssdss  "+value.event);
+                                events.push({
+                                    title: value.event,
+                                    start: value.starttime,
+                                    end: value.endtime,
+                                   
+                                    allDay: false,
+                                   
+                                
+                                   
+                                });
+                            });
+                            callback(events);
+                        }
+                    });
+            },
                     //On Day Select
                     select: function(start, end, allDay) {
                         $('#addNew-event').modal('show');   
@@ -595,7 +637,7 @@
                         }) 
                     }
                 });
-                //添加事件
+                //添加事件cd
                 $('body').on('click', '#addEvent', function(){
                      var eventForm =  $(this).closest('.modal').find('.form-validation');
                      eventForm.validationEngine('validate');

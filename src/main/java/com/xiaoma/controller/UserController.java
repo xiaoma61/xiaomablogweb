@@ -24,9 +24,11 @@ import com.xiaoma.Util.TimeUtil;
 import com.xiaoma.Util.articlecommentUtil;
 import com.xiaoma.entity.ARTICLECOMMENT;
 import com.xiaoma.entity.ARTICLECOMMENTUSERANDCOMMENT;
+import com.xiaoma.entity.CALENDAR;
 import com.xiaoma.entity.FOLLOW;
 import com.xiaoma.entity.USERMSG;
 import com.xiaoma.repository.ARTICLECOMMENTRepository;
+import com.xiaoma.repository.CALENDARRepository;
 import com.xiaoma.repository.FOLLOWRepository;
 import com.xiaoma.repository.USERMSGRepository;
 
@@ -47,6 +49,9 @@ public class UserController {
 	FOLLOWRepository followRepository;
 	@Autowired
 	ARTICLECOMMENTRepository articlecommentRepository;
+	@Autowired
+	CALENDARRepository calendRepository;
+	
 	
 	@RequestMapping("User/Login")
 	public String  UserLogin(Model m)
@@ -432,10 +437,23 @@ public class UserController {
 	
 	
 	@RequestMapping("User/calendarMSG")
+	@ResponseBody()
 	public Map<String ,Object>  UserCalendarMSG(HttpServletRequest request)
 	{
 		Map<String,Object> map=new HashMap<String, Object>();
 		//起始时间，结束时间，事件，ID。如何计算未完成的状态：在今天之前
+		//自己的ID号
+		HttpSession session=request.getSession();
+		int FROMID = 1;
+		if(session.getAttribute("ID")!=null)
+		{
+			 FROMID=(Integer) session.getAttribute("ID");
+		}
+		
+		List<CALENDAR> c=calendRepository.findALLByFROMID(FROMID);
+		System.out.println("ddd   "+c.size());
+		map.put("data", c);
+		
 		
 		
 		//显示信息显示这一个月
