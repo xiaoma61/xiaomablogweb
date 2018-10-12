@@ -1,6 +1,7 @@
 package com.xiaoma.controller;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +33,8 @@ import com.xiaoma.repository.ARTICLECOMMENTRepository;
 import com.xiaoma.repository.CALENDARRepository;
 import com.xiaoma.repository.FOLLOWRepository;
 import com.xiaoma.repository.USERMSGRepository;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class UserController {
@@ -461,18 +465,79 @@ public class UserController {
 		//修改新的信息
 		//实现信息提醒
 		//实现查询功能
-		
-		
-		
-		
-		
 		return map;
 		
 	}
-	
-	
-	
-	
-	
+	//添加新的信息
+	@RequestMapping("User/AddcalendarMSG")
+	@ResponseBody()
+	public Map<String ,Object>  UserAddCalendarMSG(HttpServletRequest request,@RequestBody JSONObject params) throws ParseException
+	{
+		Map<String,Object> map=new HashMap<String, Object>();
+		//起始时间，结束时间，事件，ID。如何计算未完成的状态：在今天之前
+		//自己的ID号
+		HttpSession session=request.getSession();
+		int FROMID = 1;
+		if(session.getAttribute("ID")!=null)
+		{
+			 FROMID=(Integer) session.getAttribute("ID");
+		}
+		/*String STARTTIME=params.getString("s");
+		String ENDTIME=params.getString("e");*/
+		String Event=params.getString("event");
+		Date S=TimeUtil.GetDate();
+		Date E=TimeUtil.GetDate();
+		
+		System.out.println(S);
+		System.out.println(E);
+		CALENDAR c=new CALENDAR();
+		c.setEVENT(Event);
+		c.setFROMID(FROMID);
+		c.setSTARTTIME(S);
+		c.setENDTIME(E);
+		calendRepository.save(c);
+
+		map.put("data", c);
+		
+		
+		
+		//显示信息显示这一个月
+		
+		
+		//实现信息提醒
+		//实现查询功能
+		return map;
+		
+	}
+	//修改新的信息
+	@RequestMapping("User/EditcalendarMSG")
+	@ResponseBody()
+	public Map<String ,Object>  UserEditCalendarMSG(HttpServletRequest request,@RequestParam("ENDTIME")Date ENDTIME,@RequestParam("STARTTIME")Date STARTTIME)
+	{
+		Map<String,Object> map=new HashMap<String, Object>();
+		//起始时间，结束时间，事件，ID。如何计算未完成的状态：在今天之前
+		//自己的ID号
+		HttpSession session=request.getSession();
+		int FROMID = 1;
+		if(session.getAttribute("ID")!=null)
+		{
+			 FROMID=(Integer) session.getAttribute("ID");
+		}
+		
+		
+		calendRepository.updateByStartAndEnd(STARTTIME, ENDTIME, FROMID);
+
+		map.put("data", "yes");
+		
+		
+		
+		//显示信息显示这一个月
+		
+		//修改新的信息
+		//实现信息提醒
+		//实现查询功能
+		return map;
+		
+	}
 
 }

@@ -595,13 +595,12 @@
                             //alert("进入到events内部")
                             $.each(data.data,function (key,value) {
                             
-                             alert("dssd  "+datas); 
-                             alert("dssdss  "+value.event);
+                            /*  alert("dssd  "+datas); 
+                             alert("dssdss  "+value.event); */
                                 events.push({
                                     title: value.event,
                                     start: value.starttime,
                                     end: value.endtime,
-                                   
                                     allDay: false,
                                    
                                 
@@ -619,7 +618,7 @@
                         $('#getStart').val(start);
                         $('#getEnd').val(end);
                     },
-                     
+                     //修改信息
                     eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
                         $('#editEvent').modal('show');
 
@@ -639,6 +638,7 @@
                 });
                 //添加事件cd
                 $('body').on('click', '#addEvent', function(){
+                     alert("dssdss  ");
                      var eventForm =  $(this).closest('.modal').find('.form-validation');
                      eventForm.validationEngine('validate');
                      
@@ -654,12 +654,20 @@
                                end:  $('#getEnd').val(),
                                allDay: true,
                           },true ); //Stick the event
+                          var start=$('#getStart').val();
+                          var end=$('#getEnd').val();
+                          var event=eventName; 
+                          Add(event);
+                     
+                          
                           
                           $('#addNew-event form')[0].reset()
                           $('#addNew-event').modal('hide');
                      } 
                 });   
             });    
+           
+            
             
             //Calendar views
             $('body').on('click', '.calendar-actions > li > a', function(e){
@@ -673,6 +681,31 @@
             });                    
             
        </script>
+       
+           <script>
+        function Add(event)
+            {
+          
+            var a={};
+            a.event=event;        
+          
+                        $.ajax({
+                        type : "post",
+                        url : "/User/AddcalendarMSG",
+                        data:JSON.stringify(a),
+                        contentType: "application/json;charset=utf-8",
+                        success:function(data){
+                        
+                        },
+                        error:function(){
+                        }
+                        
+
+                            });
+            
+            }
+       
+           </script>
     </body>
 </html>
 
