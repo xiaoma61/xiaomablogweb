@@ -509,23 +509,48 @@ public class UserController {
 		return map;
 		
 	}
-	//修改新的信息
+	//修改新的信息,移动整一个信息
 	@RequestMapping("User/EditcalendarMSG")
 	@ResponseBody()
-	public Map<String ,Object>  UserEditCalendarMSG(HttpServletRequest request,@RequestParam("ENDTIME")Date ENDTIME,@RequestParam("STARTTIME")Date STARTTIME)
+	public Map<String ,Object>  UserEditCalendarMSG(HttpServletRequest request,@RequestBody JSONObject params) throws ParseException
 	{
 		Map<String,Object> map=new HashMap<String, Object>();
 		//起始时间，结束时间，事件，ID。如何计算未完成的状态：在今天之前
 		//自己的ID号
-		HttpSession session=request.getSession();
-		int FROMID = 1;
-		if(session.getAttribute("ID")!=null)
-		{
-			 FROMID=(Integer) session.getAttribute("ID");
-		}
+		int ID=params.getInt("ID");
+		String STARTTIME=params.getString("s");
+		String ENDTIME=params.getString("e");
+		Date S=TimeUtil.StringToDate(STARTTIME);
+		Date E=TimeUtil.StringToDate(ENDTIME);
+		
+		calendRepository.updateByStartAndEnd(S, E, ID);
+
+		map.put("data", "yes");
 		
 		
-		calendRepository.updateByStartAndEnd(STARTTIME, ENDTIME, FROMID);
+		
+		//显示信息显示这一个月
+		
+		//修改新的信息
+		//实现信息提醒
+		//实现查询功能
+		return map;
+		
+	}
+	@RequestMapping("User/EditEndcalendarMSG")
+	@ResponseBody()
+	public Map<String ,Object>  UserEditEndCalendarMSG(HttpServletRequest request,@RequestBody JSONObject params) throws ParseException
+	{
+		Map<String,Object> map=new HashMap<String, Object>();
+		//起始时间，结束时间，事件，ID。如何计算未完成的状态：在今天之前
+		//自己的ID号
+		int id=params.getInt("ID");
+		String e=params.getString("e");
+		System.out.println(params.getString("e"));
+	    Date e1=TimeUtil.StringToDate(params.getString("e"));
+		
+		
+		calendRepository.updateByEnd(e1, id);
 
 		map.put("data", "yes");
 		
