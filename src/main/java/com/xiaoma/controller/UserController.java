@@ -509,6 +509,10 @@ public class UserController {
 		return map;
 		
 	}
+	
+	
+	
+	
 	//修改新的信息,移动整一个信息
 	@RequestMapping("User/EditcalendarMSG")
 	@ResponseBody()
@@ -547,7 +551,7 @@ public class UserController {
 		int id=params.getInt("ID");
 		String e=params.getString("e");
 		System.out.println(params.getString("e"));
-	    Date e1=TimeUtil.StringToDate(params.getString("e"));
+	    Date e1=TimeUtil.StringToDate(e);
 		
 		
 		calendRepository.updateByEnd(e1, id);

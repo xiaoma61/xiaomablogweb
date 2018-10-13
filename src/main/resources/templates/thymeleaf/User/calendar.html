@@ -537,7 +537,18 @@
                     theme: true,
            			allDaySlot : false,
            			eventLimit: true,
-                 
+               eventDrop: function( event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view ) {
+                console.log("进行时间拖拽的时候触发的事件");
+                console.log("event.start"+event.start)
+                console.log("event.end"+event.end)
+                console.log("event.id"+event.id)
+                //拖拽的时候进行时间的改变
+                var start = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss");
+                var end = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss");
+                var ID=event.id;
+                EditAll(end,start,ID);
+
+            },  
                events:  function(start, end ,  callback){
 
                 var now = new Date();
@@ -558,8 +569,8 @@
                             //alert("进入到events内部")
                             $.each(data.data,function (key,value) {
                             
-                             alert("dssd  "+datas); 
-                             alert("dssdss  "+value.event); 
+                            /*  alert("dssd  "+datas); 
+                             alert("dssdss  "+value.event);  */
                                 events.push({
                                     title: value.event,
                                     start: value.starttime,
@@ -574,6 +585,9 @@
                             callback(events);
                         }
                     });
+                    
+                    
+                    
             },
                     //On Day Select
                     select: function(start, end, allDay) {
@@ -661,6 +675,9 @@
                 overflowRegular = $('.overflow').niceScroll();     
             });                    
             
+            
+             
+
        </script>
        
            <script>
